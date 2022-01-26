@@ -180,7 +180,7 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                                              });
                                          });
                                      }
-                                     else if (input.startsWith("!command")) {
+                                     else if (input.startsWith("!command") {
                                         api.sendMessage("JhayBot Command\n!dlMusic - To Download music from youtube\n!TTVid- To Download Video from Tiktok", event.threadID);
                                     }
                                  });
