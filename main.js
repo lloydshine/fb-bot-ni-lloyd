@@ -160,7 +160,7 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                              }
                          }
                      }
-                     else if (input.equalsIgnoreCase("pogi")){
+                     else if (input == "pogi"){
                         api.sendMessage("Pag Pogi ako na agad yon hahahaha \n\nJhay Bot Auto Reply", event.threadID);
                      }
                      else if (input.startsWith("!command")){
