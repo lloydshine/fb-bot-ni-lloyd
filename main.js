@@ -149,6 +149,9 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                              }
                          }
                      }
+                     else if (input.startsWith("!command")){
+                        api.sendMessage("JhayBot Command\n!dlMusic - To Download music from youtube\n!TTVid- To Download Video from Tiktok", event.threadID);
+                     }
                      else if (input.startsWith("!TTVid")) {
                          let data = input.split(" ");
                          if (data.length < 2) {
@@ -180,9 +183,7 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                                              });
                                          });
                                      }
-                                     else if (input.startsWith("!command") {
-                                        api.sendMessage("JhayBot Command\n!dlMusic - To Download music from youtube\n!TTVid- To Download Video from Tiktok", event.threadID);
-                                    }
+
                                  });
                              } catch (err) {
                                  api.sendMessage("⚠️Error: " + err.message, event.threadID);
