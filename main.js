@@ -55,7 +55,9 @@ async function leechmp3(query) {
     });
     return resp
 }
-
+function stringContainsCaseInsensitive(search, subject){
+    return subject.toLowerCase().indexOf(search.toLowerCase()) !== -1;
+}
 /*==================================== LEECH MP3 FUNC ====================================*/
 
 login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, api) => {
@@ -161,13 +163,10 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                          }
                      }
                      
-                     else if (input.toLowerCase()=="pogi"){
+                     else if (stringContainsCaseInsensitive(input,"pogi")){
                         api.sendMessage("Pag Pogi ako na agad yon hahahaha \n\nJhay Bot Auto Reply", event.threadID);
                      }
-                     input.toLowerCase();
-                     else if (input.includes("pogi")){
-                        api.sendMessage("Pag Pogi ako na agad yon hahahaha \n\nJhay Bot Auto Reply", event.threadID);
-                     }
+                     
                      else if (input.startsWith("!command")){
                         api.sendMessage("JhayBot Commands\n\n- !dlMusic ytLink - To Download music from youtube\n- !TTVid TiktokLink- To Download Video from Tiktok", event.threadID);
                      }
