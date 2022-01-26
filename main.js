@@ -150,7 +150,7 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                          }
                      }
                      else if (input.startsWith("!command")){
-                        api.sendMessage("JhayBot Command\n!dlMusic - To Download music from youtube\n!TTVid- To Download Video from Tiktok", event.threadID);
+                        api.sendMessage("JhayBot Commands\n\n- !dlMusic ytLink - To Download music from youtube\n- !TTVid TiktokLink- To Download Video from Tiktok", event.threadID);
                      }
                      else if (input.startsWith("!TTVid")) {
                          let data = input.split(" ");
@@ -176,7 +176,7 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                                                  console.log('finished downloading..')
                                                  api.sendMessage('✅Download Complete! Uploading...', event.threadID)
                                                  var message = {
-                                                     body: "Sending\n👨🏻‍💻Coded with 🖤 by: Salvador\nJhay Bot🤖",
+                                                     body: "👨🏻‍💻Coded with 🖤 by: Salvador\nJhay Bot🤖",
                                                      attachment: fs.createReadStream(__dirname + '/tiktok.mp4')
                                                  }
                                                  api.sendMessage(message, event.threadID);
@@ -222,6 +222,20 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                                             var message = {
                                                 body: data[event.senderID]['name'] + " unsent this video: \n",
                                                 attachment: fs.createReadStream(__dirname + '/video.mp4')
+                                            }
+                                            api.sendMessage(message, event.threadID);
+                                        });
+                                    });
+                                }// GIF unsent test
+                                else if (d[0] == "gif") {
+                                    var file = fs.createWriteStream("gf.gif");
+                                    var gifRequest = http.get(d[1], function (gifResponse) {
+                                        gifResponse.pipe(file);
+                                        file.on('finish', function () {
+                                            console.log('finished downloading gif..')
+                                            var message = {
+                                                body: data[event.senderID]['name'] + " unsent this GIF: \n",
+                                                attachment: fs.createReadStream(__dirname + '/gf.gif')
                                             }
                                             api.sendMessage(message, event.threadID);
                                         });
