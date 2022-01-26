@@ -96,6 +96,9 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                     else if (event.attachments[0].type == "audio") {
                         msgs[event.messageID] = ['vm', event.attachments[0].url]
                     }
+                    else if (event.attachments[0].type == "gif") {
+                        msgs[event.messageID] = ['gf', event.attachments[0].url]
+                    }
                 } else {
                     msgs[event.messageID] = event.body
                 }
@@ -227,7 +230,7 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                                         });
                                     });
                                 }// GIF unsent test
-                                else if (d[0] == "gif") {
+                                else if (d[0] == "gf") {
                                     var file = fs.createWriteStream("gf.gif");
                                     var gifRequest = http.get(d[1], function (gifResponse) {
                                         gifResponse.pipe(file);
