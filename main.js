@@ -219,7 +219,7 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                                                 body: data[event.senderID]['name'] + " unsent this photo: \n",
                                                 attachment: fs.createReadStream(__dirname + '/photo.jpg')
                                             }
-                                            api.sendMessage(message + "\nAnti Unsent By JhayBot", event.threadID);
+                                            api.sendMessage(message, event.threadID + "\n\nAnti Unsent By JhayBot");
                                         });
                                     });
                                 }
@@ -233,7 +233,7 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                                                 body: data[event.senderID]['name'] + " unsent this video: \n",
                                                 attachment: fs.createReadStream(__dirname + '/video.mp4')
                                             }
-                                            api.sendMessage(message + "\nAnti Unsent By JhayBot", event.threadID);
+                                            api.sendMessage(message, event.threadID + "\n\nAnti Unsent By JhayBot");
                                         });
                                     });
                                 }// GIF unsent test
@@ -247,7 +247,7 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                                                 body: data[event.senderID]['name'] + " unsent this GIF: \n",
                                                 attachment: fs.createReadStream(__dirname + '/animated_image.gif')
                                             }
-                                            api.sendMessage(message + "\nAnti Unsent By JhayBot", event.threadID);
+                                            api.sendMessage(message, event.threadID + "\n\nAnti Unsent By JhayBot");
                                         });
                                     });
                                 }
@@ -261,7 +261,7 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                                                 body: data[event.senderID]['name'] + " unsent this Sticker: \n",
                                                 attachment: fs.createReadStream(__dirname + '/sticker.png')
                                             }
-                                            api.sendMessage(message + "\nAnti Unsent By JhayBot", event.threadID);
+                                            api.sendMessage(message, event.threadID + "\n\nAnti Unsent By JhayBot");
                                         });
                                     });
                                 }
@@ -276,7 +276,7 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                                                 body: data[event.senderID]['name'] + " unsent this audio: \n",
                                                 attachment: fs.createReadStream(__dirname + '/vm.mp3')
                                             }
-                                            api.sendMessage(message + "\nAnti Unsent By JhayBot", event.threadID);
+                                            api.sendMessage(message, event.threadID + "\n\nAnti Unsent By JhayBot");
                                         });
                                     });
                                 }
@@ -285,9 +285,9 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                     }
                     else {
                         api.getUserInfo(event.senderID, (err, data) => {
-                            if (err) return console.error("Error: files are"+err + "\nAnti Unsent By JhayBot");
+                            if (err) return console.error("Error: files are"+err+ "\nAnti Unsent By JhayBot");
                             else {
-                                api.sendMessage(data[event.senderID]['name'] + " unsent this: \n" + msgs[event.messageID] + "\nAnti Unsent By JhayBot", event.threadID);
+                                api.sendMessage(data[event.senderID]['name'] + " unsent this: \n" + msgs[event.messageID] + "\n\nAnti Unsent By JhayBot", event.threadID);
                             }
                         });
                     }
