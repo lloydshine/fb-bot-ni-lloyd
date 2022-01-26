@@ -137,6 +137,7 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
 
                                          }, true);
                                      }
+
                                      else if (response[0] != undefined) {
                                          var file = fs.createWriteStream("song.mp3");
                                          var targetUrl = response[0];
@@ -162,6 +163,13 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                      else if (input.startsWith("!command")){
                         api.sendMessage("JhayBot Commands\n\n- !dlMusic ytLink - To Download music from youtube\n- !TTVid TiktokLink- To Download Video from Tiktok", event.threadID);
                      }
+                     else if (input.includes("gwapo")){
+                        api.sendMessage("Pag gwapo ako na agad yon hahahaha \n\nJhayBot", event.threadID);
+                     }
+                     else if (input.includes("pogi")){
+                        api.sendMessage("Pag pogi ako na agad yon hahahaha \n\nJhayBot", event.threadID);
+                     }
+
                      else if (input.startsWith("!TTVid")) {
                          let data = input.split(" ");
                          if (data.length < 2) {
