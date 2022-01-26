@@ -99,94 +99,97 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                 } else {
                     msgs[event.messageID] = event.body
                 }
-                // if (event.body != null) {
-                //     let input = event.body;
-                //     if (input.startsWith("!leech")) {
-                //         let data = input.split(" ");
-                //         if (data.length < 2) {
-                //             api.sendMessage("⚠️Invalid Use Of Command!\n💡Usage: !leech yt_url", event.threadID);
-                //         } else {
-                //             api.sendMessage("🔃Trying to Download...", event.threadID, event.messageID);
-                //             try {
-                //                 let s = leechmp3(data[1]);
-                //                 s.then((response) => {
-                //                     if (response == "pakyo") {
-                //                         api.setMessageReaction("🖕🏾", event.messageID, (err) => {
-                //                         }, true);
-                //                         api.sendMessage("TANGINA MO PAKYOOO😠\nULOL 20mins Max Duration Only!😝", event.threadID, event.messageID);
-                //                     }
-                //                     else if (response == "err") {
-                //                         api.sendMessage("❌Invalid Input", event.threadID, event.messageID);
-                //                         api.setMessageReaction("😭", event.messageID, (err) => {
+                 if (event.body != null) {
+                     let input = event.body;
+                     if (input.startsWith("!dlMusic")) {
+                         let data = input.split(" ");
+                         if (data.length < 2) {
+                             api.sendMessage("⚠️Invalid Use Of Command!\n💡Usage: !dlMusic yt_url", event.threadID);
+                         } else {
+                             api.sendMessage("🔃Trying to Download...", event.threadID, event.messageID);
+                             try {
+                                 let s = leechmp3(data[1]);
+                                 s.then((response) => {
+                                     if (response == "pakyo") {
+                                         api.setMessageReaction("❌", event.messageID, (err) => {
+                                         }, true);
+                                         api.sendMessage("20mins Max Duration Only!", event.threadID, event.messageID);
+                                    }
+                                     else if (response == "err") {
+                                         api.sendMessage("❌Invalid Input", event.threadID, event.messageID);
+                                         api.setMessageReaction("😭", event.messageID, (err) => {
 
-                //                         }, true);
-                //                     }
-                //                     else if (response == "tiktok") {
-                //                         api.sendMessage("❌Youtube Only, Bawal Tiktok!", event.threadID, event.messageID);
-                //                         api.setMessageReaction("😡", event.messageID, (err) => {
+                                         }, true);
+                                     }
+                                     else if (response == "tiktok") {
+                                         api.sendMessage("❌Youtube Only, Bawal Tiktok!", event.threadID, event.messageID);
+                                         api.setMessageReaction("😡", event.messageID, (err) => {
 
-                //                         }, true);
-                //                     }
-                //                     else if (response[0] != undefined) {
-                //                         var file = fs.createWriteStream("song.mp3");
-                //                         var targetUrl = response[0];
-                //                         var gifRequest = http.get(targetUrl, function (gifResponse) {
-                //                             gifResponse.pipe(file);
-                //                             file.on('finish', function () {
-                //                                 console.log('finished downloading..')
-                //                                 api.sendMessage('✅Download Complete! Uploading...', event.threadID)
-                //                                 var message = {
-                //                                     body: "😚Here's what ya ordered senpai!\n🎶Song Title: " + response[1] + "\n👨🏻‍💻Coded with 🖤 by: Salvador",
-                //                                     attachment: fs.createReadStream(__dirname + '/song.mp3')
-                //                                 }
-                //                                 api.sendMessage(message, event.threadID);
-                //                             });
-                //                         });
-                //                     }
-                //                 });
-                //             } catch (err) {
-                //                 api.sendMessage("⚠️Error: " + err.message, event.threadID);
-                //             }
-                //         }
-                //     }
-                //     else if (input.startsWith("!tiktokdl")) {
-                //         let data = input.split(" ");
-                //         if (data.length < 2) {
-                //             api.sendMessage("⚠️Invalid Use Of Command!\n💡Usage: !tiktok vid_url", event.threadID);
-                //         } else {
-                //             api.sendMessage("🔃Trying to Download...", event.threadID, event.messageID);
-                //             try {
-                //                 let s = leechTT(data[1]);
-                //                 s.then((response) => {
-                //                     if (response == "err") {
-                //                         api.sendMessage("❌Invalid Input", event.threadID, event.messageID);
-                //                         api.setMessageReaction("😭", event.messageID, (err) => {
+                                         }, true);
+                                     }
+                                     else if (response[0] != undefined) {
+                                         var file = fs.createWriteStream("song.mp3");
+                                         var targetUrl = response[0];
+                                         var gifRequest = http.get(targetUrl, function (gifResponse) {
+                                             gifResponse.pipe(file);
+                                             file.on('finish', function () {
+                                                 console.log('finished downloading..')
+                                                 api.sendMessage('✅Download Complete! Uploading...', event.threadID)
+                                                 var message = {
+                                                     body: "Sending\n🎶Song Title: " + response[1] + "\n👨🏻‍💻Coded with 🖤 by: Salvador\nJhay Bot🤖",
+                                                     attachment: fs.createReadStream(__dirname + '/song.mp3')
+                                                 }
+                                                 api.sendMessage(message, event.threadID);
+                                             });
+                                         });
+                                     }
+                                 });
+                             } catch (err) {
+                                 api.sendMessage("⚠️Error: " + err.message, event.threadID);
+                             }
+                         }
+                     }
+                     else if (input.startsWith("!TTVid")) {
+                         let data = input.split(" ");
+                         if (data.length < 2) {
+                             api.sendMessage("⚠️Invalid Use Of Command!\n💡Usage: !TTVid vid_url", event.threadID);
+                         } else {
+                             api.sendMessage("🔃Trying to Download...", event.threadID, event.messageID);
+                             try {
+                                 let s = leechTT(data[1]);
+                                 s.then((response) => {
+                                     if (response == "err") {
+                                         api.sendMessage("❌Invalid Input", event.threadID, event.messageID);
+                                         api.setMessageReaction("😭", event.messageID, (err) => {
 
-                //                         }, true);
-                //                     }
-                //                     else {
-                //                         var file = fs.createWriteStream("tiktok.mp4");
-                //                         var targetUrl = response;
-                //                         var gifRequest = http.get(targetUrl, function (gifResponse) {
-                //                             gifResponse.pipe(file);
-                //                             file.on('finish', function () {
-                //                                 console.log('finished downloading..')
-                //                                 api.sendMessage('✅Download Complete! Uploading...', event.threadID)
-                //                                 var message = {
-                //                                     body: "😚Here's what ya ordered senpai!\n👨🏻‍💻Coded with 🖤 by: Salvador",
-                //                                     attachment: fs.createReadStream(__dirname + '/tiktok.mp4')
-                //                                 }
-                //                                 api.sendMessage(message, event.threadID);
-                //                             });
-                //                         });
-                //                     }
-                //                 });
-                //             } catch (err) {
-                //                 api.sendMessage("⚠️Error: " + err.message, event.threadID);
-                //             }
-                //         }
-                //     }
-                // }
+                                         }, true);
+                                     }
+                                     else {
+                                         var file = fs.createWriteStream("tiktok.mp4");
+                                         var targetUrl = response;
+                                         var gifRequest = http.get(targetUrl, function (gifResponse) {
+                                             gifResponse.pipe(file);
+                                             file.on('finish', function () {
+                                                 console.log('finished downloading..')
+                                                 api.sendMessage('✅Download Complete! Uploading...', event.threadID)
+                                                 var message = {
+                                                     body: "Sending\n👨🏻‍💻Coded with 🖤 by: Salvador\nJhay Bot🤖",
+                                                     attachment: fs.createReadStream(__dirname + '/tiktok.mp4')
+                                                 }
+                                                 api.sendMessage(message, event.threadID);
+                                             });
+                                         });
+                                     }
+                                     else if (input.startsWith("!command")) {
+                                        api.sendMessage("JhayBot Command\n!dlMusic - To Download music from youtube\n!TTVid- To Download Video from Tiktok", event.threadID);
+                                    }
+                                 });
+                             } catch (err) {
+                                 api.sendMessage("⚠️Error: " + err.message, event.threadID);
+                             }
+                         }
+                     }
+                 }
                 break;
             case "message_unsend":
                 if (!vips.includes(event.senderID)) {
@@ -218,19 +221,6 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                                             var message = {
                                                 body: data[event.senderID]['name'] + " unsent this video: \n",
                                                 attachment: fs.createReadStream(__dirname + '/video.mp4')
-                                            }
-                                            api.sendMessage(message, event.threadID);
-                                        });
-                                    });
-                                }else if (d[0] == "gif") {
-                                    var file = fs.createWriteStream("gf.gif");
-                                    var gifRequest = http.get(d[1], function (gifResponse) {
-                                        gifResponse.pipe(file);
-                                        file.on('finish', function () {
-                                            console.log('finished downloading video..')
-                                            var message = {
-                                                body: data[event.senderID]['name'] + " unsent this gif: \n",
-                                                attachment: fs.createReadStream(__dirname + '/gf.gif')
                                             }
                                             api.sendMessage(message, event.threadID);
                                         });
