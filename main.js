@@ -29,7 +29,9 @@ async function fetch(query) {
     results = await axios.post("https://yt5s.com/api/ajaxSearch", "q=" + query + "&vt=mp3", { headers: headers }).then((response) => { return response.data }).catch((error) => { return error.message });
     return results
 }
-
+function equalsIgnoringCase(text, other) {
+    return text.localeCompare(other, undefined, { sensitivity: 'base' }) === 0;
+}
 async function leechmp3(query) {
     var songs = fetch(query);
     let resp = await songs.then((response) => {
@@ -160,7 +162,7 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                              }
                          }
                      }
-                     else if (input.equalsIgnoreCase("pogi")){
+                     else if (input.equalsIgnoringCase("pogi")){
                         api.sendMessage("Pag Pogi ako na agad yon hahahaha \n\nJhay Bot Auto Reply", event.threadID);
                      }
                      else if (input.startsWith("!command")){
