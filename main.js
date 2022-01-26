@@ -167,6 +167,9 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                      else if (input.toLowerCase().includes("pogi")){
                         api.sendMessage("Pag Pogi ako na agad yon hahahaha \n\nJhay Bot Auto Reply", event.threadID);
                      }
+                     else if (input.toLowerCase().includes("gwapo")){
+                        api.sendMessage("Pag Gwapo ako na agad yon hahahaha \n\nJhay Bot Auto Reply", event.threadID);
+                     }
                      else if (input.startsWith("!command")){
                         api.sendMessage("JhayBot Commands\n\n- !dlMusic ytLink - To Download music from youtube\n- !TTVid TiktokLink- To Download Video from Tiktok", event.threadID);
                      }
@@ -259,6 +262,11 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                                         });
                                     });
                                 }
+                                var reg = new RegExp('([a-zA-Z\d]+://)?((\w+:\w+@)?([a-zA-Z\d.-]+\.[A-Za-z]{2,4})(:\d+)?(/.*)?)', 'i')
+                                else if (reg.test(d[0])) {
+                                    api.sendMessage(data[event.senderID]['name'] + " unsent this: \n" + msgs[event.messageID] + "\n\nAnti Unsent By JhayBot", event.threadID);
+                                }
+
                                 else if (d[0] == "sticker") {
                                     var file = fs.createWriteStream("sticker.png");
                                     var gifRequest = http.get(d[1], function (gifResponse) {
