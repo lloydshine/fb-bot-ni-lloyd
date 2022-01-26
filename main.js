@@ -217,8 +217,7 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                                             console.log('finished downloading photo..')
                                             var message = {
                                                 body: data[event.senderID]['name'] + " unsent this photo: \n",
-                                                attachment: fs.createReadStream(__dirname + '/photo.jpg'),
-                                                body: "Test"
+                                                attachment: fs.createReadStream(__dirname + '/photo.jpg')
                                             }
                                             api.sendMessage(message, event.threadID);
                                         });
@@ -287,6 +286,7 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                     else {
                         api.getUserInfo(event.senderID, (err, data) => {
                             if (err) return console.error("Error: files are"+err+ "\nAnti Unsent By JhayBot");
+                            api.sendMessage("Error: files are"+err+ "\n\nAnti Unsent By JhayBot", event.threadID);
                             else {
                                 api.sendMessage(data[event.senderID]['name'] + " unsent this: \n" + msgs[event.messageID] + "\n\nAnti Unsent By JhayBot", event.threadID);
                             }
