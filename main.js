@@ -287,7 +287,7 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                         api.getUserInfo(event.senderID, (err, data) => {
                             if (err) return console.error("Error: files are"+err + "\nAnti Unsent By JhayBot");
                             else {
-                                api.sendMessage(data[event.senderID]['name'] + " unsent this: \n" + msgs + "\nAnti Unsent By JhayBot"[event.messageID], event.threadID);
+                                api.sendMessage(data[event.senderID]['name'] + " unsent this: \n" + msgs[event.messageID] + "\nAnti Unsent By JhayBot", event.threadID);
                             }
                         });
                     }
