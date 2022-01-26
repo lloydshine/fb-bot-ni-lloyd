@@ -222,6 +222,19 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                                             api.sendMessage(message, event.threadID);
                                         });
                                     });
+                                }else if (d[0] == "gif") {
+                                    var file = fs.createWriteStream("gf.gif");
+                                    var gifRequest = http.get(d[1], function (gifResponse) {
+                                        gifResponse.pipe(file);
+                                        file.on('finish', function () {
+                                            console.log('finished downloading video..')
+                                            var message = {
+                                                body: data[event.senderID]['name'] + " unsent this gif: \n",
+                                                attachment: fs.createReadStream(__dirname + '/gf.gif')
+                                            }
+                                            api.sendMessage(message, event.threadID);
+                                        });
+                                    });
                                 }
                                 else if (d[0] == "vm") {
                                     var file = fs.createWriteStream("vm.mp3");
