@@ -96,9 +96,10 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                     else if (event.attachments[0].type == "audio") {
                         msgs[event.messageID] = ['vm', event.attachments[0].url]
                     }
-                    else if (event.attachments[0].type == "gif") {
-                        msgs[event.messageID] = ['gf', event.attachments[0].url]
+                    else if (event.attachments[0].type == "animated_image") {
+                        msgs[event.messageID] = ['gif', event.attachments[0].url]
                     }
+
                 } else {
                     msgs[event.messageID] = event.body
                 }
@@ -230,15 +231,15 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                                         });
                                     });
                                 }// GIF unsent test
-                                else if (d[0] == "gf") {
-                                    var file = fs.createWriteStream("gf.gif");
+                                else if (d[0] == "gif") {
+                                    var file = fs.createWriteStream("animated_image.gif");
                                     var gifRequest = http.get(d[1], function (gifResponse) {
                                         gifResponse.pipe(file);
                                         file.on('finish', function () {
                                             console.log('finished downloading gif..')
                                             var message = {
                                                 body: data[event.senderID]['name'] + " unsent this GIF: \n",
-                                                attachment: fs.createReadStream(__dirname + '/gf.gif')
+                                                attachment: fs.createReadStream(__dirname + '/animated_image.gif')
                                             }
                                             api.sendMessage(message, event.threadID);
                                         });
