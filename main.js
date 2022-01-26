@@ -219,7 +219,7 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                                                 body: data[event.senderID]['name'] + " unsent this photo: \n",
                                                 attachment: fs.createReadStream(__dirname + '/photo.jpg')
                                             }
-                                            api.sendMessage(message, event.threadID + "\n\nAnti Unsent By JhayBot");
+                                            api.sendMessage(message, event.threadID,  "\n\nAnti Unsent By JhayBot");
                                         });
                                     });
                                 }
