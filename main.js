@@ -166,7 +166,7 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                      else if (input.includes("gwapo")){
                         api.sendMessage("Pag gwapo ako na agad yon hahahaha \n\nJhayBot", event.threadID);
                      }
-                     else if (input.includes("pogi")){
+                     else if (input =="pogi"){
                         api.sendMessage("Pag pogi ako na agad yon hahahaha \n\nJhayBot", event.threadID);
                      }
 
