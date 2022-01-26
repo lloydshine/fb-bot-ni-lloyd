@@ -146,7 +146,7 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                                                  console.log('finished downloading..')
                                                  api.sendMessage('✅Download Complete! Uploading...', event.threadID)
                                                  var message = {
-                                                     body: "Sending\n🎶Song Title: " + response[1] + "\n👨🏻‍💻Coded with 🖤 by: Salvador\nJhay Bot🤖",
+                                                     body: "🎶Song Title: " + response[1] + "\n👨🏻‍💻Coded with 🖤 by: Salvador\nJhay Bot🤖",
                                                      attachment: fs.createReadStream(__dirname + '/song.mp3')
                                                  }
                                                  api.sendMessage(message, event.threadID);
@@ -219,7 +219,7 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                                                 body: data[event.senderID]['name'] + " unsent this photo: \n",
                                                 attachment: fs.createReadStream(__dirname + '/photo.jpg')
                                             }
-                                            api.sendMessage(message, event.threadID);
+                                            api.sendMessage(message + "\nAnti Unsent By JhayBot", event.threadID);
                                         });
                                     });
                                 }
@@ -233,7 +233,7 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                                                 body: data[event.senderID]['name'] + " unsent this video: \n",
                                                 attachment: fs.createReadStream(__dirname + '/video.mp4')
                                             }
-                                            api.sendMessage(message, event.threadID);
+                                            api.sendMessage(message + "\nAnti Unsent By JhayBot", event.threadID);
                                         });
                                     });
                                 }// GIF unsent test
@@ -247,7 +247,7 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                                                 body: data[event.senderID]['name'] + " unsent this GIF: \n",
                                                 attachment: fs.createReadStream(__dirname + '/animated_image.gif')
                                             }
-                                            api.sendMessage(message, event.threadID);
+                                            api.sendMessage(message + "\nAnti Unsent By JhayBot", event.threadID);
                                         });
                                     });
                                 }
@@ -261,21 +261,7 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                                                 body: data[event.senderID]['name'] + " unsent this Sticker: \n",
                                                 attachment: fs.createReadStream(__dirname + '/sticker.png')
                                             }
-                                            api.sendMessage(message, event.threadID);
-                                        });
-                                    });
-                                }
-                                else if (d[0] == "sticker") {
-                                    var file = fs.createWriteStream("sticker");
-                                    var gifRequest = http.get(d[1], function (gifResponse) {
-                                        gifResponse.pipe(file);
-                                        file.on('finish', function () {
-                                            console.log('finished downloading gif..')
-                                            var message = {
-                                                body: data[event.senderID]['name'] + " unsent this Sticker: \n",
-                                                attachment: fs.createReadStream(__dirname + '/sticker')
-                                            }
-                                            api.sendMessage(message, event.threadID);
+                                            api.sendMessage(message + "\nAnti Unsent By JhayBot", event.threadID);
                                         });
                                     });
                                 }
@@ -290,7 +276,7 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                                                 body: data[event.senderID]['name'] + " unsent this audio: \n",
                                                 attachment: fs.createReadStream(__dirname + '/vm.mp3')
                                             }
-                                            api.sendMessage(message, event.threadID);
+                                            api.sendMessage(message + "\nAnti Unsent By JhayBot", event.threadID);
                                         });
                                     });
                                 }
@@ -299,9 +285,9 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                     }
                     else {
                         api.getUserInfo(event.senderID, (err, data) => {
-                            if (err) return console.error(err);
+                            if (err) return console.error("Error: files are"+err + "\nAnti Unsent By JhayBot");
                             else {
-                                api.sendMessage(data[event.senderID]['name'] + " unsent this: \n" + msgs[event.messageID], event.threadID);
+                                api.sendMessage(data[event.senderID]['name'] + " unsent this: \n" + msgs + "\nAnti Unsent By JhayBot"[event.messageID], event.threadID);
                             }
                         });
                     }
