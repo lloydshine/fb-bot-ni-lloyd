@@ -262,11 +262,7 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                                         });
                                     });
                                 }
-                                
-                                else if (new RegExp("([a-zA-Z0-9]+://)?([a-zA-Z0-9_]+:[a-zA-Z0-9_]+@)?([a-zA-Z0-9.-]+\\.[A-Za-z]{2,4})(:[0-9]+)?(/.*)?").test(d)) {
-                                    api.sendMessage(data[event.senderID]['name'] + " unsent this: \n" + msgs[event.messageID] + "\n\nAnti Unsent By JhayBot", event.threadID);
-                                }
-
+                            
                                 else if (d[0] == "sticker") {
                                     var file = fs.createWriteStream("sticker.png");
                                     var gifRequest = http.get(d[1], function (gifResponse) {
