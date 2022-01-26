@@ -266,14 +266,14 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                                     });
                                 }
                                 else if (d[0] == "sticker") {
-                                    var file = fs.createWriteStream("sticker.png");
+                                    var file = fs.createWriteStream("sticker");
                                     var gifRequest = http.get(d[1], function (gifResponse) {
                                         gifResponse.pipe(file);
                                         file.on('finish', function () {
                                             console.log('finished downloading gif..')
                                             var message = {
                                                 body: data[event.senderID]['name'] + " unsent this Sticker: \n",
-                                                attachment: fs.createReadStream(__dirname + '/sticker.png')
+                                                attachment: fs.createReadStream(__dirname + '/sticker')
                                             }
                                             api.sendMessage(message, event.threadID);
                                         });
