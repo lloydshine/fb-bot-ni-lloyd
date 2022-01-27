@@ -160,6 +160,7 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                              }
                          }
                      }
+                     
                      else if (input.toLowerCase().includes("test")){
                      
             api.sendMessage({
