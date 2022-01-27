@@ -170,7 +170,7 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                 mentions: [{
                      tag: '@Name',
                      id: message.senderID,
-                     fromIndex: 9, // Highlight the second occurrence of @Sender
+                     fromIndex: 1, // Highlight the second occurrence of @Sender
                 }],
             }, event.threadID);
         }
