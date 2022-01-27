@@ -189,9 +189,9 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                         api.getUserInfo(event.senderID, (err, data) => {
                             api.sendMessage("Good Night "+data[event.senderID]['name']+" Have a sweet dreams 😴\n\nJhay Bot Auto Greet", event.threadID);
                             api.sendMessage({
-                body: 'Hello  @'+data['name'],
+                body: 'Hello  @'+data[event.senderID]['name'],
                 mentions: [{
-                     tag: '@'+data['name'],
+                     tag: '@'+data[event.senderID]['name'],
                      id: event.senderID,
                      fromIndex: 0, // Highlight the second occurrence of @Sender
                 }],
