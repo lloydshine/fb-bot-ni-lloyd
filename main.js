@@ -166,9 +166,9 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
             // Getting the actual sender name from ID involves calling
             // `api.getThreadInfo` and `api.getUserInfo`
             api.sendMessage({
-                body: 'Hello @Sender! @Sender!',
+                body: 'Hello @Name ',
                 mentions: [{
-                     tag: '@Sender',
+                     tag: '@Name',
                      id: message.senderID,
                      fromIndex: 9, // Highlight the second occurrence of @Sender
                 }],
