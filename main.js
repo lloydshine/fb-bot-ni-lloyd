@@ -167,7 +167,7 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                 body: 'Hello @'+data['name'],
                 mentions: [{
                      tag: '@'+data['name'],
-                     id: message.userID,
+                     id: message.senderID,
                      fromIndex: 0, // Highlight the second occurrence of @Sender
                 }],
             }, event.threadID);
