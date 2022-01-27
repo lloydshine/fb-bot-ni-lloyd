@@ -161,20 +161,16 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                          }
                      }
                      else if (input.toLowerCase().includes("test")){
-                     api.listen((err, message) => {
-        if (message && message.body) {
-            // Getting the actual sender name from ID involves calling
-            // `api.getThreadInfo` and `api.getUserInfo`
+                     
             api.sendMessage({
-                body: 'Hello @Name ',
+                body: 'Hello @data[event.senderID]['name'] ',
                 mentions: [{
-                     tag: '@Name',
+                     tag: '@data[event.senderID]['name']',
                      id: message.senderID,
-                     fromIndex: 1, // Highlight the second occurrence of @Sender
+                     fromIndex: 9, // Highlight the second occurrence of @Sender
                 }],
             }, event.threadID);
-        }
-    });
+        
              }        
                      else if (input.toLowerCase()=="pogi"){
                         api.sendMessage("Pag Pogi ako na agad yon hahahaha \n\nJhay Bot Auto Reply", event.threadID);
