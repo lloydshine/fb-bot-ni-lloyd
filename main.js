@@ -172,7 +172,24 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                      }
                      else if (input.toLowerCase().includes("morning" || "goodmorning" || "good morning")){
                         api.getUserInfo(event.senderID, (err, data) => {
-                            api.sendMessage("Good Morning "+data[event.senderID]['name']+" Have a nice day \n\nJhay Bot Auto Greet", event.threadID);
+                            api.sendMessage({
+                body: 'Good Morning @Sender Have a nice day 💖\n\nJhay Bot Auto Greet',
+                mentions: [{
+                     tag: '@Sender',
+                     id: message.senderID,
+                     fromIndex: 9, // Highlight the second occurrence of @Sender
+                }],
+            }, message.threadID);
+                       });
+                    }
+                    else if (input.toLowerCase().includes("evening" || "goodevening" || "good evening")){
+                        api.getUserInfo(event.senderID, (err, data) => {
+                            api.sendMessage("Good Evening 🌙 "+data[event.senderID]['name']+" How is your day? \n\nJhay Bot Auto Greet", event.threadID);
+                        });
+                    }
+                    else if (input.toLowerCase().includes("night" || "goodnight" || "good night")){
+                        api.getUserInfo(event.senderID, (err, data) => {
+                            api.sendMessage("Good Night "+data[event.senderID]['name']+" Have a sweet dreams 😴\n\nJhay Bot Auto Greet", event.threadID);
                         });
                     }
                      else if (input.startsWith("!command")){
