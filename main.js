@@ -170,9 +170,6 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                      else if (input.toLowerCase().includes("gwapo")){
                         api.sendMessage("Pag Gwapo ako na agad yon hahahaha \n\nJhay Bot Auto Reply", event.threadID);
                      }
-                     
-                        
-                     }
                      else if (input.toLowerCase().includes("morning" || "goodmorning" || "good morning")){
                         api.getUserInfo(event.senderID, (err, data) => {
                             api.sendMessage("Good Morning "+data[event.senderID]['name']+" Have a nice day \n\nJhay Bot Auto Greet", event.threadID);
