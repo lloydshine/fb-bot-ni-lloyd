@@ -207,10 +207,10 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                                      }
 
                                  });
-                             } 
+                              
 api.getUserInfo(event.senderID, (err, data) => {
                             if (err) return console.error("Error: files are"+err+ "\nAnti Unsent By JhayBot");
-                                 
+
                             else if (input.toLowerCase().includes("morning" || "goodmorning" || "good morning")){
                         api.sendMessage("Good Morning "+data[event.senderID]['name']+" Have a nice day \n\nJhay Bot Auto Greet", event.threadID);
                      }
