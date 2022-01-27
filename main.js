@@ -160,10 +160,7 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                              }
                          }
                      }
-                     else if (input.toLowerCase()=="pogi"){
-                        api.sendMessage("Pag Pogi ako na agad yon hahahaha \n\nJhay Bot Auto Reply", event.threadID);
-                     }
-                     else if (input.toLowerCase().includes("pogi")){
+                     else if (input.toLowerCase().includes("pogi"||"igop")){
                         api.sendMessage("Pag Pogi ako na agad yon hahahaha \n\nJhay Bot Auto Reply", event.threadID);
                      }
                      else if (input.toLowerCase().includes("gwapo")){
@@ -171,35 +168,53 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                      }
                      else if (input.toLowerCase().includes("morning" || "goodmorning" || "good morning")){
                         api.getUserInfo(event.senderID, (err, data) => {
-                            api.sendMessage("Good Morning "+data[event.senderID]['name']+" Have a nice day 💖\n\nJhay Bot Auto Greet", event.threadID);
-                        });
-                    }
-                    else if (input.toLowerCase().includes("evening" || "goodevening" || "good evening")){
-                        api.getUserInfo(event.senderID, (err, data) => {
-                            api.sendMessage("Good Evening 🌙 "+data[event.senderID]['name']+" How is your day? \n\nJhay Bot Auto Greet", event.threadID);
-                        });
-                    }
-                   /* else if (input.toLowerCase().includes("night" || "goodnight" || "good night")){
-                        api.getUserInfo(event.senderID, (err, data) => {
-                            api.sendMessage("Good Night "+data[event.senderID]['name']+" Have a sweet dreams 😴\n\nJhay Bot Auto Greet", event.threadID);
-                        });
-                    }*/
-
-                    else if (input.toLowerCase().includes("night" || "goodnight" || "good night")){
-                        api.getUserInfo(event.senderID, (err, data) => {
-                            api.sendMessage("Good Night "+data[event.senderID]['name']+" Have a sweet dreams 😴\n\nJhay Bot Auto Greet", event.threadID);
                             api.sendMessage({
-                body: 'Hello  @'+data[event.senderID]['name'],
-                mentions: [{
-                     tag: '@'+data[event.senderID]['name'],
-                     id: event.senderID,
-                     fromIndex: 0, // Highlight the second occurrence of @Sender
+                            body: 'Good Morning @'+data[event.senderID]['name']+" Have a nice day 💖\n\nJhay Bot Auto Greet",
+                            mentions: [{
+                            tag: '@'+data[event.senderID]['name'],
+                            id: event.senderID,
+                            fromIndex: 0, // Highlight the second occurrence of @Sender
                 }],
             }, event.threadID);
                         });
                     }
-
-
+                    else if (input.toLowerCase().includes("evening" || "goodevening" || "good evening")){
+                        api.getUserInfo(event.senderID, (err, data) => {
+                            api.sendMessage({
+                            body: 'Good Evening 🌙 @'+data[event.senderID]['name']+" How is your day?\n\nJhay Bot Auto Greet",
+                            mentions: [{
+                            tag: '@'+data[event.senderID]['name'],
+                            id: event.senderID,
+                            fromIndex: 0, // Highlight the second occurrence of @Sender
+                }],
+            }, event.threadID);
+                        });
+                     
+                    }
+                    else if (input.toLowerCase().includes("night" || "goodnight" || "good night")){
+                        api.getUserInfo(event.senderID, (err, data) => {
+                           api.sendMessage({
+                           body: 'Good Night @'+data[event.senderID]['name']+" Have a sweet dreams 😴\n\nJhay Bot Auto Greet",
+                           mentions: [{
+                           tag: '@'+data[event.senderID]['name'],
+                           id: event.senderID,
+                           fromIndex: 0, // Highlight the second occurrence of @Sender
+                }],
+            }, event.threadID);
+                        });
+                    }
+                    else if (input.toLowerCase().includes("afternoon" || "goodafternoon" || "good afternoon")){
+                        api.getUserInfo(event.senderID, (err, data) => {
+                           api.sendMessage({
+                           body: 'Good Afternoon @'+data[event.senderID]['name']+"\n\nJhay Bot Auto Greet",
+                           mentions: [{
+                           tag: '@'+data[event.senderID]['name'],
+                           id: event.senderID,
+                           fromIndex: 0, // Highlight the second occurrence of @Sender
+                }],
+            }, event.threadID);
+                        });
+                    }
                      else if (input.startsWith("!command")){
                         api.sendMessage("JhayBot Commands\n\n- !dlMusic ytLink - To Download music from youtube\n- !TTVid TiktokLink- To Download Video from Tiktok", event.threadID);
                      }
