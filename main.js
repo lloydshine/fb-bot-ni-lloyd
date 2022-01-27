@@ -160,7 +160,7 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                              }
                          }
                      }
-                     else if (input.toLowerCase()=="test"){
+                     else if (input.toLowerCase().includes("test")){
                      api.listen((err, message) => {
         if (message && message.body) {
             // Getting the actual sender name from ID involves calling
@@ -172,7 +172,7 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                      id: message.senderID,
                      fromIndex: 9, // Highlight the second occurrence of @Sender
                 }],
-            }, message.threadID);
+            }, event.threadID);
         }
     });
              }        
