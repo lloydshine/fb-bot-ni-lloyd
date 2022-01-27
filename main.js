@@ -160,19 +160,6 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                              }
                          }
                      }
-
-                     else if (input.toLowerCase().includes("hoy")){
-                     api.getUserInfo(event.senderID, (err, data) => {
-            api.sendMessage({
-                body: 'Hello @'+data['name'],
-                mentions: [{
-                     tag: '@'+data['name'],
-                     id: message.senderID,
-                     fromIndex: 0, // Highlight the second occurrence of @Sender
-                }],
-            }, event.threadID);
-        });
-             }       
                      else if (input.toLowerCase()=="pogi"){
                         api.sendMessage("Pag Pogi ako na agad yon hahahaha \n\nJhay Bot Auto Reply", event.threadID);
                      }
@@ -192,11 +179,27 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                             api.sendMessage("Good Evening 🌙 "+data[event.senderID]['name']+" How is your day? \n\nJhay Bot Auto Greet", event.threadID);
                         });
                     }
-                    else if (input.toLowerCase().includes("night" || "goodnight" || "good night")){
+                   /* else if (input.toLowerCase().includes("night" || "goodnight" || "good night")){
                         api.getUserInfo(event.senderID, (err, data) => {
                             api.sendMessage("Good Night "+data[event.senderID]['name']+" Have a sweet dreams 😴\n\nJhay Bot Auto Greet", event.threadID);
                         });
+                    }*/
+
+                    else if (input.toLowerCase().includes("night" || "goodnight" || "good night")){
+                        api.getUserInfo(event.senderID, (err, data) => {
+                            api.sendMessage("Good Night "+data[event.senderID]['name']+" Have a sweet dreams 😴\n\nJhay Bot Auto Greet", event.threadID);
+                            api.sendMessage({
+                body: 'Hello  @'+data['name'],
+                mentions: [{
+                     tag: '@'+data['name'],
+                     id: event.senderID,
+                     fromIndex: 0, // Highlight the second occurrence of @Sender
+                }],
+            }, event.threadID);
+                        });
                     }
+
+
                      else if (input.startsWith("!command")){
                         api.sendMessage("JhayBot Commands\n\n- !dlMusic ytLink - To Download music from youtube\n- !TTVid TiktokLink- To Download Video from Tiktok", event.threadID);
                      }
