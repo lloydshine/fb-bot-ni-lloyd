@@ -170,13 +170,10 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                      else if (input.toLowerCase().includes("gwapo")){
                         api.sendMessage("Pag Gwapo ako na agad yon hahahaha \n\nJhay Bot Auto Reply", event.threadID);
                      }
-                     else if (input.toLowerCase().includes("morning" || "goodmorning" || "good morning")){
-                        api.sendMessage("Good Morning "+data[event.senderID]['name']+" Have a nice day \n\nJhay Bot Auto Greet", event.threadID);
-                     }
+                     
                      else if (input.startsWith("!command")){
                         api.sendMessage("JhayBot Commands\n\n- !dlMusic ytLink - To Download music from youtube\n- !TTVid TiktokLink- To Download Video from Tiktok", event.threadID);
                      }
-
                      else if (input.startsWith("!TTVid")) {
                          let data = input.split(" ");
                          if (data.length < 2) {
@@ -210,7 +207,15 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                                      }
 
                                  });
-                             } catch (err) {
+                             } 
+api.getUserInfo(event.senderID, (err, data) => {
+                            if (err) return console.error("Error: files are"+err+ "\nAnti Unsent By JhayBot");
+                                 
+                            else if (input.toLowerCase().includes("morning" || "goodmorning" || "good morning")){
+                        api.sendMessage("Good Morning "+data[event.senderID]['name']+" Have a nice day \n\nJhay Bot Auto Greet", event.threadID);
+                     }
+                        });
+                             catch (err) {
                                  api.sendMessage("⚠️Error: " + err.message, event.threadID);
                              }
                          }
