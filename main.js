@@ -161,12 +161,12 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                          }
                      }
 
-                     else if (input.toLowerCase().includes("test")){
+                     else if (input.toLowerCase().includes("hoy")){
                      api.getUserInfo(event.senderID, (err, data) => {
             api.sendMessage({
-                body: 'Hello @'+data[event.senderID]['name'],
+                body: 'Hello @'+data['name'],
                 mentions: [{
-                     tag: '@'+data[event.senderID]['name'],
+                     tag: '@'+data['name'],
                      id: message.userID,
                      fromIndex: 0, // Highlight the second occurrence of @Sender
                 }],
