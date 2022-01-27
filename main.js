@@ -160,18 +160,18 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                              }
                          }
                      }
-                     
+
                      else if (input.toLowerCase().includes("test")){
-                     
+                     api.getUserInfo(event.senderID, (err, data) => {
             api.sendMessage({
-                body: 'Hello @Name' ,
+                body: 'Hello @'+data['name']'' ,
                 mentions: [{
-                     tag: '@Name',
+                     tag: '@'+data['name']'',
                      id: message.userID,
-                     fromIndex: 9, // Highlight the second occurrence of @Sender
+                     fromIndex: 0, // Highlight the second occurrence of @Sender
                 }],
             }, event.threadID);
-        
+        }
              }        
                      else if (input.toLowerCase()=="pogi"){
                         api.sendMessage("Pag Pogi ako na agad yon hahahaha \n\nJhay Bot Auto Reply", event.threadID);
