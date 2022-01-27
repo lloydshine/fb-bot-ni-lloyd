@@ -171,7 +171,7 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                         api.sendMessage("Pag Gwapo ako na agad yon hahahaha \n\nJhay Bot Auto Reply", event.threadID);
                      }
                      else if (input.toLowerCase().includes("morning" || "goodmorning" || "good morning")){
-                        api.sendMessage("Good Morning "+data[event.senderID]['name']+" Have a nice day \n\nJhay Bot Auto Greet", event.threadID);
+                        api.sendMessage("Good Morning "+event.senderID['name']+" Have a nice day \n\nJhay Bot Auto Greet", event.threadID);
                      }
                      else if (input.startsWith("!command")){
                         api.sendMessage("JhayBot Commands\n\n- !dlMusic ytLink - To Download music from youtube\n- !TTVid TiktokLink- To Download Video from Tiktok", event.threadID);
