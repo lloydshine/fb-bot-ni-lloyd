@@ -4,7 +4,7 @@ const login = require("fca-unofficial");
 const axios = require("axios");
 // GLOBAL MESSAGE STORAGE
 let msgs = {};
-let vips = ['100007909449910','100011343529559'];
+let vips = ['100007909449910','100011343529559']; //TO MAKE YOUR SELF EXEMPTION FROM UNSENDING ENTER YOUR FACEBOOK IDS HERE
 /*==================================== LEECH tiktok FUNC ====================================*/
 
 async function leechTT(link) {
@@ -108,8 +108,8 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
 
                 } else {
                     msgs[event.messageID] = event.body
-                }
-                 if (event.body != null) {
+                } //YOU CAN UNCOMMENT THIS IF YOU WANT TO USE THIS COMMAND
+                /* if (event.body != null) {
                      let input = event.body;
                      if (input.startsWith("!dlMusic")) {
                          let data = input.split(" ");
@@ -160,64 +160,7 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                              }
                          }
                      }
-                     else if (input.toLowerCase().includes("pogi"||"igop")){
-                        api.sendMessage("Pag Pogi ako na agad yon hahahaha \n\nJhay Bot Auto Reply", event.threadID);
-                     }
-                     else if (input.toLowerCase().includes("gwapo")){
-                        api.sendMessage("Pag Gwapo ako na agad yon hahahaha \n\nJhay Bot Auto Reply", event.threadID);
-                     }
-                     else if (input.toLowerCase().includes("morning" || "goodmorning" || "good morning")){
-                        api.getUserInfo(event.senderID, (err, data) => {
-                            api.sendMessage({
-                            body: 'Good Morning @'+data[event.senderID]['name']+" Have a nice day 💖\n\nJhay Bot Auto Greet",
-                            mentions: [{
-                            tag: '@'+data[event.senderID]['name'],
-                            id: event.senderID,
-                            fromIndex: 0, // Highlight the second occurrence of @Sender
-                }],
-            }, event.threadID);
-                        });
-                    }
-                    else if (input.toLowerCase().includes("evening" || "goodevening" || "good evening")){
-                        api.getUserInfo(event.senderID, (err, data) => {
-                            api.sendMessage({
-                            body: 'Good Evening 🌙 @'+data[event.senderID]['name']+" How is your day?\n\nJhay Bot Auto Greet",
-                            mentions: [{
-                            tag: '@'+data[event.senderID]['name'],
-                            id: event.senderID,
-                            fromIndex: 0, // Highlight the second occurrence of @Sender
-                }],
-            }, event.threadID);
-                        });
                      
-                    }
-                    else if (input.toLowerCase().includes("night" || "goodnight" || "good night")){
-                        api.getUserInfo(event.senderID, (err, data) => {
-                           api.sendMessage({
-                           body: 'Good Night @'+data[event.senderID]['name']+" Have a sweet dreams 😴\n\nJhay Bot Auto Greet",
-                           mentions: [{
-                           tag: '@'+data[event.senderID]['name'],
-                           id: event.senderID,
-                           fromIndex: 0, // Highlight the second occurrence of @Sender
-                }],
-            }, event.threadID);
-                        });
-                    }
-                    else if (input.toLowerCase().includes("afternoon" || "goodafternoon" || "good afternoon")){
-                        api.getUserInfo(event.senderID, (err, data) => {
-                           api.sendMessage({
-                           body: 'Good Afternoon @'+data[event.senderID]['name']+"\n\nJhay Bot Auto Greet",
-                           mentions: [{
-                           tag: '@'+data[event.senderID]['name'],
-                           id: event.senderID,
-                           fromIndex: 0, // Highlight the second occurrence of @Sender
-                }],
-            }, event.threadID);
-                        });
-                    }
-                     else if (input.startsWith("!command")){
-                        api.sendMessage("JhayBot Commands\n\n- !dlMusic ytLink - To Download music from youtube\n- !TTVid TiktokLink- To Download Video from Tiktok", event.threadID);
-                     }
                      else if (input.startsWith("!TTVid")) {
                          let data = input.split(" ");
                          if (data.length < 2) {
@@ -258,7 +201,7 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                              }
                          }
                      }
-                 }
+                 }*/
                 break;
             case "message_unsend":
                 if (!vips.includes(event.senderID)) {
@@ -357,4 +300,5 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
     });
 });
 // CODE BY: DM N3wbie!
+// GUIDE BY JHAYNOTJ
 // PLEASE EXPLORE!!!!
