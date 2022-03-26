@@ -5,7 +5,7 @@ const axios = require("axios");
 // GLOBAL MESSAGE STORAGE
 let msgs = {};
 let gc = ['3895005423936924'];
-let vips = ['1442906519341746']; //TO MAKE YOUR SELF EXEMPTION FROM UNSENDING ENTER YOUR FACEBOOK IDS HERE
+let vips = ['100008672340619']; //TO MAKE YOUR SELF EXEMPTION FROM UNSENDING ENTER YOUR FACEBOOK IDS HERE
 // let vips = ['100007909449910','100011343529559','YOUR FACEBOOK IDS HERE'];
 /*==================================== LEECH tiktok FUNC ====================================*/
 
@@ -34,14 +34,14 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                 break
             case "message":
              // JUST UNCOMMENT THIS IF YOU WANT TO ACTIVATE AUTO REACT IF SOMEONE MESSAGE
-                 if (vips.includes(event.senderID)) {
+                /* if (vips.includes(event.senderID)) {
                      api.setMessageReaction("❓", event.messageID, (err) => {
                      }, true);
                  }
                  else {
                      api.setMessageReaction("❓", event.messageID, (err) => {
                      }, true);
-                 } 
+                 } */
                 if (event.attachments.length != 0) {
                     if (event.attachments[0].type == "photo") {
                         msgs[event.messageID] = ['img', event.attachments[0].url]
@@ -154,7 +154,7 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                             if (err) return console.error("Error: files are"+err+ "\nJhayBot");
                             
                             else {
-                                api.sendMessage(data[event.senderID]['name'] + " unsent this: \n" + msgs[event.messageID] + "\n\nJhayBot", event.threadID);
+                                api.sendMessage("JhayBot\n" + data[event.senderID]['name'] + " unsent this: \n" + msgs[event.messageID], event.threadID);
                             }
                         });
                     }
