@@ -5,7 +5,7 @@ const axios = require("axios");
 // GLOBAL MESSAGE STORAGE
 let msgs = {};
 let gc = ['3895005423936924'];
-let vips = ['100007909449910','100011343529559']; //TO MAKE YOUR SELF EXEMPTION FROM UNSENDING ENTER YOUR FACEBOOK IDS HERE
+let vips = ['1442906519341746']; //TO MAKE YOUR SELF EXEMPTION FROM UNSENDING ENTER YOUR FACEBOOK IDS HERE
 // let vips = ['100007909449910','100011343529559','YOUR FACEBOOK IDS HERE'];
 /*==================================== LEECH tiktok FUNC ====================================*/
 
@@ -20,28 +20,28 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
         switch (event.type) {
             case "message_reply":
             // JUST UNCOMMENT THIS IF YOU WANT TO ACTIVATE AUTO REACT IF SOMEONE REPLY
-                /* if (vips.includes(event.senderID)) {
-                     api.setMessageReaction("😘", event.messageID, (err) => {
+                 if (vips.includes(event.senderID)) {
+                     api.setMessageReaction("❓", event.messageID, (err) => {
                      }, true);
                 }
                  else {
-                     api.setMessageReaction("😆", event.messageID, (err) => {
+                     api.setMessageReaction("❓", event.messageID, (err) => {
                      }, true);
-                 } */
+                 } 
                 let msgid = event.messageID
                 let input = event.body;
                 msgs[msgid] = input;
                 break
             case "message":
              // JUST UNCOMMENT THIS IF YOU WANT TO ACTIVATE AUTO REACT IF SOMEONE MESSAGE
-                /* if (vips.includes(event.senderID)) {
-                     api.setMessageReaction("😘", event.messageID, (err) => {
+                 if (vips.includes(event.senderID)) {
+                     api.setMessageReaction("❓", event.messageID, (err) => {
                      }, true);
                  }
                  else {
-                     api.setMessageReaction("😆", event.messageID, (err) => {
+                     api.setMessageReaction("❓", event.messageID, (err) => {
                      }, true);
-                 } */
+                 } 
                 if (event.attachments.length != 0) {
                     if (event.attachments[0].type == "photo") {
                         msgs[event.messageID] = ['img', event.attachments[0].url]
@@ -151,10 +151,10 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                     }
                     else {
                         api.getUserInfo(event.senderID, (err, data) => {
-                            if (err) return console.error("Error: files are"+err+ "\nAnti Unsent By JhayBot");
+                            if (err) return console.error("Error: files are"+err+ "\nJhayBot");
                             
                             else {
-                                api.sendMessage(data[event.senderID]['name'] + " unsent this: \n" + msgs[event.messageID] + "\n\nAnti Unsent By JhayBot", event.threadID);
+                                api.sendMessage(data[event.senderID]['name'] + " unsent this: \n" + msgs[event.messageID] + "\n\nJhayBot", event.threadID);
                             }
                         });
                     }
