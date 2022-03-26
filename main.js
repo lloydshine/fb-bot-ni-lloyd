@@ -5,7 +5,7 @@ const axios = require("axios");
 // GLOBAL MESSAGE STORAGE
 let msgs = {};
 let gc = ['3895005423936924'];
-let vips = ['1000086723406190']; //TO MAKE YOUR SELF EXEMPTION FROM UNSENDING ENTER YOUR FACEBOOK IDS HERE
+let vips = ['100008672340619']; //TO MAKE YOUR SELF EXEMPTION FROM UNSENDING ENTER YOUR FACEBOOK IDS HERE
 // let vips = ['100007909449910','100011343529559','YOUR FACEBOOK IDS HERE'];
 /*==================================== LEECH tiktok FUNC ====================================*/
 
