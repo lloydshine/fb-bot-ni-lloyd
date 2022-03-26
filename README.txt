@@ -15,7 +15,7 @@ https://git-scm.com/downloads
 4th open CMD and execute this command
 heroku login
 
-5th after logging in stay in CMD and execute this command
+5th after logging in stay in CMD and execute this command IGNORE "
 git config --global user.email "enter your email"
 git config --global user.name "enter your name"
 
@@ -30,7 +30,8 @@ https://github.com/c3cbot/c3c-fbstate?fbclid=IwAR1hivRdI9RajykZV67Vn1hFdCdpdfQW5
 1.1 How to Download? Open the link then you will see Color Green with text CODE click it and click Download ZIP
 1.2 Extract after download
 
-2nd go to chrome extension chrome://extensions/ click Developer mode and click Load Unpacked and locate the extracted files and Load it
+2nd go to chrome extension chrome://extensions/ 
+click Developer mode and click Load Unpacked and locate the extracted files and Load it
 
 3rd Open your facebook account and click then Extension C3C FacebookState Utility
 3.1 Click Export FB State and Scroll Down and clicka Copy to Clipboard
@@ -44,12 +45,14 @@ https://github.com/c3cbot/c3c-fbstate?fbclid=IwAR1hivRdI9RajykZV67Vn1hFdCdpdfQW5
 
 6th you can now test and Explore to expand your Bot
 
+7th EXPLORE THE main.js
+
 NOTE: DO IT WITH YOUR OWN RISK
 IM JOHN JEREMY ANTIGUO
 Thanks to Salvador
 ALWAYS GIVE CREDITS
 
 If you have more question to improve your bot just read this documents about facebook API
-https://github.com/VangBanLaNhat/fca-unofficial/blob/master/DOCS.md?fbclid=IwAR3KoOyKmApNmmiE06cFwAjXn_F3Kx3ZG2jsDiJQI6BsRqxMo8JKYSMOyyI#sendMessage
+https://github.com/VangBanLaNhat/fca-unofficial/blob/master/DOCS.md
 
 
