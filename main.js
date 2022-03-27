@@ -23,6 +23,14 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
     var listenEmitter = api.listen((err, event) => {
         if (err) return console.error(err);
         switch (event.type) {
+            case "message":
+                if(event.body === '~perezgae') {
+                    api.sendMessage("Very True AF", event.threadID);
+                }
+                break;
+            case "event":
+                console.log(event);
+                break;
             case "message_reply":
             // JUST UNCOMMENT THIS IF YOU WANT TO ACTIVATE AUTO REACT IF SOMEONE REPLY
                  if (vips.includes(event.senderID)) {
