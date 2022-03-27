@@ -7,6 +7,17 @@ let msgs = {};
 let gc = ['3895005423936924','5013301878759897','100008672340619'];
 let vips = ['100008672340619']; //TO MAKE YOUR SELF EXEMPTION FROM UNSENDING ENTER YOUR FACEBOOK IDS HERE
 // let vips = ['100007909449910','100011343529559','YOUR FACEBOOK IDS HERE'];
+
+(function() {
+    var days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+    Date.prototype.getDayName = function() {
+        return days[ this.getDay() ];
+    };
+})();
+
+var now = new Date();
+var day = now.getDayName();
+
 /*==================================== LEECH tiktok FUNC ====================================*/
 
 
@@ -39,6 +50,10 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                 }
                 if(event.body === '!link') {
                     api.sendMessage("xbedyos.coom", event.threadID);
+                }
+                if(event.body === '!tsched') {
+                    let todaymsg = "Today is: " + now.getDayName();
+                    api.sendMessage(todaymsg, event.threadID);
                 }
                 if (event.attachments.length != 0) {
                     if (event.attachments[0].type == "photo") {
