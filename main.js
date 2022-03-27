@@ -4,7 +4,7 @@ const login = require("fca-unofficial"); //FACEBOOK API UNOFFICIAL
 const axios = require("axios");
 // GLOBAL MESSAGE STORAGE
 let msgs = {};
-let gc = ['3895005423936924','5013301878759897','100008672340619'];
+let gc = ['3895005423936924','100008672340619'];
 let vips = ['100008672340619']; //TO MAKE YOUR SELF EXEMPTION FROM UNSENDING ENTER YOUR FACEBOOK IDS HERE
 // let vips = ['100007909449910','100011343529559','YOUR FACEBOOK IDS HERE'];
 
@@ -44,8 +44,11 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                 msgs[msgid] = input;
                 break;
             case "message":
-                if(event.body === '~perezgae') {
+                if(event.body === '!perezgae') {
                     api.sendMessage("Very True AF", event.threadID);
+                }
+                if(event.body === '!help') {
+                    api.sendMessage("Commands:\n!link - Get online class link.\n!tsched - Get current day shedule.\n!perezgae - To bully perez!", event.threadID);
                 }
                 if(event.body === '!link') {
                     api.sendMessage("xbedyos.coom", event.threadID);
