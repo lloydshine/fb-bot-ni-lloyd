@@ -51,26 +51,27 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                     api.sendMessage("xbedyos.coom", event.threadID);
                 }
                 if(event.body === '!tsched') {
-                    let todaymsg = "Today is: " + now.getDayName();
-                    if (now.getDayName === "Monday") {
+                    var day = now.getDayName();
+                    let todaymsg = "Today is: " + day;
+                    if (day === "Monday") {
                         api.sendMessage(todaymsg + "\nClass Schedule: \nGEC3 - 9-10 AM- Record your attendance!\nP.E 2 - 1-3 PM\nCC103 - 3-5 PM - \nhttps://meet.google.com/wyu-sbxg-ugw", event.threadID);
                     }
-                    else if (now.getDayName === "Tuesday") {
+                    else if (day === "Tuesday") {
                         api.sendMessage(todaymsg + "\nClass Schedule: \nGEC4 - 1-2:30 PM - Record your attendance!\nHCI 101 - 3-5 PM - \nhttps://meet.google.com/vja-bgrr-rhs");
                     }
-                    else if (now.getDayName === "Wednesday") {
+                    else if (day === "Wednesday") {
                         api.sendMessage(todaymsg + "\nClass Schedule: \nGEC3 - 9-10 AM - Record your attendance!\nCC103 LAB - 4-7 PM - \nhttps://meet.google.com/wyu-sbxg-ugw");
                     }
-                    else if (now.getDayName === "Thursday") {
+                    else if (day === "Thursday") {
                         api.sendMessage(todaymsg + "\nClass Schedule: \nGEC4 - 1-2 PM - Record your attendance!\nHCI 101 LAB - 4-7 PM - \nhttps://meet.google.com/vja-bgrr-rhs");
                     }
-                    else if (now.getDayName === "Friday") {
+                    else if (day === "Friday") {
                         api.sendMessage(todaymsg + "\nClass Schedule: \nCalculus II - 9 AM - 12 PM - Record your attendance!\nDS 101 - 5-8 PM");
                     }
-                    else if (now.getDayName === "Saturday") {
+                    else if (day === "Saturday") {
                         api.sendMessage(todaymsg + "\nClass Schedule: \nCalculus II - 9 AM - 12 PM - Record your attendance!\nNSTP 02 - 1-4 PM - Bagsak nata!");
                     }
-                    else if (now.getDayName === "Sunday") {
+                    else if (day === "Sunday") {
                         api.sendMessage(todaymsg + "\nClass Schedule: \nWalay klase, Pwede ka mag bebe time!\nHave fun!");
                     }
                 }
