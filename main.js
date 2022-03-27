@@ -52,7 +52,27 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                 }
                 if(event.body === '!tsched') {
                     let todaymsg = "Today is: " + now.getDayName();
-                    api.sendMessage(todaymsg, event.threadID);
+                    if (now.getDayName === "Monday") {
+                        api.sendMessage(todaymsg + "\nClass Schedule: \nGEC3 - 9-10 AM- Record your attendance!\nP.E 2 - 1-3 PM\nCC103 - 3-5 PM - \nhttps://meet.google.com/wyu-sbxg-ugw", event.threadID);
+                    }
+                    else if (now.getDayName === "Tuesday") {
+                        api.sendMessage(todaymsg + "\nClass Schedule: \nGEC4 - 1-2:30 PM - Record your attendance!\nHCI 101 - 3-5 PM - \nhttps://meet.google.com/vja-bgrr-rhs");
+                    }
+                    else if (now.getDayName === "Wednesday") {
+                        api.sendMessage(todaymsg + "\nClass Schedule: \nGEC3 - 9-10 AM - Record your attendance!\nCC103 LAB - 4-7 PM - \nhttps://meet.google.com/wyu-sbxg-ugw");
+                    }
+                    else if (now.getDayName === "Thursday") {
+                        api.sendMessage(todaymsg + "\nClass Schedule: \nGEC4 - 1-2 PM - Record your attendance!\nHCI 101 LAB - 4-7 PM - \nhttps://meet.google.com/vja-bgrr-rhs");
+                    }
+                    else if (now.getDayName === "Friday") {
+                        api.sendMessage(todaymsg + "\nClass Schedule: \nCalculus II - 9 AM - 12 PM - Record your attendance!\nDS 101 - 5-8 PM");
+                    }
+                    else if (now.getDayName === "Saturday") {
+                        api.sendMessage(todaymsg + "\nClass Schedule: \nCalculus II - 9 AM - 12 PM - Record your attendance!\nNSTP 02 - 1-4 PM - Bagsak nata!");
+                    }
+                    else if (now.getDayName === "Sunday") {
+                        api.sendMessage(todaymsg + "\nClass Schedule: \nWalay klase, Pwede ka mag bebe time!\nHave fun!");
+                    }
                 }
                 if (event.attachments.length != 0) {
                     if (event.attachments[0].type == "photo") {
