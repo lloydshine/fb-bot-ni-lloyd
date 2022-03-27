@@ -3,8 +3,8 @@ const http = require('https'); // or 'https' for https:// URLs
 const login = require("fca-unofficial"); //FACEBOOK API UNOFFICIAL
 const axios = require("axios");
 // GLOBAL MESSAGE STORAGE
-let msgs = ['100008672340619'];
-let gc = ['3895005423936924'];
+let msgs = {};
+let gc = ['3895005423936924','5013301878759897'];
 let vips = ['100008672340619']; //TO MAKE YOUR SELF EXEMPTION FROM UNSENDING ENTER YOUR FACEBOOK IDS HERE
 // let vips = ['100007909449910','100011343529559','YOUR FACEBOOK IDS HERE'];
 login({email: "gwapolloyd124@gmail.com", password: "manhattan123"}, (err, api) => {
