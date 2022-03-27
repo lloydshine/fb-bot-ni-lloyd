@@ -47,8 +47,11 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                 if(event.body === '!perezgae') {
                     api.sendMessage("Very True AF", event.threadID);
                 }
+                if(event.body === '!perezAlphamale') {
+                    api.sendMessage("Hail Jhon Hesper the Alpha Male!", event.threadID);
+                }
                 if(event.body === '!help') {
-                    api.sendMessage("Commands:\n!link - Get online class link.\n!tsched - Get current day shedule.\n!perezgae - To bully perez!", event.threadID);
+                    api.sendMessage("Commands:\n!link - Get online class link.\n!tsched - Get current day schedule.\n!perezgae - To bully Perez!\n!perezAlphamale - Perez the Alpha Male!", event.threadID);
                 }
                 if(event.body === '!link') {
                     api.sendMessage("xbedyos.coom", event.threadID);
