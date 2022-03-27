@@ -31,20 +31,19 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
         switch (event.type) {
             case "message_reply":
             // JUST UNCOMMENT THIS IF YOU WANT TO ACTIVATE AUTO REACT IF SOMEONE REPLY
-                 if (vips.includes(event.senderID)) {
+                /* if (vips.includes(event.senderID)) {
                      api.setMessageReaction("❓", event.messageID, (err) => {
                      }, true);
                 }
                  else {
                      api.setMessageReaction("❓", event.messageID, (err) => {
                      }, true);
-                 } 
+                 } */
                 let msgid = event.messageID
                 let input = event.body;
                 msgs[msgid] = input;
                 break;
             case "message":
-             // JUST UNCOMMENT THIS IF YOU WANT TO ACTIVATE AUTO REACT IF SOMEONE MESSAGE
                 if(event.body === '~perezgae') {
                     api.sendMessage("Very True AF", event.threadID);
                 }
