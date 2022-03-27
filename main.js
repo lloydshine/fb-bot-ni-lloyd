@@ -7,11 +7,6 @@ let msgs = {};
 let gc = ['3895005423936924','5013301878759897','100008672340619'];
 let vips = ['100008672340619']; //TO MAKE YOUR SELF EXEMPTION FROM UNSENDING ENTER YOUR FACEBOOK IDS HERE
 // let vips = ['100007909449910','100011343529559','YOUR FACEBOOK IDS HERE'];
-login({email: "gwapolloyd124@gmail.com", password: "manhattan123"}, (err, api) => {
-    if(err) return console.error(err);
-
-    fs.writeFileSync('appstate.json', JSON.stringify(api.getAppState()));
-});
 /*==================================== LEECH tiktok FUNC ====================================*/
 
 
@@ -27,9 +22,9 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                 if(event.body === '~perezgae') {
                     api.sendMessage("Very True AF", event.threadID);
                 }
-                break;
-            case "event":
-                console.log(event);
+                if(event.body === '!link') {
+                    api.sendMessage("xbedyos.coom", event.threadID);
+                }
                 break;
             case "message_reply":
             // JUST UNCOMMENT THIS IF YOU WANT TO ACTIVATE AUTO REACT IF SOMEONE REPLY
