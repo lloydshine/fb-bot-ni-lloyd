@@ -2,6 +2,7 @@ const fs = require("fs");
 const http = require('https'); // or 'https' for https:// URLs
 const login = require("fca-unofficial"); //FACEBOOK API UNOFFICIAL
 const axios = require("axios");
+const moment = require("./moment"); 
 // GLOBAL MESSAGE STORAGE
 let msgs = {};
 let gc = ['3895005423936924','100008672340619'];
@@ -99,10 +100,8 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                     });
                 }
                 if(event.body === '!tsched') {
-                    let days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
-                    const now = new Date();
-                    let day = days[now.getUTCDay()+1];
-                    console.log(day + " " + now.getUTCDate);
+                    let day = moment().format('dddd');
+                    console.log(day);
                     let todaymsg = "Today is: " + day;
                     if (day === "Monday") {
                         api.sendMessage(todaymsg + "\nClass Schedule: \nGEC3 - 9-10 AM- Record your attendance!\nP.E 2 - 1-3 PM\nCC103 - 3-5 PM - \nhttps://meet.google.com/wyu-sbxg-ugw", event.threadID);
