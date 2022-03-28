@@ -91,7 +91,9 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                 }
                 if(event.body === '!myinfo') {
                     api.getUserInfo(event.senderID, (err, data) => {
-                        api.sendMessage("Name: " + data[event.senderID]['name'] + "\nGender: " + data[event.senderID]['gender'] + "\n" + data[event.senderID]['profilePicture'], event.threadID);
+                        let genders = ["Female","Male","Biot"]
+                        let gender = data[event.senderID]['gender'];
+                        api.sendMessage("Name: " + data[event.senderID]['name'] + "\nGender: " + genders[gender] + "\n" + data[event.senderID]['profilePicture'], event.threadID);
                     });
                 }
                 if(event.body === '!sched') {
