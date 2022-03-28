@@ -101,7 +101,7 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                 if(event.body === '!tsched') {
                     let days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
                     const now = new Date();
-                    let day = days[now.getUTCDay()];
+                    let day = days[now.getUTCDay()+1];
                     console.log(day);
                     let todaymsg = "Today is: " + day;
                     if (day === "Monday") {
