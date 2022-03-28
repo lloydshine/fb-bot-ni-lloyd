@@ -43,7 +43,7 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                 msgs[msgid] = input;
                 break;
             case "message":
-                if (event.body.includes("rebot")) {
+                if (event.body.includes("rebot") || event.body.includes("Rebot")) {
                     api.setMessageReaction("❓", event.messageID, (err) => {
                     }, true);
                     api.sendMessage("Wtf! Unsa naman sad!", event.threadID);
