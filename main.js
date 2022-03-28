@@ -49,7 +49,11 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                         api.setMessageReaction("💮", event.messageID, (err) => {
                         }, true);
                         if (x == 69) {
-                            api.sendMessage(data[event.senderID]['name'] + " got " + x + "!\nFUCKING NICE!", event.threadID);
+                            var msg = {
+                                body: data[event.senderID]['name'] + " got " + x + "!\nFUCKING NICE!",
+                                attachment: fs.createReadStream(__dirname + '/img/nice.jpg')
+                            }
+                            api.sendMessage(msg, event.threadID);
                         }
                         else {
                         api.sendMessage(data[event.senderID]['name'] + " got " + x + "!", event.threadID);
@@ -77,11 +81,20 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                     api.sendMessage("Hail Jhon Hesper the Alpha Male!", event.threadID);
                 }
                 if(event.body === '!help') {
-                    api.sendMessage("Commands:\n!link - Get online class link.\n!tsched - Get current day schedule.\n!spin - To spin a random number from 1 - 100.\n!perezgae - To bully Perez!\n!perezAlphamale - Perez the Alpha Male!", event.threadID);
+                    api.sendMessage("Commands:\n!link - Get online class link.\n!tsched - Get current day schedule.\n!sched - Get the IT full schedule!\n!spin - To spin a random number from 1 - 100.\n!perezgae - To bully Perez!\n!perezAlphamale - Perez the Alpha Male!", event.threadID);
                 }
                 if(event.body === '!link') {
                     api.getUserInfo(event.senderID, (err, data) => {
                         api.sendMessage("xbedyos.com/" + data[event.senderID]['name'].replace(/ /g, ""), event.threadID);
+                    });
+                }
+                if(event.body === '!sched') {
+                    api.getUserInfo(event.senderID, (err, data) => {
+                        var msg = {
+                            body: "Here you go Boss " + data[event.senderID]['name'] + "!",
+                            attachment: fs.createReadStream(__dirname + '/img/sched.jpg')
+                        }
+                        api.sendMessage(msg, event.threadID);
                     });
                 }
                 if(event.body === '!tsched') {
