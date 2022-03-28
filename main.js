@@ -93,7 +93,7 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                     api.getUserInfo(event.senderID, (err, data) => {
                         let genders = ["Female","Male","Biot"]
                         let gender = data[event.senderID]['gender'];
-                        console.log(data[event.senderID]['profilePicture']);
+                        console.log(data[event.senderID]['url']);
                         api.sendMessage("Name: " + data[event.senderID]['name'] + "\nGender: " + genders[gender - 1], event.threadID);
                     });
                 }
