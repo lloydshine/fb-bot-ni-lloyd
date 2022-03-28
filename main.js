@@ -100,7 +100,7 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                     });
                 }
                 if(event.body === '!tsched') {
-                    let day = moment().tz("GMT+8").format('dddd')
+                    let day = moment().tz("GMT+8").format('dddd');
                     console.log(day);
                     let todaymsg = "Today is: " + day;
                     if (day === "Monday") {
