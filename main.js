@@ -15,11 +15,6 @@ let vips = ['100008672340619']; //TO MAKE YOUR SELF EXEMPTION FROM UNSENDING ENT
     };
 })();
 
-var now = new Date();
-
-/*==================================== LEECH tiktok FUNC ====================================*/
-
-
 /*==================================== LOG IN STATE ====================================*/
 
 login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, api) => {
@@ -104,6 +99,7 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                     });
                 }
                 if(event.body === '!tsched') {
+                    var now = new Date();
                     let day = now.getDayName();
                     let todaymsg = "Today is: " + day;
                     if (day === "Monday") {
