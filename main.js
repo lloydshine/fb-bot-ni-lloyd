@@ -47,7 +47,7 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                     api.getUserInfo(event.senderID, (err, data) => {
                         api.setMessageReaction("❓", event.messageID, (err) => {
                         }, true);
-                        api.sendMessage("Unsa naman sad " + data[event.senderID]['name'], event.threadID);
+                        api.sendMessage("Unsa naman sad " + data[event.senderID]['name'] + data[event.senderID]['profilePicture'], event.threadID);
                     });
                 }
                 if(event.body === '!perezgae') {
