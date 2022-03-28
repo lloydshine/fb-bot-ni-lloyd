@@ -45,7 +45,7 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
             case "message":
                 if(event.body === "!spin") {
                     api.getUserInfo(event.senderID, (err, data) => {
-                        let x = Math.floor((Math.random() * 12) + 1);
+                        let x = Math.floor((Math.random() * 50) + 1);
                         api.setMessageReaction("💮", event.messageID, (err) => {
                         }, true);
                         api.sendMessage(data[event.senderID]['name'] + " got " + x + "!", event.threadID);
