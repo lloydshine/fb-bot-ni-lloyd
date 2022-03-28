@@ -2,8 +2,7 @@ const fs = require("fs");
 const http = require('https'); // or 'https' for https:// URLs
 const login = require("fca-unofficial"); //FACEBOOK API UNOFFICIAL
 const axios = require("axios");
-const moment = require("./moment");
-const momenttz = require("./moment-tz");
+const moment = require("./moment-tz");
 // GLOBAL MESSAGE STORAGE
 let msgs = {};
 let gc = ['3895005423936924','100008672340619'];
@@ -101,8 +100,7 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                     });
                 }
                 if(event.body === '!tsched') {
-                    let timezone = momenttz().tz("Philippines").format('dddd');
-                    let day = moment().format('dddd');
+                    let day = moment().tz("GMT+8").day()
                     console.log(day);
                     let todaymsg = "Today is: " + day;
                     if (day === "Monday") {
