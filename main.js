@@ -2,7 +2,7 @@ const fs = require("fs");
 const http = require('https'); // or 'https' for https:// URLs
 const login = require("fca-unofficial"); //FACEBOOK API UNOFFICIAL
 const axios = require("axios");
-const moment = require("./moment");
+const moment = require('moment-timezone');
 // GLOBAL MESSAGE STORAGE
 let msgs = {};
 let gc = ['3895005423936924','100008672340619'];
