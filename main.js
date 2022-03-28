@@ -8,13 +8,6 @@ let gc = ['3895005423936924','100008672340619'];
 let vips = ['100008672340619']; //TO MAKE YOUR SELF EXEMPTION FROM UNSENDING ENTER YOUR FACEBOOK IDS HERE
 // let vips = ['100007909449910','100011343529559','YOUR FACEBOOK IDS HERE'];
 
-(function() {
-    var days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
-    Date.prototype.getDayName = function() {
-        return days[ this.getDay() ];
-    };
-})();
-
 /*==================================== LOG IN STATE ====================================*/
 login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, api) => {
     if (err) return console.error(err);
@@ -107,28 +100,29 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                     });
                 }
                 if(event.body === '!tsched') {
-                    var now = new Date();
-                    let day = now.getDayName();
+                    let days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+                    const now = new Date();
+                    let day = days[now.getDay()];
                     let todaymsg = "Today is: " + day;
                     if (day === "Monday") {
                         api.sendMessage(todaymsg + "\nClass Schedule: \nGEC3 - 9-10 AM- Record your attendance!\nP.E 2 - 1-3 PM\nCC103 - 3-5 PM - \nhttps://meet.google.com/wyu-sbxg-ugw", event.threadID);
                     }
-                    else if (day === "Tuesday") {
+                    else if (day == "Tuesday") {
                         api.sendMessage(todaymsg + "\nClass Schedule: \nGEC4 - 1-2:30 PM - Record your attendance!\nHCI 101 - 3-5 PM - \nhttps://meet.google.com/vja-bgrr-rhs", event.threadID);
                     }
-                    else if (day === "Wednesday") {
+                    else if (day == "Wednesday") {
                         api.sendMessage(todaymsg + "\nClass Schedule: \nGEC3 - 9-10 AM - Record your attendance!\nCC103 LAB - 4-7 PM - \nhttps://meet.google.com/wyu-sbxg-ugw", event.threadID);
                     }
-                    else if (day === "Thursday") {
+                    else if (day == "Thursday") {
                         api.sendMessage(todaymsg + "\nClass Schedule: \nGEC4 - 1-2 PM - Record your attendance!\nHCI 101 LAB - 4-7 PM - \nhttps://meet.google.com/vja-bgrr-rhs", event.threadID);
                     }
-                    else if (day === "Friday") {
+                    else if (day == "Friday") {
                         api.sendMessage(todaymsg + "\nClass Schedule: \nCalculus II - 9 AM - 12 PM - Record your attendance!\nDS 101 - 5-8 PM", event.threadID);
                     }
-                    else if (day === "Saturday") {
+                    else if (day == "Saturday") {
                         api.sendMessage(todaymsg + "\nClass Schedule: \nCalculus II - 9 AM - 12 PM - Record your attendance!\nNSTP 02 - 1-4 PM - Bagsak nata!", event.threadID);
                     }
-                    else if (day === "Sunday") {
+                    else if (day == "Sunday") {
                         api.sendMessage(todaymsg + "\nClass Schedule: \nWalay klase, Pwede ka mag bebe time!\nHave fun!", event.threadID);
                     }
                 }
