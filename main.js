@@ -103,10 +103,10 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                     let day = moment().tz("Asia/Manila").format('dddd');
                     let todaymsg = "Today is: " + day;
                     if (day === "Monday") {
-                        api.sendMessage(todaymsg + "\nClass Schedule: \nGEC3 - 9-10 AM- Record your attendance!\nP.E 2 - 1-3 PM\nCC103 - 3-5 PM - \nhttps://meet.google.com/wyu-sbxg-ugw", event.threadID);
+                        api.sendMessage(todaymsg + "\nClass Schedule: \nGEC3 - 9-10 AM - Record your attendance!\nP.E 2 - 1-3 PM\nCC103 - 3-5 PM - \nhttps://meet.google.com/wyu-sbxg-ugw", event.threadID);
                     }
                     else if (day == "Tuesday") {
-                        api.sendMessage(todaymsg + "\nClass Schedule: \nGEC4 - 1-2:30 PM - Record your attendance!\nHCI 101 - 3-5 PM - \nhttps://meet.google.com/vja-bgrr-rhs", event.threadID);
+                        api.sendMessage(todaymsg + "\nClass Schedule: \nGEC4 - 1-2 PM - Record your attendance!\nHCI 101 - 3-5 PM - \nhttps://meet.google.com/vja-bgrr-rhs", event.threadID);
                     }
                     else if (day == "Wednesday") {
                         api.sendMessage(todaymsg + "\nClass Schedule: \nGEC3 - 9-10 AM - Record your attendance!\nCC103 LAB - 4-7 PM - \nhttps://meet.google.com/wyu-sbxg-ugw", event.threadID);
