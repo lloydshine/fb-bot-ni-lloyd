@@ -16,7 +16,6 @@ let vips = ['100008672340619']; //TO MAKE YOUR SELF EXEMPTION FROM UNSENDING ENT
 })();
 
 var now = new Date();
-var day = now.getDayName();
 
 /*==================================== LEECH tiktok FUNC ====================================*/
 
@@ -57,7 +56,7 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                     api.sendMessage("xbedyos.coom", event.threadID);
                 }
                 if(event.body === '!tsched') {
-                    var day = now.getDayName();
+                    let day = now.getDayName();
                     let todaymsg = "Today is: " + day;
                     if (day === "Monday") {
                         api.sendMessage(todaymsg + "\nClass Schedule: \nGEC3 - 9-10 AM- Record your attendance!\nP.E 2 - 1-3 PM\nCC103 - 3-5 PM - \nhttps://meet.google.com/wyu-sbxg-ugw", event.threadID);
