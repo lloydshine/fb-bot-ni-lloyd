@@ -102,7 +102,7 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                     let days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
                     const now = new Date();
                     let day = days[now.getUTCDay()+1];
-                    console.log(day);
+                    console.log(day + " " + now.getUTCDate);
                     let todaymsg = "Today is: " + day;
                     if (day === "Monday") {
                         api.sendMessage(todaymsg + "\nClass Schedule: \nGEC3 - 9-10 AM- Record your attendance!\nP.E 2 - 1-3 PM\nCC103 - 3-5 PM - \nhttps://meet.google.com/wyu-sbxg-ugw", event.threadID);
