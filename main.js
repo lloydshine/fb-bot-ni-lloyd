@@ -89,6 +89,11 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                         api.sendMessage("xbedyos.com/" + data[event.senderID]['name'].replace(/ /g, ""), event.threadID);
                     });
                 }
+                if(event.body === '!myinfo') {
+                    api.getUserInfo(event.senderID, (err, data) => {
+                        api.sendMessage("Name: " + data[event.senderID]['name'] + "\nGender: " + data[event.senderID]['gender'] + data[event.senderID]['profilePicture'], event.threadID);
+                    });
+                }
                 if(event.body === '!sched') {
                     api.getUserInfo(event.senderID, (err, data) => {
                         var msg = {
