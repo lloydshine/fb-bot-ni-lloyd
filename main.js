@@ -45,9 +45,16 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
             case "message":
                 if (event.body.includes("rebot") || event.body.includes("Rebot")) {
                     api.getUserInfo(event.senderID, (err, data) => {
+                        if (vips.includes(event.senderID)) {
+                            api.setMessageReaction("💚", event.messageID, (err) => {
+                            }, true);
+                            api.sendMessage("Hello Boss " + data[event.senderID]['name'] + "!", event.threadID);
+                        }
+                        else {
                         api.setMessageReaction("❓", event.messageID, (err) => {
                         }, true);
                         api.sendMessage("Unsa naman sad " + data[event.senderID]['name'] + "!", event.threadID);
+                        }
                     });
                 }
                 if(event.body === '!perezgae') {
