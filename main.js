@@ -43,6 +43,14 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                 msgs[msgid] = input;
                 break;
             case "message":
+                if(event.body === "!spin") {
+                    api.getUserInfo(event.senderID, (err, data) => {
+                        let x = Math.floor((Math.random() * 12) + 1);
+                        api.setMessageReaction("💮", event.messageID, (err) => {
+                        }, true);
+                        api.sendMessage(data[event.senderID]['name'] + " got " + x + "!", event.threadID);
+                    });
+                }
                 if (event.body.includes("rebot") || event.body.includes("Rebot")) {
                     api.getUserInfo(event.senderID, (err, data) => {
                         if (vips.includes(event.senderID)) {
