@@ -45,10 +45,15 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
             case "message":
                 if(event.body === "!spin") {
                     api.getUserInfo(event.senderID, (err, data) => {
-                        let x = Math.floor((Math.random() * 50) + 1);
+                        let x = Math.floor((Math.random() * 100) + 1);
                         api.setMessageReaction("💮", event.messageID, (err) => {
                         }, true);
+                        if (x == 69) {
+                            api.sendMessage(data[event.senderID]['name'] + " got " + x + "!\nFUCKING NICE!", event.threadID);
+                        }
+                        else {
                         api.sendMessage(data[event.senderID]['name'] + " got " + x + "!", event.threadID);
+                        }
                     });
                 }
                 if (event.body.includes("rebot") || event.body.includes("Rebot")) {
@@ -72,7 +77,7 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                     api.sendMessage("Hail Jhon Hesper the Alpha Male!", event.threadID);
                 }
                 if(event.body === '!help') {
-                    api.sendMessage("Commands:\n!link - Get online class link.\n!tsched - Get current day schedule.\n!spin - To spin a random number from 1 - 50.\n!perezgae - To bully Perez!\n!perezAlphamale - Perez the Alpha Male!", event.threadID);
+                    api.sendMessage("Commands:\n!link - Get online class link.\n!tsched - Get current day schedule.\n!spin - To spin a random number from 1 - 100.\n!perezgae - To bully Perez!\n!perezAlphamale - Perez the Alpha Male!", event.threadID);
                 }
                 if(event.body === '!link') {
                     api.getUserInfo(event.senderID, (err, data) => {
