@@ -101,7 +101,7 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                 }
                 if(event.body === '!tsched') {
                     let day = moment().tz("Asia/Manila").format('dddd');
-                    let todaymsg = "Today is: " + day;
+                    let todaymsg = "Today is " + day;
                     if (day === "Monday") {
                         api.sendMessage(todaymsg + "\nClass Schedule: \nGEC3 - 9-10 AM - Record your attendance!\nP.E 2 - 1-3 PM\nCC103 - 3-5 PM - \nhttps://meet.google.com/wyu-sbxg-ugw", event.threadID);
                     }
