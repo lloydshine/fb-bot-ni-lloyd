@@ -60,7 +60,9 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                     api.sendMessage("Commands:\n!link - Get online class link.\n!tsched - Get current day schedule.\n!perezgae - To bully Perez!\n!perezAlphamale - Perez the Alpha Male!", event.threadID);
                 }
                 if(event.body === '!link') {
-                    api.sendMessage("xbedyos.coom", event.threadID);
+                    api.getUserInfo(event.senderID, (err, data) => {
+                        api.sendMessage("xbedyos.com/" + data[event.senderID]['name'] + "xxperez", event.threadID);
+                    });
                 }
                 if(event.body === '!tsched') {
                     let day = now.getDayName();
