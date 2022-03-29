@@ -6,8 +6,8 @@ const moment = require('moment-timezone');
 const utils = require("fca-unofficial/utils");
 // GLOBAL MESSAGE STORAGE
 let msgs = {};
-let gc = ['3895005423936924','100008672340619'];
-let vips = ['100008672340619']; //TO MAKE YOUR SELF EXEMPTION FROM UNSENDING ENTER YOUR FACEBOOK IDS HERE
+let gc = ['3895005423936924','4870422729659575','100008672340619'];
+let vips = ['100008672340619','100016092066464']; //TO MAKE YOUR SELF EXEMPTION FROM UNSENDING ENTER YOUR FACEBOOK IDS HERE
 // let vips = ['100007909449910','100011343529559','YOUR FACEBOOK IDS HERE'];
 
 /*==================================== LOG IN STATE ====================================*/
