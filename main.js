@@ -99,9 +99,21 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                     }
                     if(event.body === '!myinfo') {
                         api.getUserInfo(event.senderID, (err, data) => {
+                            let bsize = ['A','B','C','D','E','F','PREMIUM OPPAI G CUP'];
+                            let size;
+                            let x = Math.floor(Math.random() * 8);
                             let genders = ["Female","Male","Biot"]
                             let gender = data[event.senderID]['gender'];
-                            api.sendMessage("Name: " + data[event.senderID]['name'] + "\nGender: " + genders[gender - 1] + "\nLink: " + data[event.senderID]['profileUrl'], event.threadID);
+                            if (gender == 1) {
+                                size = "Cupsize : " + bsize[x];
+                            }
+                            else if (gender == 2) {
+                                size = "Dick Size: " + x + " inches";
+                            }
+                            else {
+                                size = "Cupsize: Premium Oppai G Cup\nDick Size: 7 inches";
+                            }
+                            api.sendMessage("Name: " + data[event.senderID]['name'] + "\nGender: " + genders[gender - 1] + "\n" + size + "\nLink: " + data[event.senderID]['profileUrl'], event.threadID);
                         });
                     }
                     if(event.body === '!sched') {
