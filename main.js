@@ -177,7 +177,7 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                                             file.on('finish', function () {
                                                 console.log('finished downloading photo..')
                                                 var message = {
-                                                    body: data[event.senderID]['name'] + " unsent this photo: \n",
+                                                    body: "[JhayBot] Anti Unsent:\n" + data[event.senderID]['name'] + " unsent this photo: \n",
                                                     attachment: fs.createReadStream(__dirname + '/photo.jpg')
                                                 }
                                                 api.sendMessage(message, event.threadID);
@@ -191,7 +191,7 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                                             file.on('finish', function () {
                                                 console.log('finished downloading video..')
                                                 var message = {
-                                                    body: data[event.senderID]['name'] + " unsent this video: \n",
+                                                    body: "[JhayBot] Anti Unsent:\n" + data[event.senderID]['name'] + " unsent this video: \n",
                                                     attachment: fs.createReadStream(__dirname + '/video.mp4')
                                                 }
                                                 api.sendMessage(message, event.threadID);
@@ -205,7 +205,7 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                                             file.on('finish', function () {
                                                 console.log('finished downloading gif..')
                                                 var message = {
-                                                    body: data[event.senderID]['name'] + " unsent this GIF: \n",
+                                                    body: "[JhayBot] Anti Unsent:\n" + data[event.senderID]['name'] + " unsent this GIF: \n",
                                                     attachment: fs.createReadStream(__dirname + '/animated_image.gif')
                                                 }
                                                 api.sendMessage(message, event.threadID);
@@ -220,7 +220,7 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                                             file.on('finish', function () {
                                                 console.log('finished downloading gif..')
                                                 var message = {
-                                                    body: data[event.senderID]['name'] + " unsent this Sticker: \n",
+                                                    body: "[JhayBot] Anti Unsent:\n" + data[event.senderID]['name'] + " unsent this Sticker: \n",
                                                     attachment: fs.createReadStream(__dirname + '/sticker.png')
                                                 }
                                                 api.sendMessage(message, event.threadID);
@@ -235,7 +235,7 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                                             file.on('finish', function () {
                                                 console.log('finished downloading audio..')
                                                 var message = {
-                                                    body: data[event.senderID]['name'] + " unsent this audio: \n",
+                                                    body: "[JhayBot] Anti Unsent:\n" + data[event.senderID]['name'] + " unsent this audio: \n",
                                                     attachment: fs.createReadStream(__dirname + '/vm.mp3')
                                                 }
                                                 api.sendMessage(message, event.threadID);
@@ -250,7 +250,7 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                                 if (err) return console.error("Error: files are"+err+ "\nJhayBot");
 
                                 else {
-                                    api.sendMessage("[JhayBot]\n" + data[event.senderID]['name'] + " unsent this: \n" + msgs[event.messageID], event.threadID);
+                                    api.sendMessage("[JhayBot] Anti Unsent:\n" + data[event.senderID]['name'] + " unsent this: \n" + msgs[event.messageID], event.threadID);
                                 }
                             });
                         }
