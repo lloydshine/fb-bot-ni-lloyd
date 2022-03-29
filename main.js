@@ -105,7 +105,7 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                                             file.on('finish', function () {
                                                 console.log('finished downloading photo..')
                                                 var message = {
-                                                    body: "[JhayBot] Anti Unsent:\n" + data[event.senderID]['name'] + " unsent this photo: \n",
+                                                    body: "Meme For You! \n" + data[event.senderID]['name'] + "\n",
                                                     attachment: fs.createReadStream(__dirname + '/photo.jpg')
                                                 }
                                                 api.sendMessage(message, event.threadID);
