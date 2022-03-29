@@ -100,7 +100,7 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                     if(event.body === '!meme') {
                         api.getUserInfo(event.senderID, (err, data) => {
                             let link = `https://meme-api.herokuapp.com/gimme/meme`;
-                            let img = await axios(link);
+                            let img = axios(link);
                             var msg = {
                                 body: "Meme for you " + data[event.senderID]['name'] + "!",
                                 attachment: fs.createReadStream(img.ups)
