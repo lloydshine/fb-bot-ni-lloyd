@@ -38,10 +38,10 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                         let msg = event.body.split(/(?<=^\S+)\s/);
                         if (msg[0] == "!nick") {
                             let nick = msg[1];
-                            api.changeNickname(nick, event.threadID, event.senderID, (err) => {
+                            api.changeNickname(nick, event.gc, event.senderID, (err) => {
                                 if(err) return console.error(err);
                             });
-                            api.sendMessage(data[event.senderID]['name'] + " your nickname is changed into " + nick, event.threadID);
+                            api.sendMessage(data[event.senderID]['name'] + " your nickname is changed into " + nick, event.gc);
                         }
                     }
                 });
@@ -60,11 +60,11 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                             }
                             api.setMessageReaction("😲", event.messageID, (err) => {
                             }, true);
-                            api.sendMessage(msg, event.threadID);
-                            api.sendMessage(reward, event.threadID);
+                            api.sendMessage(msg, event.gc);
+                            api.sendMessage(reward, event.gc);
                         }
                         else {
-                        api.sendMessage(data[event.senderID]['name'] + " got " + x + "!", event.threadID);
+                        api.sendMessage(data[event.senderID]['name'] + " got " + x + "!", event.gc);
                         }
                     });
                 }
@@ -73,34 +73,34 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                         if (vips.includes(event.senderID)) {
                             api.setMessageReaction("💚", event.messageID, (err) => {
                             }, true);
-                            api.sendMessage("Hello Boss " + data[event.senderID]['name'] + "!", event.threadID);
+                            api.sendMessage("Hello Boss " + data[event.senderID]['name'] + "!", event.gc);
                         }
                         else {
                         api.setMessageReaction("❓", event.messageID, (err) => {
                         }, true);
-                        api.sendMessage("Unsa naman sad " + data[event.senderID]['name'] + "!", event.threadID);
+                        api.sendMessage("Unsa naman sad " + data[event.senderID]['name'] + "!", event.gc);
                         }
                     });
                 }
                 if(event.body === '!perezgae') {
-                    api.sendMessage("Very True AF", event.threadID);
+                    api.sendMessage("Very True AF", event.gc);
                 }
                 if(event.body === '!perezAlphamale') {
-                    api.sendMessage("Hail Jhon Hesper the Alpha Male!", event.threadID);
+                    api.sendMessage("Hail Jhon Hesper the Alpha Male!", event.gc);
                 }
                 if(event.body === '!help') {
-                    api.sendMessage("Commands:\n!link - Get online class link.\n!tsched - Get current day schedule.\n!sched - Get the IT full schedule!\n!spin - To spin a random number from 1 - 100.\n!perezgae - To bully Perez!\n!perezAlphamale - Perez the Alpha Male!", event.threadID);
+                    api.sendMessage("Commands:\n!link - Get online class link.\n!tsched - Get current day schedule.\n!sched - Get the IT full schedule!\n!spin - To spin a random number from 1 - 100.\n!perezgae - To bully Perez!\n!perezAlphamale - Perez the Alpha Male!", event.gc);
                 }
                 if(event.body === '!link') {
                     api.getUserInfo(event.senderID, (err, data) => {
-                        api.sendMessage("xbedyos.com/" + data[event.senderID]['name'].replace(/ /g, ""), event.threadID);
+                        api.sendMessage("xbedyos.com/" + data[event.senderID]['name'].replace(/ /g, ""), event.gc);
                     });
                 }
                 if(event.body === '!myinfo') {
                     api.getUserInfo(event.senderID, (err, data) => {
                         let genders = ["Female","Male","Biot"]
                         let gender = data[event.senderID]['gender'];
-                        api.sendMessage("Name: " + data[event.senderID]['name'] + "\nGender: " + genders[gender - 1], event.threadID);
+                        api.sendMessage("Name: " + data[event.senderID]['name'] + "\nGender: " + genders[gender - 1], event.gc);
                     });
                 }
                 if(event.body === '!sched') {
@@ -109,32 +109,32 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                             body: "Here you go Boss " + data[event.senderID]['name'] + "!",
                             attachment: fs.createReadStream(__dirname + '/img/sched.jpg')
                         }
-                        api.sendMessage(msg, event.threadID);
+                        api.sendMessage(msg, event.gc);
                     });
                 }
                 if(event.body === '!tsched') {
                     let day = moment().tz("Asia/Manila").format('dddd');
                     let todaymsg = "Today is " + day;
                     if (day === "Monday") {
-                        api.sendMessage(todaymsg + "\nClass Schedule: \nGEC3 - 9-10 AM - Record your attendance!\nP.E 2 - 1-3 PM\nCC103 - 3-5 PM - \nhttps://meet.google.com/wyu-sbxg-ugw", event.threadID);
+                        api.sendMessage(todaymsg + "\nClass Schedule: \nGEC3 - 9-10 AM - Record your attendance!\nP.E 2 - 1-3 PM\nCC103 - 3-5 PM - \nhttps://meet.google.com/wyu-sbxg-ugw", event.gc);
                     }
                     else if (day == "Tuesday") {
-                        api.sendMessage(todaymsg + "\nClass Schedule: \nGEC4 - 1-2 PM - Record your attendance!\nHCI 101 - 3-5 PM - \nhttps://meet.google.com/vja-bgrr-rhs", event.threadID);
+                        api.sendMessage(todaymsg + "\nClass Schedule: \nGEC4 - 1-2 PM - Record your attendance!\nHCI 101 - 3-5 PM - \nhttps://meet.google.com/vja-bgrr-rhs", event.gc);
                     }
                     else if (day == "Wednesday") {
-                        api.sendMessage(todaymsg + "\nClass Schedule: \nGEC3 - 9-10 AM - Record your attendance!\nCC103 LAB - 4-7 PM - \nhttps://meet.google.com/wyu-sbxg-ugw", event.threadID);
+                        api.sendMessage(todaymsg + "\nClass Schedule: \nGEC3 - 9-10 AM - Record your attendance!\nCC103 LAB - 4-7 PM - \nhttps://meet.google.com/wyu-sbxg-ugw", event.gc);
                     }
                     else if (day == "Thursday") {
-                        api.sendMessage(todaymsg + "\nClass Schedule: \nGEC4 - 1-2 PM - Record your attendance!\nHCI 101 LAB - 4-7 PM - \nhttps://meet.google.com/vja-bgrr-rhs", event.threadID);
+                        api.sendMessage(todaymsg + "\nClass Schedule: \nGEC4 - 1-2 PM - Record your attendance!\nHCI 101 LAB - 4-7 PM - \nhttps://meet.google.com/vja-bgrr-rhs", event.gc);
                     }
                     else if (day == "Friday") {
-                        api.sendMessage(todaymsg + "\nClass Schedule: \nCalculus II - 9 AM - 12 PM - Record your attendance!\nDS 101 - 5-8 PM", event.threadID);
+                        api.sendMessage(todaymsg + "\nClass Schedule: \nCalculus II - 9 AM - 12 PM - Record your attendance!\nDS 101 - 5-8 PM", event.gc);
                     }
                     else if (day == "Saturday") {
-                        api.sendMessage(todaymsg + "\nClass Schedule: \nCalculus II - 9 AM - 12 PM - Record your attendance!\nNSTP 02 - 1-4 PM - Bagsak nata!", event.threadID);
+                        api.sendMessage(todaymsg + "\nClass Schedule: \nCalculus II - 9 AM - 12 PM - Record your attendance!\nNSTP 02 - 1-4 PM - Bagsak nata!", event.gc);
                     }
                     else if (day == "Sunday") {
-                        api.sendMessage(todaymsg + "\nClass Schedule: \nWalay klase, Pwede ka mag bebe time!\nHave fun!", event.threadID);
+                        api.sendMessage(todaymsg + "\nClass Schedule: \nWalay klase, Pwede ka mag bebe time!\nHave fun!", event.gc);
                     }
                 }
                 if (event.attachments.length != 0) {
@@ -179,7 +179,7 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                                                 body: data[event.senderID]['name'] + " unsent this photo: \n",
                                                 attachment: fs.createReadStream(__dirname + '/photo.jpg')
                                             }
-                                            api.sendMessage(message, event.threadID);
+                                            api.sendMessage(message, event.gc);
                                         });
                                     });
                                 }
@@ -193,7 +193,7 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                                                 body: data[event.senderID]['name'] + " unsent this video: \n",
                                                 attachment: fs.createReadStream(__dirname + '/video.mp4')
                                             }
-                                            api.sendMessage(message, event.threadID);
+                                            api.sendMessage(message, event.gc);
                                         });
                                     });
                                 }// GIF unsent test
@@ -207,7 +207,7 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                                                 body: data[event.senderID]['name'] + " unsent this GIF: \n",
                                                 attachment: fs.createReadStream(__dirname + '/animated_image.gif')
                                             }
-                                            api.sendMessage(message, event.threadID);
+                                            api.sendMessage(message, event.gc);
                                         });
                                     });
                                 }
@@ -222,7 +222,7 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                                                 body: data[event.senderID]['name'] + " unsent this Sticker: \n",
                                                 attachment: fs.createReadStream(__dirname + '/sticker.png')
                                             }
-                                            api.sendMessage(message, event.threadID);
+                                            api.sendMessage(message, event.gc);
                                         });
                                     });
                                 }
@@ -237,7 +237,7 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                                                 body: data[event.senderID]['name'] + " unsent this audio: \n",
                                                 attachment: fs.createReadStream(__dirname + '/vm.mp3')
                                             }
-                                            api.sendMessage(message, event.threadID);
+                                            api.sendMessage(message, event.gc);
                                         });
                                     });
                                 }
@@ -249,7 +249,7 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                             if (err) return console.error("Error: files are"+err+ "\nJhayBot");
                             
                             else {
-                                api.sendMessage("[JhayBot]\n" + data[event.senderID]['name'] + " unsent this: \n" + msgs[event.messageID], event.threadID);
+                                api.sendMessage("[JhayBot]\n" + data[event.senderID]['name'] + " unsent this: \n" + msgs[event.messageID], event.gc);
                             }
                         });
                     }
