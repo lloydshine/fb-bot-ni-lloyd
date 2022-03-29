@@ -38,7 +38,7 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                         let searcht = s[1]
                         const encoded = encodeURI(searcht);
                         let msg = {
-                            attachment: "https://www.google.com/search?q=" + encoded,
+                            body: "https://www.google.com/search?q=" + encoded,
                         }
                         api.sendMessage(msg, event.threadID);
                     }
