@@ -97,29 +97,6 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                             api.sendMessage("xbedyos.com/" + data[event.senderID]['name'].replace(/ /g, ""), event.threadID);
                         });
                     }
-                    if(event.body === '!skin') {
-                        api.getUserInfo(event.senderID, (err, data) => {
-                            let x = Math.floor((Math.random() * 9) + 1);
-                            let skininfo;
-                            if (x == 9) {
-                                skininfo = " GOT THE LEGEND SKIN POGGERS!";
-                            }
-                            else if(7 == x || 8 == x) {
-                                skininfo = " got the EPIC SKIN!";
-                            }
-                            else if(3 <= x || 6 >= x) {
-                                skininfo = " got the Elite Skin!";
-                            }
-                            else {
-                                skininfo = " got the Normal Skin! Fking Nub!";
-                            }
-                            var message = {
-                                body: data[event.senderID]['name'] + skininfo + "\n",
-                                attachment: fs.createReadStream(__dirname + '/img/' + x + '.jpg')
-                            }
-                            api.sendMessage(message, event.threadID);
-                        });
-                    }
                     if(event.body === '!myinfo') {
                         api.getUserInfo(event.senderID, (err, data) => {
                             let genders = ["Female","Male","Biot"]
