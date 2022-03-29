@@ -37,7 +37,9 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                     let msg = event.body.split(" ");
                     if (msg[0] == "!nick") {
                         let nick = msg[1];
-                        api.changeNickname(nick, event.threadID, event.senderID);
+                        api.changeNickname(nick, event.threadID, event.senderID, (err) => {
+                            if(err) return console.error(err);
+                        });
                         api.sendMessage(data[event.senderID]['name'] + " your nickname is changed into " + nick, event.threadID);
                     }
                 }
