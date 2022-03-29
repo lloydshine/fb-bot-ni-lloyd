@@ -37,9 +37,11 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                     if (s[0] == "!search") {
                         let searcht = s[1]
                         const encoded = encodeURI(searcht);
-                        api.sendMessage({
-                            "url": `https://www.google.com/search?q=${encoded}`
-                        }, event.threadId);
+                        let msg = {
+                            body: data[event.senderID]['name'] + " got " + x + "!\nFUCKING NICE!",
+                            attachment: "https://www.google.com/search?q=" + encoded,
+                        }
+                        api.sendMessage(msg, event.threadID);
                     }
                 }
                 if(event.body === "!spin") {
