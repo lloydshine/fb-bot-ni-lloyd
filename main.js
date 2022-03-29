@@ -115,7 +115,7 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                             }
                             var message = {
                                 body: data[event.senderID]['name'] + skininfo + "\n",
-                                attachment: fs.createReadStream(__dirname + '/' + x + '.jpg')
+                                attachment: fs.createReadStream(__dirname + '/img/' + x + '.jpg')
                             }
                             api.sendMessage(message, event.threadID);
                         });
