@@ -33,16 +33,18 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                 msgs[msgid] = input;
                 break;
             case "message":
-                if(event.body.includes("!nick")) {
-                    let msg = event.body.split(" ");
-                    if (msg[0] == "!nick") {
-                        let nick = msg[1];
-                        api.changeNickname(nick, event.threadID, event.senderID, (err) => {
-                            if(err) return console.error(err);
-                        });
-                        api.sendMessage(data[event.senderID]['name'] + " your nickname is changed into " + nick, event.threadID);
+                api.getUserInfo(event.senderID, (err, data) => {
+                    if(event.body.includes("!nick")) {
+                        let msg = event.body.split(" ");
+                        if (msg[0] == "!nick") {
+                            let nick = msg[1];
+                            api.changeNickname(nick, event.threadID, event.senderID, (err) => {
+                                if(err) return console.error(err);
+                            });
+                            api.sendMessage(data[event.senderID]['name'] + " your nickname is changed into " + nick, event.threadID);
+                        }
                     }
-                }
+                });
                 if(event.body === "!spin") {
                     api.getUserInfo(event.senderID, (err, data) => {
                         let x = Math.floor((Math.random() * 100) + 1);
