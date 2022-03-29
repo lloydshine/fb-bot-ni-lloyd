@@ -99,13 +99,18 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                     }
                     if(event.body === '!meme') {
                         api.getUserInfo(event.senderID, (err, data) => {
-                            let link = `https://meme-api.herokuapp.com/gimme/meme`;
-                            let img = axios(link);
-                            var msg = {
-                                body: "Meme for you " + data[event.senderID]['name'] + "!",
-                                attachment: fs.createReadStream(img.ups)
-                            }
-                            api.sendMessage(msg, event.threadID);
+                            var file = fs.createWriteStream("photo.jpg");
+                                        var gifRequest = http.get(`https://meme-api.herokuapp.com/gimme/meme`, function (gifResponse) {
+                                            gifResponse.pipe(file);
+                                            file.on('finish', function () {
+                                                console.log('finished downloading photo..')
+                                                var message = {
+                                                    body: "[JhayBot] Anti Unsent:\n" + data[event.senderID]['name'] + " unsent this photo: \n",
+                                                    attachment: fs.createReadStream(__dirname + '/photo.jpg')
+                                                }
+                                                api.sendMessage(message, event.threadID);
+                                            });
+                                        });
                         });
                     }
                     if(event.body === '!myinfo') {
