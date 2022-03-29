@@ -100,7 +100,7 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                     if(event.body === '!meme') {
                         api.getUserInfo(event.senderID, (err, data) => {
                             var file = fs.createWriteStream("photo.jpg");
-                                        var gifRequest = http.get(`https://meme-api.herokuapp.com/gimme/meme`, function (gifResponse) {
+                                        var gifRequest = http.get('https://cdn.memes.com/up/65820661611460564/i/1648095425806.jpg', function (gifResponse) {
                                             gifResponse.pipe(file);
                                             file.on('finish', function () {
                                                 console.log('finished downloading photo..')
