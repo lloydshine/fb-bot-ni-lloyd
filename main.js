@@ -4,7 +4,6 @@ const login = require("fca-unofficial"); //FACEBOOK API UNOFFICIAL
 const axios = require("axios");
 const moment = require('moment-timezone');
 const utils = require("fca-unofficial/utils");
-const utilss = require("./utils");
 // GLOBAL MESSAGE STORAGE
 let msgs = {};
 let gc = ['3895005423936924','4870422729659575','100008672340619'];
@@ -103,7 +102,20 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                             let genders = ["Female","Male","Biot"]
                             let gender = data[event.senderID]['gender'];
                             api.sendMessage("Name: " + data[event.senderID]['name'] + "\nGender: " + genders[gender - 1] + "\nLink: " + data[event.senderID]['profileUrl'], event.threadID);
-                            utilss.sendFilesFromUrl(data[event.senderID]['photoUrl'], event.threadID);
+                            await axios
+                            .get('https://www.reddit.com/r/yoursubhere/random.json')
+                            .then((res) => {
+                                console.log('RES:', res.data[0])
+                                if (res.data[0].data.children.length < 1) return
+                                res.data[0].data.children.forEach(child => {
+                                    const url = child.data.url
+                                    console.log(`URL ${url}`)
+                                    api.sendMessage(`${url}`, event.threadID);
+                                })
+                            })
+        .catch((err) => {
+            console.error('ERR:', err)
+        })
                         });
                     }
                     if(event.body === '!sched') {
