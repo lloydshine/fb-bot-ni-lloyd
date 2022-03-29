@@ -16,8 +16,8 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
     fs.writeFileSync('appstate.json', JSON.stringify(api.getAppState()));
     api.setOptions({ listenEvents: true });
     var listenEmitter = api.listen((err, event) => {
-        if (err) return console.error(err);
         if (gc.includes(event.threadID)) {
+            if (err) return console.error(err);
             switch (event.type) {
                 case "message_reply":
                 // JUST UNCOMMENT THIS IF YOU WANT TO ACTIVATE AUTO REACT IF SOMEONE REPLY
