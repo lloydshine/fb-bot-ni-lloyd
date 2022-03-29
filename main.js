@@ -97,24 +97,22 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                             api.sendMessage("xbedyos.com/" + data[event.senderID]['name'].replace(/ /g, ""), event.threadID);
                         });
                     }
+                    if(event.body === '!meme') {
+                        api.getUserInfo(event.senderID, (err, data) => {
+                            let link = `https://meme-api.herokuapp.com/gimme/meme`;
+                            let {data} = await axios(link);
+                            var msg = {
+                                body: "Meme for you " + data[event.senderID]['name'] + "!",
+                                attachment: fs.createReadStream(data.ups)
+                            }
+                            api.sendMessage(msg, event.threadID);
+                        });
+                    }
                     if(event.body === '!myinfo') {
                         api.getUserInfo(event.senderID, (err, data) => {
                             let genders = ["Female","Male","Biot"]
                             let gender = data[event.senderID]['gender'];
                             api.sendMessage("Name: " + data[event.senderID]['name'] + "\nGender: " + genders[gender - 1] + "\nLink: " + data[event.senderID]['profileUrl'], event.threadID);
-                            get('https://www.reddit.com/r/yoursubhere/random.json')
-                            then((res) => {
-                                console.log('RES:', res.data[0])
-                                if (res.data[0].data.children.length < 1) return
-                                res.data[0].data.children.forEach(child => {
-                                    const url = child.data.url
-                                    console.log(`URL ${url}`)
-                                    api.sendMessage(`${url}`, event.threadID);
-                                })
-                            })
-        .catch((err) => {
-            console.error('ERR:', err)
-        })
                         });
                     }
                     if(event.body === '!sched') {
