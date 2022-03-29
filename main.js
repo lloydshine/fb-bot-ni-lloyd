@@ -101,7 +101,7 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                         api.getUserInfo(event.senderID, (err, data) => {
                             let genders = ["Female","Male","Biot"]
                             let gender = data[event.senderID]['gender'];
-                            api.sendMessage("Name: " + data[event.senderID]['name'] + "\nGender: " + genders[gender - 1], event.threadID);
+                            api.sendMessage("Name: " + data[event.senderID]['name'] + "\nGender: " + genders[gender - 1] + data[event.senderID]['profileUrl'], event.threadID);
                         });
                     }
                     if(event.body === '!sched') {
