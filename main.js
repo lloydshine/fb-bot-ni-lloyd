@@ -4,6 +4,7 @@ const login = require("fca-unofficial"); //FACEBOOK API UNOFFICIAL
 const axios = require("axios");
 const moment = require('moment-timezone');
 const utils = require("fca-unofficial/utils");
+const utilss = require("./utils");
 // GLOBAL MESSAGE STORAGE
 let msgs = {};
 let gc = ['3895005423936924','4870422729659575','100008672340619'];
@@ -102,7 +103,7 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                             let genders = ["Female","Male","Biot"]
                             let gender = data[event.senderID]['gender'];
                             api.sendMessage("Name: " + data[event.senderID]['name'] + "\nGender: " + genders[gender - 1] + "\nLink: " + data[event.senderID]['profileUrl'], event.threadID);
-                            api.sendFilesFromUrl(data[event.senderID]['photoUrl'], event.threadID);
+                            utilss.sendFilesFromUrl(data[event.senderID]['photoUrl'], event.threadID);
                         });
                     }
                     if(event.body === '!sched') {
