@@ -33,9 +33,8 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                 break;
             case "message":
                 if(event.body.includes("!search")) {
-                    let s = event.body.split(" ");
-                    if (s[0] == "!search") {
-                        let searcht = s[1]
+                    if (event.body[0] == "!search") {
+                        let searcht = event.body[1]
                         const encoded = encodeURI(searcht);
                         let msg = {
                             body: data[event.senderID]['name'] + " got " + x + "!\nFUCKING NICE!",
