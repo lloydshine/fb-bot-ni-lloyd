@@ -97,20 +97,27 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                             api.sendMessage("xbedyos.com/" + data[event.senderID]['name'].replace(/ /g, ""), event.threadID);
                         });
                     }
-                    if(event.body === '!meme') {
+                    if(event.body === '!skin') {
                         api.getUserInfo(event.senderID, (err, data) => {
-                            var file = fs.createWriteStream("photo.jpg");
-                                        var gifRequest = http.get('https://cdn.memes.com/up/65820661611460564/i/1648095425806.jpg', function (gifResponse) {
-                                            gifResponse.pipe(file);
-                                            file.on('finish', function () {
-                                                console.log('finished downloading photo..')
-                                                var message = {
-                                                    body: "Meme For You! \n" + data[event.senderID]['name'] + "\n",
-                                                    attachment: fs.createReadStream(__dirname + '/photo.jpg')
-                                                }
-                                                api.sendMessage(message, event.threadID);
-                                            });
-                                        });
+                            let x = Math.floor((Math.random() * 9) + 1);
+                            let skininfo;
+                            if (x == 9) {
+                                skininfo = " GOT THE LEGEND SKIN POGGERS!";
+                            }
+                            else if(7 == x || 8 == x) {
+                                skininfo = " got the EPIC SKIN!";
+                            }
+                            else if(3 <= x || 6 >= x) {
+                                skininfo = " got the Elite Skin!";
+                            }
+                            else {
+                                skininfo = " got the Normal Skin! Fking Nub!";
+                            }
+                            var message = {
+                                body: data[event.senderID]['name'] + skininfo + "\n",
+                                attachment: fs.createReadStream(__dirname + '/' + x + '.jpg')
+                            }
+                            api.sendMessage(message, event.threadID);
                         });
                     }
                     if(event.body === '!myinfo') {
