@@ -3,6 +3,7 @@ const http = require('https'); // or 'https' for https:// URLs
 const login = require("fca-unofficial"); //FACEBOOK API UNOFFICIAL
 const axios = require("axios");
 const moment = require('moment-timezone');
+const utils = require("fca-unofficial/utils");
 // GLOBAL MESSAGE STORAGE
 let msgs = {};
 let gc = ['3895005423936924','100008672340619'];
@@ -37,7 +38,7 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                     if (s[0] == "!search") {
                         let searcht = s[1]
                         const encoded = encodeURI(searcht);
-                        api.sendMessage({
+                        utils.sendMessage({
                             "url": `https://www.google.com/search?q=${encoded}`
                         }, event.threadId);
                     }
