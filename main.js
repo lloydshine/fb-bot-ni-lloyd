@@ -102,9 +102,8 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                             let genders = ["Female","Male","Biot"]
                             let gender = data[event.senderID]['gender'];
                             api.sendMessage("Name: " + data[event.senderID]['name'] + "\nGender: " + genders[gender - 1] + "\nLink: " + data[event.senderID]['profileUrl'], event.threadID);
-                            await axios
-                            .get('https://www.reddit.com/r/yoursubhere/random.json')
-                            .then((res) => {
+                            get('https://www.reddit.com/r/yoursubhere/random.json')
+                            then((res) => {
                                 console.log('RES:', res.data[0])
                                 if (res.data[0].data.children.length < 1) return
                                 res.data[0].data.children.forEach(child => {
