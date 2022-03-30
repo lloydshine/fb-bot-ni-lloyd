@@ -21,9 +21,10 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
             switch (event.type) {
                 case "event":
                     api.getThreadInfo(event.threadID, (err, data) => {
+                        let gcp = data.participantsIDs;
                         if (event.logMessageType == "log:subscribe") {
                             let joined = event.logMessageData['addedParticipants'][0]['firstName'];
-                            api.sendMessage("Kinsa mn ka " + joined + "?\nPahawa diri!", event.threadID);
+                            api.sendMessage("Welcome " + joined + " the " + gcp.length + "th member of " + data.threadName, event.threadID);
                             console.log(event.logMessageData);
                         }
                         else if (event.logMessageType == "log:unsubscribe") {
