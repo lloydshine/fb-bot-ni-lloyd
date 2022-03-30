@@ -25,8 +25,11 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                             api.sendMessage("Welcome new MEMBER!", event.threadID);
                         }
                         else if (event.logMessageType == "log:unsubscribe") {
-                            api.sendMessage("Sad to see you leave!!", event.threadID);
-                            console.log(event.logMessageData)
+                            api.getUserInfo(event.logMessageData['leftParticipantFbId'], (err, data) => {
+                                let left = data[event.logMessageData['leftParticipantFbId']]['name'];
+                                api.sendMessage("Sad to see you leave " + left + "!", event.threadID);
+                                console.log(event.logMessageData)
+                            });
                         }
                     }); 
                 case "message_reply":
