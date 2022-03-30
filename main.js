@@ -49,13 +49,14 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                     msgs[msgid] = input;
                     break;
                 case "message":
-                    let txt = event.body.split(/ /g, "");
-                    if (txt[txt.length-1] == "rebot?" || txt[txt.length-1] == "Rebot?") {
+                    if (event.body.endsWith("rebot?") || event.body.endsWith("Rebot?")) {
                         let res = ["Yes", "No", "Maybe", "100%", "Secret", "Kabalo naka","Sumala ni Dex"];
                         let x = Math.floor((Math.random() * res.length));
                         let txt = event.body.split(/ /g, "");
                         api.getUserInfo(event.senderID, (err, data) => {
-                        api.sendMessage(data[event.senderID]['name'] + ", " + res[x], event.threadID);
+                            if (txt[txt.length-1] == "rebot?" || txt[txt.length-1] == "Rebot?") {
+                                api.sendMessage(data[event.senderID]['name'] + ", " + res[x], event.threadID);
+                            }
                         });
                     }
                     api.getUserInfo(event.senderID, (err, data) => {
