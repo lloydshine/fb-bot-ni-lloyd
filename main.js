@@ -23,13 +23,13 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                     api.getThreadInfo(event.threadID, (err, data) => {
                         if (event.logMessageType == "log:subscribe") {
                             let joined = event.logMessageData['firstName']
-                            api.sendMessage("Welcome " + joined + " to the GC!", event.threadID);
+                            api.sendMessage("Kinsa mn ka " + joined + "?\nPahawa diri!", event.threadID);
                             //console.log(event.logMessageData)
                         }
                         else if (event.logMessageType == "log:unsubscribe") {
                             api.getUserInfo(event.logMessageData['leftParticipantFbId'], (err, data) => {
                                 let left = data[event.logMessageData['leftParticipantFbId']]['name'];
-                                api.sendMessage("Sad to see you leave " + left + "!", event.threadID);
+                                api.sendMessage("Ayaw nag balik " + left + "!", event.threadID);
                                 //console.log(event.logMessageData)
                             });
                         }
