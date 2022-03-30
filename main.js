@@ -19,6 +19,10 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
         if (gc.includes(event.threadID)) {
             if (err) return console.error(err);
             switch (event.type) {
+                case "event":
+                    if (event.body.LogMessageType && event.body.LogMessageType == "log:subscribe") {
+                        api.sendMessage("Welcome new MEMBER!", event.threadID);
+                    }
                 case "message_reply":
                 // JUST UNCOMMENT THIS IF YOU WANT TO ACTIVATE AUTO REACT IF SOMEONE REPLY
                     /* if (vips.includes(event.senderID)) {
@@ -84,7 +88,7 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                         });
                     }
                     if(event.body === '!perezgae') {
-                        api.sendMessage("Very True AF", event.threadID);
+                        api.sendMessage("Very True AF dude!", event.threadID);
                     }
                     if(event.body === '!perezAlphamale') {
                         api.sendMessage("Hail Jhon Hesper the Alpha Male!", event.threadID);
