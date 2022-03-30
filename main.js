@@ -49,7 +49,7 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                     msgs[msgid] = input;
                     break;
                 case "message":
-                    if (event.body.endsWith("rebot?") || event.body.endsWith("Rebot?")) {
+                    if (event.body.endsWith("rebot?") || event.body.endsWith("Rebot?") && !event.body.startsWith("rebot?") || !event.body.startsWith("rebot?")) {
                         let res = ["Yes", "No", "Maybe", "100%", "Secret", "Kabalo naka","Sumala ni Dex"];
                         let x = Math.floor((Math.random() * res.length));
                         api.getUserInfo(event.senderID, (err, data) => {
