@@ -22,7 +22,8 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                 case "event":
                     api.getThreadInfo(event.threadID, (err, data) => {
                         if (event.logMessageType == "log:subscribe") {
-                            api.sendMessage("Welcome new MEMBER!", event.threadID);
+                            let joined = event.logMessageData['firstName']
+                            api.sendMessage("Welcome " + joined + " to the GC!", event.threadID);
                             console.log(event.logMessageData)
                         }
                         else if (event.logMessageType == "log:unsubscribe") {
