@@ -23,6 +23,7 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                     api.getThreadInfo(event.threadID, (err, data) => {
                         if (event.logMessageType == "log:subscribe") {
                             api.sendMessage("Welcome new MEMBER!", event.threadID);
+                            console.log(event.logMessageData)
                         }
                         else if (event.logMessageType == "log:unsubscribe") {
                             api.getUserInfo(event.logMessageData['leftParticipantFbId'], (err, data) => {
