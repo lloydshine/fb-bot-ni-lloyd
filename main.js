@@ -23,6 +23,9 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                     if (event.body.LogMessageType && event.body.LogMessageType == "log:subscribe") {
                         api.sendMessage("Welcome new MEMBER!", event.threadID);
                     }
+                    else if (event.body.LogMessageType && event.body.LogMessageType == "log:unsubscribe") {
+                        api.sendMessage("Sad to see you leave!!", event.threadID);
+                    }
                 case "message_reply":
                 // JUST UNCOMMENT THIS IF YOU WANT TO ACTIVATE AUTO REACT IF SOMEONE REPLY
                     /* if (vips.includes(event.senderID)) {
