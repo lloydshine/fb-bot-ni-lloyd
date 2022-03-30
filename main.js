@@ -20,12 +20,16 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
             if (err) return console.error(err);
             switch (event.type) {
                 case "event":
-                    if (event.LogMessageType == "log:subscribe") {
-                        api.sendMessage("Welcome new MEMBER!", event.threadID);
-                    }
-                    else if (event.LogMessageType == "log:unsubscribe") {
-                        api.sendMessage("Sad to see you leave!!", event.threadID);
-                    }
+                    console.log(event);
+                    console.log(logMessageType + " " + logMessageType + " " + logMessageData);
+                    api.getThreadInfo(threadId, (err, data) => {
+                        if (event.logMessageType == "log:subscribe") {
+                            api.sendMessage("Welcome new MEMBER!", event.threadID);
+                        }
+                        else if (event.logMessageType == "log:unsubscribe") {
+                            api.sendMessage("Sad to see you leave!!", event.threadID);
+                        }
+                    }); 
                 case "message_reply":
                 // JUST UNCOMMENT THIS IF YOU WANT TO ACTIVATE AUTO REACT IF SOMEONE REPLY
                     /* if (vips.includes(event.senderID)) {
