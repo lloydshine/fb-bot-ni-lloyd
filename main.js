@@ -28,7 +28,7 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                                 body: ">Welcome " + joined + " the " + gcp.length + "th member of " + data.threadName + "!",
                                 attachment: fs.createReadStream(__dirname + '/img/welcome.gif')
                             }
-                            api.sendMessage(, event.threadID);
+                            api.sendMessage(msg, event.threadID);
                             //console.log(event.logMessageData);
                         }
                         else if (event.logMessageType == "log:unsubscribe") {
