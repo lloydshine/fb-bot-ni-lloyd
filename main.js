@@ -20,7 +20,7 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
             if (err) return console.error(err);
             switch (event.type) {
                 case "event":
-                    api.getThreadInfo(threadId, (err, data) => {
+                    api.getThreadInfo(event.threadId, (err, data) => {
                         if (logMessageType == "log:subscribe") {
                             api.sendMessage("Welcome new MEMBER!", event.threadID);
                         }
