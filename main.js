@@ -26,6 +26,7 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                         }
                         else if (event.logMessageType == "log:unsubscribe") {
                             api.sendMessage("Sad to see you leave!!", event.threadID);
+                            console.log(event.logMessageData)
                         }
                     }); 
                 case "message_reply":
