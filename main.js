@@ -55,6 +55,7 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                         api.getUserInfo(event.senderID, (err, data) => {
                             api.sendMessage(data[event.senderID]['name'] + ", " + res[x], event.threadID);
                         });
+                        break;
                     }
                     api.getUserInfo(event.senderID, (err, data) => {
                         if(event.body.includes("!nick")) {
