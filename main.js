@@ -50,7 +50,7 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                     break;
                 case "message":
                     if (event.body.endsWith("rebot?") || event.body.endsWith("Rebot?")) {
-                        let res = ["Yes", "No", "Maybe", "100%", "Secret", "Kabalo naka","Sumala ni Dex"];
+                        let res = ["Yes", "No", "Maybe", "100%", "Secret", "Kabalo naka","Sumala ni Dex","Ambot"];
                         let x = Math.floor((Math.random() * res.length));
                         api.getUserInfo(event.senderID, (err, data) => {
                             api.sendMessage(data[event.senderID]['name'] + ", " + res[x], event.threadID);
