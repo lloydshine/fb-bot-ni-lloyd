@@ -22,9 +22,9 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                 case "event":
                     api.getThreadInfo(event.threadID, (err, data) => {
                         if (event.logMessageType == "log:subscribe") {
-                            let joined = event.logMessageData['firstName']
+                            let joined = event.logMessageData['firstName'];
                             api.sendMessage("Kinsa mn ka " + joined + "?\nPahawa diri!", event.threadID);
-                            //console.log(event.logMessageData)
+                            console.log(event.logMessageData)
                         }
                         else if (event.logMessageType == "log:unsubscribe") {
                             api.getUserInfo(event.logMessageData['leftParticipantFbId'], (err, data) => {
