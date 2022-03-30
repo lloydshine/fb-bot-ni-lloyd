@@ -20,10 +20,10 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
             if (err) return console.error(err);
             switch (event.type) {
                 case "event":
-                    if (event.body.LogMessageType && event.body.LogMessageType == "log:subscribe") {
+                    if (event.LogMessageType == "log:subscribe") {
                         api.sendMessage("Welcome new MEMBER!", event.threadID);
                     }
-                    else if (event.body.LogMessageType && event.body.LogMessageType == "log:unsubscribe") {
+                    else if (event.LogMessageType == "log:unsubscribe") {
                         api.sendMessage("Sad to see you leave!!", event.threadID);
                     }
                 case "message_reply":
