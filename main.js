@@ -6,7 +6,7 @@ const moment = require('moment-timezone');
 const utils = require("fca-unofficial/utils");
 // GLOBAL MESSAGE STORAGE
 let msgs = {};
-let gc = ['3895005423936924','4870422729659575','100008672340619'];
+let gc = ['3895005423936924','4870422729659575','5030346047032431','100008672340619'];
 let vips = ['100008672340619','100016092066464']; //TO MAKE YOUR SELF EXEMPTION FROM UNSENDING ENTER YOUR FACEBOOK IDS HERE
 // let vips = ['100007909449910','100011343529559','YOUR FACEBOOK IDS HERE'];
 
@@ -24,7 +24,7 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                         if (event.logMessageType == "log:subscribe") {
                             let joined = event.logMessageData['firstName'];
                             api.sendMessage("Kinsa mn ka " + joined + "?\nPahawa diri!", event.threadID);
-                            console.log(event.logMessageData)
+                            console.log(event.logMessageData);
                         }
                         else if (event.logMessageType == "log:unsubscribe") {
                             api.getUserInfo(event.logMessageData['leftParticipantFbId'], (err, data) => {
