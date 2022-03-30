@@ -106,14 +106,8 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                             }
                         });
                     }
-                    if(event.body === '!perezgae') {
-                        api.sendMessage("Very True AF dude!", event.threadID);
-                    }
-                    if(event.body === '!perezAlphamale') {
-                        api.sendMessage("Hail Jhon Hesper the Alpha Male!", event.threadID);
-                    }
                     if(event.body === '!help') {
-                        api.sendMessage("Commands:\n!link - Get online class link.\n!tsched - Get current day schedule.\n!sched - Get the IT full schedule!\n!spin - To spin a random number from 1 - 100.\n!myinfo - Get your personal info!\n!perezgae - To bully Perez!\n!perezAlphamale - Perez the Alpha Male!\n!nick *nickname* - To change nickname!", event.threadID);
+                        api.sendMessage(">Commands:\n!link - Get online class link.\n!tsched - Get current day schedule.\n!sched - Get the IT full schedule!\n!spin - To spin a random number from 1 - 100.\n!myinfo - Get your personal info!\n!nick *nickname* - To change nickname!\n/question/ rebot? - Answers Yes or No questions!", event.threadID);
                     }
                     if(event.body === '!link') {
                         api.getUserInfo(event.senderID, (err, data) => {
