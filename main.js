@@ -146,6 +146,18 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                             api.sendMessage(">Name: " + data[event.senderID]['name'] + "\nGender: " + genders[gender - 1] + "\n" + size + "\nLink: " + data[event.senderID]['profileUrl'], event.threadID);
                         });
                     }
+                    if(event.body.includes("!math")) {
+                        let msg = event.body.split(/(?<=^\S+)\s/);
+                        if (msg[0] == "!math") {
+                            let arith = msg[1];
+                            try {
+                                api.sendMessage(eval(arith), event.threadID, event.messageID);
+                              }
+                              catch(err) {
+                                api.sendMessage("Syntax Error", event.threadID, event.messageID);
+                              }
+                        }
+                    }
                     if(event.body === '!sched') {
                         api.getUserInfo(event.senderID, (err, data) => {
                             var msg = {
