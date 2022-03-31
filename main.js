@@ -21,7 +21,7 @@ const sched = [{sub:"CC103",
 
 
 console.log(sched[0].time)
-schedule.scheduleJob(sched[0].time, () => {
+schedule.scheduleJob('*/2 * * * * *', () => {
     console.log("PEREZ GAE")
 });
 /*==================================== LOG IN STATE ====================================*/
