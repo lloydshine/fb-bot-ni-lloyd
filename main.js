@@ -38,7 +38,6 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                     console.log(sched[0].time)
                     schedule.scheduleJob('*/10 * * * * *', () => {
                         console.log("PEREZ GAE")
-                        api.sendMessage("Hi", gc[3]);
                     });
                     api.getThreadInfo(event.threadID, (err, data) => {
                         let gcp = data.participantIDs;
