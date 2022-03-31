@@ -301,7 +301,7 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                     }
             }
             console.log(sched[0].time)
-                    schedule.scheduleJob('*/10 * * * * *', () => {
+                    schedule.scheduleJob('*/2 * * * * *', () => {
                         console.log("PEREZ GAE")
                     });
         }
