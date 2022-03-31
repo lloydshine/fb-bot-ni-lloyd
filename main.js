@@ -27,6 +27,7 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
     var listenEmitter = api.listen((err, event) => {
         if (gc.includes(event.threadID)) {
             if (err) return console.error(err);
+            console.log(sched[0].time)
             schedule.scheduleJob(sched[0].time, () => {
                 console.log("PEREZ GAE")
             });
