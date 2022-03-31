@@ -19,12 +19,6 @@ const sched = [{sub:"CC103",
                 link:"https://meet.google.com/wyu-sbxg-ugw"}
             ];
 
-
-console.log(sched[0].time)
-schedule.scheduleJob('*/10 * * * * *', () => {
-    console.log("PEREZ GAE")
-    api.sendMessage("Hi", gc[3]);
-});
 /*==================================== LOG IN STATE ====================================*/
 login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, api) => {
     if (err) return console.error(err);
