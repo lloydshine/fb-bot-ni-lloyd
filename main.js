@@ -55,12 +55,6 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                     msgs[msgid] = input;
                     break;
                 case "message":
-                    if (event.body.startsWith("!ban")) {
-                        api.getThreadInfo(event.threadID, (err, data) => {
-                            let mems = data.userInfo;
-                            console.log(mems);
-                        });
-                    }
                     if (event.body.endsWith("rebot?") || event.body.endsWith("Rebot?")) {
                         let res = ["Yes", "No", "Maybe", "100%", "Secret", "Kabalo naka","Sumala ni Dex","Ambot"];
                         let x = Math.floor((Math.random() * res.length));
