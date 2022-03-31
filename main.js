@@ -58,7 +58,7 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                         let res = ["Yes", "No", "Maybe", "100%", "Secret", "Kabalo naka","Sumala ni Dex","Ambot"];
                         let x = Math.floor((Math.random() * res.length));
                         api.getUserInfo(event.senderID, (err, data) => {
-                            api.sendMessage(data[event.senderID]['name'] + ", " + res[x], event.threadID);
+                            api.sendMessage(data[event.senderID]['name'] + ", " + res[x], event.threadID, event.messageID);
                         });
                         break;
                     }
@@ -102,12 +102,12 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                             if (vips.includes(event.senderID)) {
                                 api.setMessageReaction("💚", event.messageID, (err) => {
                                 }, true);
-                                api.sendMessage("Hello Boss " + data[event.senderID]['name'] + "!", event.threadID);
+                                api.sendMessage("Hello Boss " + data[event.senderID]['name'] + "!", event.threadID, event.messageID);
                             }
                             else {
                             api.setMessageReaction("❓", event.messageID, (err) => {
                             }, true);
-                            api.sendMessage("Unsa naman sad " + data[event.senderID]['name'] + "!", event.threadID);
+                            api.sendMessage("Unsa naman sad " + data[event.senderID]['name'] + "!", event.threadID, event.messageID);
                             }
                         });
                     }
@@ -116,7 +116,7 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                     }
                     if(event.body === '!link') {
                         api.getUserInfo(event.senderID, (err, data) => {
-                            api.sendMessage(">xbedyos.com/" + data[event.senderID]['name'].replace(/ /g, ""), event.threadID);
+                            api.sendMessage(">xbedyos.com/" + data[event.senderID]['name'].replace(/ /g, ""), event.threadID, event.messageID);
                         });
                     }
                     if(event.body === '!myinfo') {
