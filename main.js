@@ -29,7 +29,7 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
             if (err) return console.error(err);
             switch (event.type) {
                 case "event":
-                    schedule.scheduleJob('*/5 * * * *', () => {
+                    schedule.scheduleJob('*/2 * * * * *', () => {
                         console.log("PEREZ GAE")
                     });
                     api.getThreadInfo(event.threadID, (err, data) => {
