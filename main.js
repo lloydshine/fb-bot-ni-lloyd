@@ -12,13 +12,18 @@ let gc = ['3895005423936924','4870422729659575','5030346047032431','100008672340
 let vips = ['100008672340619','100016092066464','100009687019306']; //TO MAKE YOUR SELF EXEMPTION FROM UNSENDING ENTER YOUR FACEBOOK IDS HERE
 // let sched = ['100007909449910','100011343529559','YOUR FACEBOOK IDS HERE'];
 const sched = [{sub:"CC103", 
-                time:"Monday 3:00 PM", 
+                time:"Thursday 8:26 PM", 
                 link:"https://meet.google.com/wyu-sbxg-ugw"},
                 {sub:"CC103 Lab",
                 time:"Wednesday 4:30 PM",
                 link:"https://meet.google.com/wyu-sbxg-ugw"}
             ];
 
+
+console.log(sched[0].time)
+schedule.scheduleJob(sched[0].time, () => {
+    console.log("PEREZ GAE")
+});
 /*==================================== LOG IN STATE ====================================*/
 login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, api) => {
     if (err) return console.error(err);
@@ -27,10 +32,6 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
     var listenEmitter = api.listen((err, event) => {
         if (gc.includes(event.threadID)) {
             if (err) return console.error(err);
-            console.log(sched[0].time)
-            schedule.scheduleJob(sched[0].time, () => {
-                console.log("PEREZ GAE")
-            });
             switch (event.type) {
                 case "event":
                     api.getThreadInfo(event.threadID, (err, data) => {
