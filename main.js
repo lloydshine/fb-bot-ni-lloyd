@@ -4,6 +4,7 @@ const login = require("fca-unofficial"); //FACEBOOK API UNOFFICIAL
 const axios = require("axios");
 const moment = require('moment-timezone');
 const utils = require("fca-unofficial/utils");
+const { userInfo } = require("os");
 // GLOBAL MESSAGE STORAGE
 let msgs = {};
 let gc = ['3895005423936924','4870422729659575','5030346047032431','100008672340619'];
