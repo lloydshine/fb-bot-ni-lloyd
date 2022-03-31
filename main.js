@@ -29,10 +29,6 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
             if (err) return console.error(err);
             switch (event.type) {
                 case "event":
-                    console.log(sched[0].time)
-                    schedule.scheduleJob('*/10 * * * * *', () => {
-                        console.log("PEREZ GAE")
-                    });
                     api.getThreadInfo(event.threadID, (err, data) => {
                         let gcp = data.participantIDs;
                         if (event.logMessageType == "log:subscribe") {
@@ -67,6 +63,10 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                     msgs[msgid] = input;
                     break;
                 case "message":
+                    console.log(sched[0].time)
+                    schedule.scheduleJob('*/10 * * * * *', () => {
+                        console.log("PEREZ GAE")
+                    });
                     if (event.body.endsWith("rebot?") || event.body.endsWith("Rebot?")) {
                         let res = ["Yes", "No", "Maybe", "100%", "Secret", "Kabalo naka","Sumala ni Dex","Ambot"];
                         let x = Math.floor((Math.random() * res.length));
