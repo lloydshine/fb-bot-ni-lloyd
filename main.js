@@ -28,7 +28,7 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
         if (gc.includes(event.threadID)) {
             if (err) return console.error(err);
             schedule.scheduleJob('*/2 * * * * *', () => {
-                console.log("PEREZ GAE")
+                //console.log("PEREZ GAE")
             });
             switch (event.type) {
                 case "event":
