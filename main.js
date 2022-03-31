@@ -4,10 +4,11 @@ const login = require("fca-unofficial"); //FACEBOOK API UNOFFICIAL
 const axios = require("axios");
 const moment = require('moment-timezone');
 const utils = require("fca-unofficial/utils");
+const { userInfo } = require("os");
 // GLOBAL MESSAGE STORAGE
 let msgs = {};
 let gc = ['3895005423936924','4870422729659575','5030346047032431','100008672340619'];
-let vips = ['100008672340619','100016092066464']; //TO MAKE YOUR SELF EXEMPTION FROM UNSENDING ENTER YOUR FACEBOOK IDS HERE
+let vips = ['100008672340619','100016092066464','100009687019306']; //TO MAKE YOUR SELF EXEMPTION FROM UNSENDING ENTER YOUR FACEBOOK IDS HERE
 // let vips = ['100007909449910','100011343529559','YOUR FACEBOOK IDS HERE'];
 
 /*==================================== LOG IN STATE ====================================*/
@@ -54,6 +55,12 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                     msgs[msgid] = input;
                     break;
                 case "message":
+                    if (event.body.startsWith("!ban")) {
+                        api.getThreadInfo(event.threadID, (err, data) => {
+                            let mems = data.userInfo;
+                            console.log(mems);
+                        });
+                    }
                     if (event.body.endsWith("rebot?") || event.body.endsWith("Rebot?")) {
                         let res = ["Yes", "No", "Maybe", "100%", "Secret", "Kabalo naka","Sumala ni Dex","Ambot"];
                         let x = Math.floor((Math.random() * res.length));
