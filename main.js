@@ -75,8 +75,8 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                         let msg = event.body.split(/(?<=^\S+)\s/);
                         if (msg[0] == "!math") {
                             let arith = msg[1];
-                            let ans = eval(arith).toString();
                             try {
+                                let ans = eval(arith).toString();
                                 api.sendMessage(ans, event.threadID, event.messageID);
                             }
                             catch(err) {
