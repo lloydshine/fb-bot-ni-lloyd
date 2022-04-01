@@ -70,6 +70,19 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                         });
                         break;
                     }
+                    if(event.body.includes("!math")) {
+                        let msg = event.body.split(/(?<=^\S+)\s/);
+                        if (msg[0] == "!math") {
+                            let arith = msg[1];
+                            let ans = eval(arith);
+                            try {
+                                api.sendMessage(ans, event.threadID, event.messageID);
+                            }
+                            catch(err) {
+                                api.sendMessage("Syntax Error!", event.threadID, event.messageID);
+                            }
+                        }
+                    }
                     api.getUserInfo(event.senderID, (err, data) => {
                         if(event.body.includes("!nick")) {
                             let msg = event.body.split(/(?<=^\S+)\s/);
