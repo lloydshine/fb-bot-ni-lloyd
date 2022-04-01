@@ -4,6 +4,7 @@ const login = require("fca-unofficial"); //FACEBOOK API UNOFFICIAL
 const axios = require("axios");
 const moment = require('moment-timezone');
 const utils = require("fca-unofficial/utils");
+const { evaluate } = require('mathjs')
 const { userInfo } = require("os");
 // GLOBAL MESSAGE STORAGE
 let msgs = {};
@@ -74,7 +75,7 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                         let msg = event.body.split(/(?<=^\S+)\s/);
                         if (msg[0] == "!math") {
                             let arith = "1+1";
-                            let ans = eval(arith);
+                            let ans = eval(arith).toString();
                             try {
                                 api.sendMessage(ans, event.threadID, event.messageID);
                             }
