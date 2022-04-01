@@ -9,8 +9,8 @@ const { userInfo } = require("os");
 // GLOBAL MESSAGE STORAGE
 let msgs = {};
 let gc = ['3895005423936924','4870422729659575','5030346047032431','100008672340619'];
-let vips = ['100008672340619','100016092066464','100009687019306']; //TO MAKE YOUR SELF EXEMPTION FROM UNSENDING ENTER YOUR FACEBOOK IDS HERE
-// let sched = ['100007909449910','100011343529559','YOUR FACEBOOK IDS HERE'];
+let vips = ['100016092066464','100009687019306']; //TO MAKE YOUR SELF EXEMPTION FROM UNSENDING ENTER YOUR FACEBOOK IDS HERE
+//100008672340619
 const sched = [{sub:"CC103", 
                 time:"Thursday 8:26 PM", 
                 link:"https://meet.google.com/wyu-sbxg-ugw"},
@@ -48,20 +48,6 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                             });
                         }
                     }); 
-                case "message_reply":
-                // JUST UNCOMMENT THIS IF YOU WANT TO ACTIVATE AUTO REACT IF SOMEONE REPLY
-                    /* if (vips.includes(event.senderID)) {
-                         api.setMessageReaction("❓", event.messageID, (err) => {
-                         }, true);
-                    }
-                     else {
-                         api.setMessageReaction("❓", event.messageID, (err) => {
-                         }, true);
-                     } */
-                    let msgid = event.messageID
-                    let input = event.body;
-                    msgs[msgid] = input;
-                    break;
                 case "message":
                     if (event.body.endsWith("rebot?") || event.body.endsWith("Rebot?")) {
                         let res = ["Yes", "No", "Maybe", "100%", "Secret", "Kabalo naka","Sumala ni Dex","Ambot"];
