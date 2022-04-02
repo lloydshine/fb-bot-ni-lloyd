@@ -11,13 +11,6 @@ let msgs = {};
 let gc = ['3895005423936924','4870422729659575','5030346047032431','100008672340619'];
 let vips = ['100016092066464','100009687019306']; //TO MAKE YOUR SELF EXEMPTION FROM UNSENDING ENTER YOUR FACEBOOK IDS HERE
 // 100008672340619
-const sched = [{sub:"CC103", 
-                time:"Thursday 8:26 PM", 
-                link:"https://meet.google.com/wyu-sbxg-ugw"},
-                {sub:"CC103 Lab",
-                time:"Wednesday 4:30 PM",
-                link:"https://meet.google.com/wyu-sbxg-ugw"}
-            ];
 
 /*==================================== LOG IN STATE ====================================*/
 login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, api) => {
