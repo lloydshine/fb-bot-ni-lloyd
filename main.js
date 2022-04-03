@@ -135,6 +135,7 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                                 let msg = event.body.split(/(?<=^\S+)\s/);
                                 if (msg[0] == "!ban") {
                                     let person = msg[1];
+                                    if (person.length != 1) {
                                     api.getUserID(person, (err, inf) => {
                                         if (!vips.includes(inf[0].userID)) {
                                             api.getThreadInfo(event.threadID, (err, data) => {
@@ -153,6 +154,7 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                                             api.sendMessage("Dili nimo ma ban ang bossing vv!", event.threadID);
                                         }
                                     });
+                                }
                                 }
                             }
                             else {
