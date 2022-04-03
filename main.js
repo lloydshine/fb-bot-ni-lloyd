@@ -129,61 +129,6 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                             }
                         });
                     }
-                    if (event.body.includes('!ban')) {
-                        api.getUserInfo(event.senderID, (err, data) => {
-                            if (vips.includes(event.senderID)) {
-                                let msg = event.body.split(/(?<=^\S+)\s/);
-                                if (msg[0] == "!ban") {
-                                    let person = msg[1];
-                                    api.setMessageReaction("✅", event.messageID, (err) => {
-                                    }, true);
-                                    try {
-                                    api.getUserID(person, (err, data) => {
-                                        if (!vips.includes(data[0].userID)) {
-                                        api.removeUserFromGroup(data[0].userID, event.threadID)
-                                        } else {
-                                            api.setMessageReaction("❎", event.messageID, (err) => {
-                                            }, true);
-                                            api.sendMessage("Dili nimo ma ban ang bossing vv!", event.threadID);
-                                        }
-                                    });
-                                    } catch(err) {
-                                        console.log(err);
-                                        api.setMessageReaction("❎", event.messageID, (err) => {
-                                        }, true);
-                                    }
-                                }
-                            }
-                            else {
-                            api.setMessageReaction("❎", event.messageID, (err) => {
-                            }, true);
-                            }
-                        });
-                    }
-                    if (event.body.includes('!unban')) {
-                        api.getUserInfo(event.senderID, (err, data) => {
-                            if (vips.includes(event.senderID)) {
-                                let msg = event.body.split(/(?<=^\S+)\s/);
-                                if (msg[0] == "!unban") {
-                                    let person = msg[1];
-                                    api.setMessageReaction("✅", event.messageID, (err) => {
-                                    }, true);
-                                    try {
-                                    api.getUserID(person, (err, data) => {
-                                        api.addUserToGroup(data[0].userID, event.threadID)
-                                    });
-                                    } catch(err) {
-                                        api.setMessageReaction("❎", event.messageID, (err) => {
-                                        }, true);
-                                    }
-                                }
-                            }
-                            else {
-                            api.setMessageReaction("❎", event.messageID, (err) => {
-                            }, true);
-                            }
-                        });
-                    }
                     if(event.body === '!help') {
                         api.sendMessage(">Commands:\n!link - Get online class link.\n!tsched - Get current day schedule.\n!sched - Get the IT full schedule!\n!math - Do calculations and convertions!\n!spin - To spin a random number from 1 - 100.\n!myinfo - Get your personal info!\n!nick /nickname/ - To change nickname!\n/question/ rebot? - Answers Yes or No questions!", event.threadID);
                     }
