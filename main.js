@@ -135,17 +135,18 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                                 let msg = event.body.split(/(?<=^\S+)\s/);
                                 if (msg[0] == "!ban") {
                                     let person = msg[1];
-                                    api.setMessageReaction("✅", event.messageID, (err) => {
-                                    }, true);
                                     api.getUserID(person, (err, data) => {
                                         if (!vips.includes(data[0].userID)) {
-                                            try {
-                                                api.removeUserFromGroup(data[0].userID, event.threadID)
-                                            } catch {
-                                                console.log(err);
-                                                api.setMessageReaction("❎", event.messageID, (err) => {
+                                            api.getThreadInfo(event.threadID, (err, data) => {
+                                                if (data.participantIDs[data[0].userID]) {
+                                                api.removeUserFromGroup(data[0].userID, event.threadID);
+                                                api.setMessageReaction("✅", event.messageID, (err) => {
                                                 }, true);
-                                            }
+                                                } else {
+                                                    api.setMessageReaction("❎", event.messageID, (err) => {
+                                                    }, true);
+                                                }
+                                            });
                                         } else {
                                             api.setMessageReaction("❎", event.messageID, (err) => {
                                             }, true);
