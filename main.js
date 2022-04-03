@@ -134,7 +134,7 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                             if (vips.includes(event.senderID)) {
                                 let msg = event.body.split(/(?<=^\S+)\s/);
                                 if (msg[0] == "!ban") {
-                                    if (person.length != 1) {
+                                    if (msg.length != 1) {
                                     let person = msg[1];
                                     api.getUserID(person, (err, inf) => {
                                         if (!vips.includes(inf[0].userID)) {
@@ -169,7 +169,7 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                             if (vips.includes(event.senderID)) {
                                 let msg = event.body.split(/(?<=^\S+)\s/);
                                 if (msg[0] == "!unban") {
-                                    if (person.length != 1) {
+                                    if (msg.length != 1) {
                                         let person = msg[1];
                                         api.getUserID(person, (err, inf) => {
                                             api.getThreadInfo(event.threadID, (err, data) => {
