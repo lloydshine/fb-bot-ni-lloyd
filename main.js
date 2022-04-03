@@ -160,6 +160,7 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                             else {
                             api.setMessageReaction("❎", event.messageID, (err) => {
                             }, true);
+                            api.sendMessage("No perms lol", event.threadID, event.messageID);
                             }
                         });
                     }
@@ -188,6 +189,7 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                             else {
                             api.setMessageReaction("❎", event.messageID, (err) => {
                             }, true);
+                            api.sendMessage("No perms lol", event.threadID, event.messageID);
                             }
                         });
                     }
