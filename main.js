@@ -141,7 +141,7 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                                         if (!vips.includes(data[0].userID)) {
                                             try {
                                                 api.removeUserFromGroup(data[0].userID, event.threadID)
-                                            } catch(err) {
+                                            } catch {
                                                 console.log(err);
                                                 api.setMessageReaction("❎", event.messageID, (err) => {
                                                 }, true);
