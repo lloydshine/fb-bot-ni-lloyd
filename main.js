@@ -139,7 +139,7 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                                     api.getUserID(person, (err, inf) => {
                                         if (!vips.includes(inf[0].userID)) {
                                             api.getThreadInfo(event.threadID, (err, data) => {
-                                                if (data.participantIDs[inf[0].userID]) {
+                                                if (data.participantIDs.includes(inf[0].userID)) {
                                                 api.removeUserFromGroup(inf[0].userID, event.threadID);
                                                 api.setMessageReaction("✅", event.messageID, (err) => {
                                                 }, true);
