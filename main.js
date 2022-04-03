@@ -129,13 +129,18 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                             }
                         });
                     }
-                    if (event.body === '!mute') {
+                    if (event.body.includes('!ban')) {
                         api.getUserInfo(event.senderID, (err, data) => {
                             if (vips.includes(event.senderID)) {
-                                api.setMessageReaction("✅", event.messageID, (err) => {
-                                }, true);
-                                api.sendMessage("Boss " + data[event.senderID]['name'] + "muted this thread for 30 seconds!", event.threadID);
-                                api.muteThread(event.threadID, 30);
+                                let msg = event.body.split(/(?<=^\S+)\s/);
+                                if (msg[0] == "!ban") {
+                                    let person = msg[1];
+                                    api.setMessageReaction("✅", event.messageID, (err) => {
+                                    }, true);
+                                    api.getUserID(person, (err, data) => {
+                                        api.removeUserFromGroup(data[0].userID, event.threadID)
+                                    });
+                                }
                             }
                             else {
                             api.setMessageReaction("❎", event.messageID, (err) => {
