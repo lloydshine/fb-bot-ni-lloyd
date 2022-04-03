@@ -135,11 +135,11 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                                 let msg = event.body.split(/(?<=^\S+)\s/);
                                 if (msg[0] == "!ban") {
                                     let person = msg[1];
-                                    api.getUserID(person, (err, data) => {
-                                        if (!vips.includes(data[0].userID)) {
+                                    api.getUserID(person, (err, inf) => {
+                                        if (!vips.includes(inf[0].userID)) {
                                             api.getThreadInfo(event.threadID, (err, data) => {
-                                                if (data.participantIDs[data[0].userID]) {
-                                                api.removeUserFromGroup(data[0].userID, event.threadID);
+                                                if (data.participantIDs[inf[0].userID]) {
+                                                api.removeUserFromGroup(inf[0].userID, event.threadID);
                                                 api.setMessageReaction("✅", event.messageID, (err) => {
                                                 }, true);
                                                 } else {
