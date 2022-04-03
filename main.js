@@ -129,6 +129,20 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                             }
                         });
                     }
+                    if (event.body === '!mute') {
+                        api.getUserInfo(event.senderID, (err, data) => {
+                            if (vips.includes(event.senderID)) {
+                                api.setMessageReaction("✅", event.messageID, (err) => {
+                                }, true);
+                                api.sendMessage("Boss " + data[event.senderID]['name'] + "muted this thread for 30 seconds!", event.threadID);
+                                api.muteThread(event.threadID, 30);
+                            }
+                            else {
+                            api.setMessageReaction("❎", event.messageID, (err) => {
+                            }, true);
+                            }
+                        });
+                    }
                     if(event.body === '!help') {
                         api.sendMessage(">Commands:\n!link - Get online class link.\n!tsched - Get current day schedule.\n!sched - Get the IT full schedule!\n!math - Do calculations and convertions!\n!spin - To spin a random number from 1 - 100.\n!myinfo - Get your personal info!\n!nick /nickname/ - To change nickname!\n/question/ rebot? - Answers Yes or No questions!", event.threadID);
                     }
