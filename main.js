@@ -196,6 +196,9 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                                                 }
                                             });
                                         });
+                                    } else {
+                                        api.setMessageReaction("❎", event.messageID, (err) => {
+                                        }, true);
                                     }
                                 }
                             }
