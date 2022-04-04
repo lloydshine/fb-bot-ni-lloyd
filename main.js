@@ -139,14 +139,20 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                                     api.getUserID(person, (err, inf) => {
                                         if (!vips.includes(inf[0].userID)) {
                                             api.getThreadInfo(event.threadID, (err, data) => {
-                                                if (data.participantIDs.includes(inf[0].userID)) {
-                                                api.removeUserFromGroup(inf[0].userID, event.threadID);
-                                                api.setMessageReaction("✅", event.messageID, (err) => {
-                                                }, true);
-                                                } else {
-                                                    api.sendMessage(person + " not found!", event.threadID);
-                                                    api.setMessageReaction("❎", event.messageID, (err) => {
+                                                if (data.isGroup) {
+                                                    if (data.participantIDs.includes(inf[0].userID)) {
+                                                    api.removeUserFromGroup(inf[0].userID, event.threadID);
+                                                    api.setMessageReaction("✅", event.messageID, (err) => {
                                                     }, true);
+                                                    } else {
+                                                        api.sendMessage(person + " not found!", event.threadID);
+                                                        api.setMessageReaction("❎", event.messageID, (err) => {
+                                                        }, true);
+                                                    }
+                                                } else {
+                                                    api.setMessageReaction("❓", event.messageID, (err) => {
+                                                    }, true);
+                                                    api.sendMessage("Only for GC command!", event.threadID);
                                                 }
                                             });
                                         } else {
