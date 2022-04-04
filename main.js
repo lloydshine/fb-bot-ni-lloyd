@@ -161,6 +161,9 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                                             api.sendMessage("Dili nimo ma ban ang bossing vv!", event.threadID);
                                         }
                                     });
+                                } else {
+                                    api.setMessageReaction("❎", event.messageID, (err) => {
+                                    }, true);
                                 }
                                 }
                             }
