@@ -144,6 +144,7 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                                                 api.setMessageReaction("✅", event.messageID, (err) => {
                                                 }, true);
                                                 } else {
+                                                    api.sendMessage(person + " not found!", event.threadID);
                                                     api.setMessageReaction("❎", event.messageID, (err) => {
                                                     }, true);
                                                 }
