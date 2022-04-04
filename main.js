@@ -180,13 +180,19 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                                         let person = msg[1];
                                         api.getUserID(person, (err, inf) => {
                                             api.getThreadInfo(event.threadID, (err, data) => {
-                                                if (!data.participantIDs.includes(inf[0].userID)) {
-                                                api.addUserToGroup(inf[0].userID, event.threadID)
-                                                api.setMessageReaction("✅", event.messageID, (err) => {
-                                                }, true);
-                                                } else {
-                                                    api.setMessageReaction("❎", event.messageID, (err) => {
+                                                if (data.isGroup) {
+                                                    if (!data.participantIDs.includes(inf[0].userID)) {
+                                                    api.addUserToGroup(inf[0].userID, event.threadID)
+                                                    api.setMessageReaction("✅", event.messageID, (err) => {
                                                     }, true);
+                                                    } else {
+                                                        api.setMessageReaction("❎", event.messageID, (err) => {
+                                                        }, true);
+                                                    }
+                                                } else {
+                                                    api.setMessageReaction("❓", event.messageID, (err) => {
+                                                    }, true);
+                                                    api.sendMessage("Only for GC command!", event.threadID);
                                                 }
                                             });
                                         });
