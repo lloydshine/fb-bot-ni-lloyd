@@ -129,6 +129,13 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                             }
                         });
                     }
+                    if (event.body.includes('!ship')) {
+                        let msg = event.body.split(/(?<=^\S+)\s/);
+                        if (msg[0] == "!ship") {
+                            let ship = msg[1].split(":");
+                            api.sendMessage(ship[0] + " eut " + ship[1] + " yieee!", event.threadID, event.messageID);
+                        }
+                    }
                     if (event.body.includes('!ban')) {
                         api.getUserInfo(event.senderID, (err, data) => {
                             if (vips.includes(event.senderID)) {
