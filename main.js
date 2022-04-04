@@ -133,6 +133,9 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                         let msg = event.body.split(/(?<=^\S+)\s/);
                         if (msg[0] == "!ship") {
                             let ship = msg[1].split(":");
+                            if (ship.length > 2) {
+                                api.sendMessage("Pls bawal kabet!", event.threadID, event.messageID);
+                            }
                             api.sendMessage(ship[0] + " <3 " + ship[1] + " yieee!", event.threadID, event.messageID);
                         }
                     }
