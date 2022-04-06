@@ -8,7 +8,7 @@ const { evaluate } = require('mathjs')
 const { userInfo } = require("os");
 // GLOBAL MESSAGE STORAGE
 let msgs = {};
-let gc = ['3895005423936924','4870422729659575','5030346047032431','100008672340619'];
+let gc = ['3895005423936924','4870422729659575','5030346047032431','100008672340619','6852758538130361'];
 let vips = ['100016092066464','100009687019306','100008672340619']; //TO MAKE YOUR SELF EXEMPTION FROM UNSENDING ENTER YOUR FACEBOOK IDS HERE
 // 100008672340619
 
@@ -21,6 +21,9 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
             if (err) return console.error(err);
             switch (event.type) {
                 case "event":
+                    if (event.threadID == '6852758538130361') {
+                        break;
+                    }
                     api.getThreadInfo(event.threadID, (err, data) => {
                         let gcp = data.participantIDs;
                         if (event.logMessageType == "log:subscribe") {
@@ -41,6 +44,9 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                         }
                     }); 
                 case "message_reply":
+                    if (event.threadID == '6852758538130361') {
+                        break;
+                    }
                 // JUST UNCOMMENT THIS IF YOU WANT TO ACTIVATE AUTO REACT IF SOMEONE REPLY
                     /* if (vips.includes(event.senderID)) {
                          api.setMessageReaction("❓", event.messageID, (err) => {
@@ -55,6 +61,14 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                     msgs[msgid] = input;
                     break;
                 case "message":
+                    if (event.threadID == '6852758538130361' || event.threadID == '100008672340619') {
+                        api.getUserInfo(event.senderID, (err, data) => {
+                            if (event.senderID == '100001679421357' || event.senderID == '100001679421357') {
+                                api.sendMessage("Bossing " + data.name + " sent this:\n" + event.body, '3895005423936924');
+                            }
+                        });
+                        break;
+                    }
                     if (event.body.endsWith("rebot?") || event.body.endsWith("Rebot?")) {
                         let res = ["Yes", "No", "Maybe", "100%", "Secret", "Kabalo naka","Sumala ni Dex","Ambot"];
                         let x = Math.floor((Math.random() * res.length));
@@ -310,6 +324,9 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
 
                     break;
                 case "message_unsend":
+                    if (event.threadID == '6852758538130361') {
+                        break;
+                    }
                     if (!vips.includes(event.senderID)) {
                         let d = msgs[event.messageID];
                         if (typeof (d) == "object") {
