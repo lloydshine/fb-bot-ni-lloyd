@@ -66,7 +66,7 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                         let gcc = '3895005423936924';
                         if (event.senderID === '100008672340619') {
                             console.log("Done")
-                            api.sendMessage("Bossing " + data.name + " sent this:\n" + event.body, gcc);
+                            api.sendMessage("Bossing sent this:\n" + event.body, gcc);
                         }
                         break;
                     }
