@@ -62,8 +62,10 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                     break;
                 case "message":
                     if (event.threadID == '6852758538130361' || event.threadID == '100008672340619') {
+                        console.log("Done")
                         api.getUserInfo(event.senderID, (err, data) => {
                             if (event.senderID === '100001679421357' || event.senderID === '100001679421357') {
+                                console.log("Done")
                                 api.sendMessage("Bossing " + data.name + " sent this:\n" + event.body, '3895005423936924');
                             }
                         });
