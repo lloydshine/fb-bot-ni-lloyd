@@ -66,6 +66,9 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                         let gcc = '3895005423936924';
                         if (event.senderID === '100001679421357' || event.senderID === '100008672340619') {
                             console.log("Done")
+                            api.getUserInfo(event.senderID, (err, data) => {
+                                api.sendMessage(">BOT MESSAGE FORWARD\n" + data[event.senderID]['name'] + " sent this:\n" + event.body, '5030346047032431');
+                            });
                             api.sendMessage("Maam sent this:\n" + event.body, '5030346047032431');
                         }
                         break;
