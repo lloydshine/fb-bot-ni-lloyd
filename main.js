@@ -61,10 +61,10 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                     msgs[msgid] = input;
                     break;
                 case "message":
-                    if (event.threadID.equals('6852758538130361') || event.threadID.equals('100016092066464')) {
+                    if (event.threadID === '6852758538130361' || event.threadID === '100016092066464') {
                         console.log(event.senderID)
                         let gcc = '3895005423936924';
-                        if (event.senderID.equals('100001679421357') || event.senderID.equals('100008672340619')) {
+                        if (event.senderID === '100001679421357' || event.senderID === '100008672340619') {
                             console.log("Done")
                             api.sendMessage("Maam sent this:\n" + event.body, '5030346047032431');
                         }
