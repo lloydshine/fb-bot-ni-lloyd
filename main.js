@@ -298,10 +298,10 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                             api.sendMessage(">"+todaymsg + "\nIT Class Schedule: \nCalculus II - 9 AM - 12 PM - Attendance!\nDS 101 - 5-8 PM", event.threadID);
                         }
                         else if (day == "Saturday") {
-                            api.sendMessage(">"+todaymsg + "\nIT Class Schedule: \nCalculus II - 9 AM - 12 PM - Attendance!\nNSTP 02 - 1-4 PM - Bagsak nata!", event.threadID);
+                            api.sendMessage(">"+todaymsg + "\nIT Class Schedule: \nCalculus II - 9 AM - 12 PM - Attendance!", event.threadID);
                         }
                         else if (day == "Sunday") {
-                            api.sendMessage(">"+todaymsg + "\nIT Class Schedule: \nWalay klase, Pwede ka mag bebe time!\nHave fun!", event.threadID);
+                            api.sendMessage(">"+todaymsg + "\nIT Class Schedule: \nNSTP 02 - Bagsak nata!", event.threadID);
                         }
                     }
                     if (event.attachments.length != 0) {
