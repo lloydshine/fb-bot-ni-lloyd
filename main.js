@@ -69,7 +69,7 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                         if (tchrs.includes(event.senderID)) {
                             api.getUserInfo(event.senderID, (err, data) => {
                                 api.getThreadInfo(event.threadID, (err, info) => {
-                                    api.sendMessage(">BOT MESSAGE FORWARD\n" + data[event.senderID]['name'] + " sent this from "+info.threadName+":\n" + event.body, petertagjes);
+                                    api.sendMessage(">BOT MESSAGE FORWARD\n" + data[event.senderID]['name'] + " sent this from "+info.threadName+":\n" + event.body, '5030346047032431');
                                 });   
                             });
                         }
