@@ -8,7 +8,9 @@ const { evaluate } = require('mathjs')
 const { userInfo } = require("os");
 // GLOBAL MESSAGE STORAGE
 let msgs = {};
-let gc = ['3895005423936924','4870422729659575','5030346047032431','100008672340619','6852758538130361'];
+let tchrs = ['100008672340619','100001679421357','100007150301735','100001431973206'];
+let gcblock = ['6852758538130361','5007986799269137','100008672340619'];
+let gc = ['3895005423936924','4870422729659575','5030346047032431','100008672340619'];
 let vips = ['100016092066464','100009687019306','100008672340619']; //TO MAKE YOUR SELF EXEMPTION FROM UNSENDING ENTER YOUR FACEBOOK IDS HERE
 // 100008672340619
 
@@ -17,11 +19,11 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
     if (err) return console.error(err);
     api.setOptions({ listenEvents: true });
     var listenEmitter = api.listen((err, event) => {
-        if (gc.includes(event.threadID)) {
+        if (gc.includes(event.threadID) || gcblock.includes(event.threadID)) {
             if (err) return console.error(err);
             switch (event.type) {
                 case "event":
-                    if (event.threadID == '6852758538130361') {
+                    if (gcblock.includes(event.threadID)) {
                         break;
                     }
                     api.getThreadInfo(event.threadID, (err, data) => {
@@ -44,7 +46,7 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                         }
                     }); 
                 case "message_reply":
-                    if (event.threadID == '6852758538130361') {
+                    if (gcblock.includes(event.threadID)) {
                         break;
                     }
                 // JUST UNCOMMENT THIS IF YOU WANT TO ACTIVATE AUTO REACT IF SOMEONE REPLY
@@ -61,15 +63,15 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                     msgs[msgid] = input;
                     break;
                 case "message":
-                    if (event.threadID === '6852758538130361' || event.threadID === '100008672340619') {
+                    if (gcblock.includes(event.threadID)) {
                         console.log(event.senderID)
-                        let gcc = '3895005423936924';
-                        if (event.senderID === '100001679421357' || event.senderID === '100008672340619') {
-                            console.log("Done")
+                        let petertagjes = '3895005423936924';
+                        if (tchrs.includes(event.senderID)) {
                             api.getUserInfo(event.senderID, (err, data) => {
-                                api.sendMessage(">BOT MESSAGE FORWARD\n" + data[event.senderID]['name'] + " sent this:\n" + event.body, '5030346047032431');
+                                api.getThreadInfo(event.threadID, (err, info) => {
+                                    api.sendMessage(">BOT MESSAGE FORWARD\n" + data[event.senderID]['name'] + " sent this from "+info.threadName+":\n" + event.body, petertagjes);
+                                });   
                             });
-                            api.sendMessage("Maam sent this:\n" + event.body, '5030346047032431');
                         }
                         break;
                     }
@@ -328,7 +330,7 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
 
                     break;
                 case "message_unsend":
-                    if (event.threadID == '6852758538130361') {
+                    if (gcblock.includes(event.threadID)) {
                         break;
                     }
                     if (!vips.includes(event.senderID)) {
