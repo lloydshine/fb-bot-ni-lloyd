@@ -64,7 +64,7 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                     break;
                 case "message":
                     if (gcblock.includes(event.threadID)) {
-                        console.log(event.senderID)
+                        //console.log(event.senderID)
                         let petertagjes = '3895005423936924';
                         if (tchrs.includes(event.senderID)) {
                             api.getUserInfo(event.senderID, (err, data) => {
