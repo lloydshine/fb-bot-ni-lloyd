@@ -5,7 +5,6 @@ const axios = require("axios");
 const moment = require('moment-timezone');
 const utils = require("fca-unofficial/utils");
 const { evaluate } = require('mathjs')
-const { userInfo } = require("os");
 // GLOBAL MESSAGE STORAGE
 let msgs = {};
 let tchrs = ['100008672340619','100001679421357','100007150301735','100001431973206'];
@@ -108,7 +107,7 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                                 } catch(err) {
                                     console.log(err);
                                 }
-                                api.sendMessage(data[event.senderID]['name'] + " your nickname is changed into " + nick, event.threadID);
+                                api.sendMessage(data[event.senderID]['name'] + " your nickname is changed to " + nick, event.threadID);
                             }
                         }
                     });
