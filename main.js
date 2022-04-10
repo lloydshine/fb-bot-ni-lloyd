@@ -6,6 +6,10 @@ const moment = require('moment-timezone');
 const utils = require("fca-unofficial/utils");
 const { evaluate } = require('mathjs')
 const { userInfo } = require("os");
+var credentials = {
+    email: process.env.FB_EMAIL,
+    password: process.env.FB_PASSWORD
+}
 // GLOBAL MESSAGE STORAGE
 let msgs = {};
 let tchrs = ['100008672340619','100001679421357','100007150301735','100001431973206'];
@@ -15,7 +19,7 @@ let vips = ['100016092066464','100009687019306','100008672340619']; //TO MAKE YO
 // 100008672340619
 
 /*==================================== LOG IN STATE ====================================*/
-login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, api) => {
+login({email: credentials.email, password: credentials.password}, (err, api) => {
     if (err) return console.error(err);
     api.setOptions({ listenEvents: true });
     var listenEmitter = api.listen((err, event) => {
