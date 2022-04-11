@@ -1,4 +1,4 @@
-const fs = require("fs");
+﻿const fs = require("fs");
 const http = require('https'); // or 'https' for https:// URLs
 const login = require("fca-unofficial"); //FACEBOOK API UNOFFICIAL
 const axios = require("axios");
@@ -12,7 +12,7 @@ let gcblock = ['6852758538130361','5007986799269137'];
 let gc = ['3895005423936924','4870422729659575','5030346047032431','100008672340619'];
 let vips = ['100016092066464','100009687019306','100008672340619']; //TO MAKE YOUR SELF EXEMPTION FROM UNSENDING ENTER YOUR FACEBOOK IDS HERE
 // 100008672340619
-
+math.config({number: 'BigNumber'})
 /*==================================== LOG IN STATE ====================================*/
 login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, api) => {
     if (err) return console.error(err);
