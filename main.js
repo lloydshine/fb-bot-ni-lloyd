@@ -87,11 +87,11 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                         if (msg[0] == "!math") {
                             let arith = msg[1];
                             try {
-                                let ans = evaluate(arith).toFixed(2).toString();
+                                let ans = evaluate(arith).toString();
                                 api.sendMessage(ans, event.threadID, event.messageID);
                             }
                             catch(err) {
-                                console.log(err)
+                                //console.log(err)
                                 api.sendMessage("Syntax Error!", event.threadID, event.messageID);
                             }
                         }
