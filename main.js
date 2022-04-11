@@ -25,6 +25,7 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                     if (gcblock.includes(event.threadID)) {
                         break;
                     }
+                    console.log(event.logMessageData)
                     api.getThreadInfo(event.threadID, (err, data) => {
                         let gcp = data.participantIDs;
                         if (event.logMessageType == "log:subscribe") {
