@@ -87,8 +87,8 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                         if (msg[0] == "!math") {
                             let arith = msg[1];
                             try {
-                                let ans = +evaluate(arith).toFixed(2);
-                                api.sendMessage(ans.toString(), event.threadID, event.messageID);
+                                let ans = evaluate(arith).toString();
+                                api.sendMessage(ans, event.threadID, event.messageID);
                             }
                             catch(err) {
                                 api.sendMessage("Syntax Error!", event.threadID, event.messageID);
