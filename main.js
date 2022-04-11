@@ -332,7 +332,7 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                     if (gcblock.includes(event.threadID)) {
                         break;
                     }
-                    console.log(event.messageID + " " + event.body)
+                    console.log(event.messageID.body)
                     //if (!vips.includes(event.senderID)) {
                     //    let d = msgs[event.messageID];
                     //    if (typeof (d) == "object") {
