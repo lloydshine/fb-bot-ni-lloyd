@@ -15,13 +15,8 @@ let vips = ['100016092066464','100009687019306','100008672340619']; //TO MAKE YO
 /*==================================== LOG IN STATE ====================================*/
 login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, api) => {
     if (err) return console.error(err);
+    api.setOptions({ forceLogin: true });
     api.setOptions({ listenEvents: true });
-    api.listen((err, message) => {
-        if(err) return console.error(err);
-
-        // Marks messages as read immediately after they're received
-        api.markAsRead(message.threadID);
-    });
     var listenEmitter = api.listen((err, event) => {
         if (gc.includes(event.threadID) || gcblock.includes(event.threadID)) {
             if (err) return console.error(err);
