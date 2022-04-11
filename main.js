@@ -44,6 +44,7 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                             });
                         }
                     }); 
+                    break;
                 case "message_reply":
                     if (gcblock.includes(event.threadID)) {
                         break;
