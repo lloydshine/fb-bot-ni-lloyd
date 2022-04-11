@@ -18,6 +18,7 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
     api.setOptions({ listenEvents: true });
     var listenEmitter = api.listen((err, event) => {
         if (gc.includes(event.threadID) || gcblock.includes(event.threadID)) {
+            api.markAsRead(event.threadID);
             if (err) return console.error(err);
             switch (event.type) {
                 case "event":
