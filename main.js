@@ -91,6 +91,7 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                                 api.sendMessage(ans, event.threadID, event.messageID);
                             }
                             catch(err) {
+                                console.log(err)
                                 api.sendMessage("Syntax Error!", event.threadID, event.messageID);
                             }
                         }
