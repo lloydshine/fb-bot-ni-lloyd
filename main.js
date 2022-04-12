@@ -258,7 +258,9 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                             let x = Math.floor(Math.random() * 8);
                             let genders = ["Female","Male","Biot"]
                             let gender = data[event.senderID]['gender'];
-                            if (gender == 1) {
+                            if (vips.includes(event.senderID)){
+                                size = "Cupsize: Premium Oppai G Cup\nDick Size: 7 inches";
+                            }else if (gender == 1) {
                                 size = "Cupsize : " + bsize[x];
                             }
                             else if (gender == 2) {
