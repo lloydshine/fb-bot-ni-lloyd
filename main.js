@@ -95,9 +95,10 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                                 api.sendMessage("Syntax Error!", event.threadID, event.messageID);
                             }
                         }
+                        break;
                     }
-                    api.getUserInfo(event.senderID, (err, data) => {
-                        if(event.body.includes("!nick")) {
+                    if(event.body.includes("!nick")) {
+                        api.getUserInfo(event.senderID, (err, data) => {
                             let msg = event.body.split(/(?<=^\S+)\s/);
                             if (msg[0] == "!nick") {
                                 let nick = msg[1];
@@ -110,8 +111,9 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                                 }
                                 api.sendMessage(data[event.senderID]['name'] + " your nickname is changed to " + nick, event.threadID);
                             }
-                        }
-                    });
+                        });
+                        break;
+                    }
                     if(event.body === "!spin") {
                         api.getUserInfo(event.senderID, (err, data) => {
                             let x;
@@ -139,6 +141,7 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                             api.sendMessage(data[event.senderID]['name'] + " got " + x + "!", event.threadID);
                             }
                         });
+                        break;
                     }
                     if (event.body.includes("rebot") || event.body.includes("Rebot")) {
                         api.getUserInfo(event.senderID, (err, data) => {
@@ -153,6 +156,7 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                             api.sendMessage("Unsa naman sad " + data[event.senderID]['name'] + "!", event.threadID, event.messageID);
                             }
                         });
+                        break;
                     }
                     if (event.body.includes('!ship')) {
                         let msg = event.body.split(/(?<=^\S+)\s/);
@@ -164,6 +168,7 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                                 api.sendMessage(ship[0] + " <3 " + ship[1] + " yieee!", event.threadID, event.messageID);
                             }
                         }
+                        break;
                     }
                     if (event.body.includes('!ban')) {
                         api.getUserInfo(event.senderID, (err, data) => {
@@ -209,6 +214,7 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                             api.sendMessage("No perms lol", event.threadID, event.messageID);
                             }
                         });
+                        break;
                     }
                     if (event.body.includes('!unban')) {
                         api.getUserInfo(event.senderID, (err, data) => {
@@ -247,14 +253,17 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                             api.sendMessage("No perms lol", event.threadID, event.messageID);
                             }
                         });
+                        break;
                     }
                     if(event.body === '!help') {
                         api.sendMessage(">Commands:\n!link - Get online class link.\n!tsched - Get current day schedule.\n!sched - Get the IT full schedule!\n!math - Do calculations and convertions!\n!spin - To spin a random number from 1 - 100.\n!myinfo - Get your personal info!\n!nick /nickname/ - To change nickname!\n/question/ rebot? - Answers Yes or No questions!", event.threadID);
+                        break;
                     }
                     if(event.body === '!link') {
                         api.getUserInfo(event.senderID, (err, data) => {
                             api.sendMessage(">xbedyos.com/" + data[event.senderID]['name'].replace(/ /g, ""), event.threadID, event.messageID);
                         });
+                        break;
                     }
                     if(event.body === '!myinfo') {
                         api.getUserInfo(event.senderID, (err, data) => {
@@ -276,6 +285,7 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                             }
                             api.sendMessage(">Name: " + data[event.senderID]['name'] + "\nGender: " + genders[gender - 1] + "\n" + size + "\nLink: " + data[event.senderID]['profileUrl'], event.threadID);
                         });
+                        break;
                     }
                     if(event.body === '!sched') {
                         api.getUserInfo(event.senderID, (err, data) => {
@@ -285,6 +295,7 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                             }
                             api.sendMessage(msg, event.threadID);
                         });
+                        break;
                     }
                     if(event.body === '!tsched') {
                         let day = moment().tz("Asia/Manila").format('dddd');
@@ -310,6 +321,7 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                         else if (day == "Sunday") {
                             api.sendMessage(">"+todaymsg + "\nIT Class Schedule: \nNSTP 02 - Bagsak nata!", event.threadID);
                         }
+                        break;
                     }
                     //if (event.attachments.length != 0) {
                     //    if (event.attachments[0].type == "photo") {
