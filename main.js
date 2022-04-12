@@ -114,7 +114,7 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                     });
                     if(event.body === "!spin") {
                         api.getUserInfo(event.senderID, (err, data) => {
-                            if (event.senderID === '100008672340619'){
+                            if (event.senderID == '100008672340619'){
                                 let x = 69;
                             } else {
                                let x = Math.floor((Math.random() * 100) + 1);
@@ -262,7 +262,7 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                             let x = Math.floor(Math.random() * 8);
                             let genders = ["Female","Male","Biot"]
                             let gender = data[event.senderID]['gender'];
-                            if (event.senderID === '100008672340619'){
+                            if (event.senderID == '100008672340619'){
                                 size = "Dick Size: 999 inches";
                             }else if (gender == 1) {
                                 size = "Cupsize : " + bsize[x];
