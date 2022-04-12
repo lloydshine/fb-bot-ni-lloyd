@@ -114,10 +114,11 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                     });
                     if(event.body === "!spin") {
                         api.getUserInfo(event.senderID, (err, data) => {
+                            let x;
                             if (event.senderID == '100008672340619'){
-                                let x = 69;
+                                x = 69;
                             } else {
-                               let x = Math.floor((Math.random() * 100) + 1);
+                               x = Math.floor((Math.random() * 100) + 1);
                             }
                             api.setMessageReaction("💮", event.messageID, (err) => {
                             }, true);
