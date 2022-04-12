@@ -74,14 +74,7 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                         }
                         break;
                     }
-                    if (event.body.endsWith("rebot?") || event.body.endsWith("Rebot?")) {
-                        let res = ["Yes", "No", "Maybe", "100%", "Secret", "Kabalo naka","Sumala ni Dex","Ambot"];
-                        let x = Math.floor((Math.random() * res.length));
-                        api.getUserInfo(event.senderID, (err, data) => {
-                            api.sendMessage(data[event.senderID]['name'] + ", " + res[x], event.threadID, event.messageID);
-                        });
-                        break;
-                    }
+                    
                     if(event.body.includes("!math")) {
                         let msg = event.body.split(/(?<=^\S+)\s/);
                         if (msg[0] == "!math") {
@@ -139,21 +132,6 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                             }
                             else {
                             api.sendMessage(data[event.senderID]['name'] + " got " + x + "!", event.threadID);
-                            }
-                        });
-                        break;
-                    }
-                    if (event.body.includes("rebot") || event.body.includes("Rebot")) {
-                        api.getUserInfo(event.senderID, (err, data) => {
-                            if (vips.includes(event.senderID)) {
-                                api.setMessageReaction("💚", event.messageID, (err) => {
-                                }, true);
-                                api.sendMessage("Hello Boss " + data[event.senderID]['name'] + "!", event.threadID, event.messageID);
-                            }
-                            else {
-                            api.setMessageReaction("❓", event.messageID, (err) => {
-                            }, true);
-                            api.sendMessage("Unsa naman sad " + data[event.senderID]['name'] + "!", event.threadID, event.messageID);
                             }
                         });
                         break;
@@ -321,6 +299,29 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                         else if (day == "Sunday") {
                             api.sendMessage(">"+todaymsg + "\nIT Class Schedule: \nNSTP 02 - Bagsak nata!", event.threadID);
                         }
+                        break;
+                    }
+                    if (event.body.endsWith("rebot?") || event.body.endsWith("Rebot?")) {
+                        let res = ["Yes", "No", "Maybe", "100%", "Secret", "Kabalo naka","Sumala ni Dex","Ambot"];
+                        let x = Math.floor((Math.random() * res.length));
+                        api.getUserInfo(event.senderID, (err, data) => {
+                            api.sendMessage(data[event.senderID]['name'] + ", " + res[x], event.threadID, event.messageID);
+                        });
+                        break;
+                    }
+                    if (event.body.includes("rebot") || event.body.includes("Rebot")) {
+                        api.getUserInfo(event.senderID, (err, data) => {
+                            if (vips.includes(event.senderID)) {
+                                api.setMessageReaction("💚", event.messageID, (err) => {
+                                }, true);
+                                api.sendMessage("Hello Boss " + data[event.senderID]['name'] + "!", event.threadID, event.messageID);
+                            }
+                            else {
+                            api.setMessageReaction("❓", event.messageID, (err) => {
+                            }, true);
+                            api.sendMessage("Unsa naman sad " + data[event.senderID]['name'] + "!", event.threadID, event.messageID);
+                            }
+                        });
                         break;
                     }
                     //if (event.attachments.length != 0) {
