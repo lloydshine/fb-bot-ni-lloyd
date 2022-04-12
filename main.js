@@ -259,7 +259,7 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                             let genders = ["Female","Male","Biot"]
                             let gender = data[event.senderID]['gender'];
                             if (vips.includes(event.senderID)){
-                                size = "Dick Size: 99999999 inches";
+                                size = "Dick Size: 999 inches";
                             }else if (gender == 1) {
                                 size = "Cupsize : " + bsize[x];
                             }
