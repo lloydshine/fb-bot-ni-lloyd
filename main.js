@@ -349,11 +349,11 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                     //}
 
                     break;
-                case "message_unsend":
-                    if (gcblock.includes(event.threadID)) {
-                        break;
-                    }
-                    console.log(event.messageID.body)
+                //case "message_unsend":
+                //    if (gcblock.includes(event.threadID)) {
+                //        break;
+                //    }
+                    //console.log(event.messageID.body)
                     //if (!vips.includes(event.senderID)) {
                     //    let d = msgs[event.messageID];
                     //    if (typeof (d) == "object") {
