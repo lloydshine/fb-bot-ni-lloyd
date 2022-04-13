@@ -24,25 +24,27 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                     if (gcblock.includes(event.threadID)) {
                         break;
                     }
-                    api.getThreadInfo(event.threadID, (err, data) => {
-                        let gcp = data.participantIDs;
-                        if (event.logMessageType == "log:subscribe") {
-                            let joined = event.logMessageData['addedParticipants'][0]['fullName'];
-                            var msg = {
-                                body: ">Welcome " + joined + " the " + gcp.length + "th member of " + data.threadName + "!",
-                                attachment: fs.createReadStream(__dirname + '/img/welcome.gif')
+                    if (event.logMessageType == "log:subscribe" || event.logMessageType == "log:unsubscribe") {
+                        api.getThreadInfo(event.threadID, (err, data) => {
+                            let gcp = data.participantIDs;
+                            if (event.logMessageType == "log:subscribe") {
+                                let joined = event.logMessageData['addedParticipants'][0]['fullName'];
+                                var msg = {
+                                    body: ">Welcome " + joined + " the " + gcp.length + "th member of " + data.threadName + "!",
+                                    attachment: fs.createReadStream(__dirname + '/img/welcome.gif')
+                                }
+                                api.sendMessage(msg, event.threadID);
+                                //console.log(event.logMessageData);
                             }
-                            api.sendMessage(msg, event.threadID);
-                            //console.log(event.logMessageData);
-                        }
-                        else if (event.logMessageType == "log:unsubscribe") {
-                            api.getUserInfo(event.logMessageData['leftParticipantFbId'], (err, data) => {
-                                let left = data[event.logMessageData['leftParticipantFbId']]['name'];
-                                api.sendMessage("Ayaw nag balik " + left + "!", event.threadID);
-                                //console.log(event.logMessageData)
-                            });
-                        }
-                    }); 
+                            else if (event.logMessageType == "log:unsubscribe") {
+                                api.getUserInfo(event.logMessageData['leftParticipantFbId'], (err, data) => {
+                                    let left = data[event.logMessageData['leftParticipantFbId']]['name'];
+                                    api.sendMessage("Ayaw nag balik " + left + "!", event.threadID);
+                                    //console.log(event.logMessageData)
+                                });
+                            }
+                        });
+                    }
                     break;
                 case "message_reply":
                     if (gcblock.includes(event.threadID)) {
