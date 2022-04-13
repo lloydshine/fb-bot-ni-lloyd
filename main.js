@@ -115,22 +115,18 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                             } else {
                                x = Math.floor((Math.random() * 100) + 1);
                             }
-                            api.setMessageReaction("💮", event.messageID, (err) => {
-                            }, true);
                             if (x == 69) {
                                 var msg = {
                                     body: data[event.senderID]['name'] + " got " + x + "!\nFUCKING NICE!",
                                     attachment: fs.createReadStream(__dirname + '/img/nice.jpg')
                                 }
-                                var reward = {
-                                    attachment: fs.createReadStream(__dirname + '/img/perez.jpg')
-                                }
                                 api.setMessageReaction("😲", event.messageID, (err) => {
                                 }, true);
                                 api.sendMessage(msg, event.threadID);
-                                api.sendMessage(reward, event.threadID);
                             }
                             else {
+                            api.setMessageReaction("💮", event.messageID, (err) => {
+                            }, true);
                             api.sendMessage(data[event.senderID]['name'] + " got " + x + "!", event.threadID);
                             }
                         });
