@@ -145,88 +145,84 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                         break;
                     }
                     if (event.body.includes('!ban')) {
-                        api.getUserInfo(event.senderID, (err, data) => {
-                            if (vips.includes(event.senderID)) {
-                                let msg = event.body.split(/(?<=^\S+)\s/);
-                                if (msg[0] == "!ban") {
-                                    if (msg.length != 1) {
+                        if (vips.includes(event.senderID)) {
+                            let msg = event.body.split(/(?<=^\S+)\s/);
+                            if (msg[0] == "!ban") {
+                                if (msg.length != 1) {
+                                let person = msg[1];
+                                api.getUserID(person, (err, inf) => {
+                                    if (!vips.includes(inf[0].userID)) {
+                                        api.getThreadInfo(event.threadID, (err, data) => {
+                                            if (data.isGroup) {
+                                                if (data.participantIDs.includes(inf[0].userID)) {
+                                                api.removeUserFromGroup(inf[0].userID, event.threadID);
+                                                api.setMessageReaction("✅", event.messageID, (err) => {
+                                                }, true);
+                                                } else {
+                                                    api.sendMessage(person + " not found!", event.threadID);
+                                                    api.setMessageReaction("❎", event.messageID, (err) => {
+                                                    }, true);
+                                                }
+                                            } else {
+                                                api.setMessageReaction("❓", event.messageID, (err) => {
+                                                }, true);
+                                                api.sendMessage("Only for GC command!", event.threadID);
+                                            }
+                                        });
+                                    } else {
+                                        api.setMessageReaction("❎", event.messageID, (err) => {
+                                        }, true);
+                                        api.sendMessage("Dili nimo ma ban ang bossing vv!", event.threadID);
+                                    }
+                                });
+                            } else {
+                                api.setMessageReaction("❎", event.messageID, (err) => {
+                                }, true);
+                            }
+                            }
+                        }
+                        else {
+                        api.setMessageReaction("❎", event.messageID, (err) => {
+                        }, true);
+                        api.sendMessage("No perms lol", event.threadID, event.messageID);
+                        }
+                        break;
+                    }
+                    if (event.body.includes('!unban')) {
+                        if (vips.includes(event.senderID)) {
+                            let msg = event.body.split(/(?<=^\S+)\s/);
+                            if (msg[0] == "!unban") {
+                                if (msg.length != 1) {
                                     let person = msg[1];
                                     api.getUserID(person, (err, inf) => {
-                                        if (!vips.includes(inf[0].userID)) {
-                                            api.getThreadInfo(event.threadID, (err, data) => {
-                                                if (data.isGroup) {
-                                                    if (data.participantIDs.includes(inf[0].userID)) {
-                                                    api.removeUserFromGroup(inf[0].userID, event.threadID);
-                                                    api.setMessageReaction("✅", event.messageID, (err) => {
-                                                    }, true);
-                                                    } else {
-                                                        api.sendMessage(person + " not found!", event.threadID);
-                                                        api.setMessageReaction("❎", event.messageID, (err) => {
-                                                        }, true);
-                                                    }
+                                        api.getThreadInfo(event.threadID, (err, gcdata) => {
+                                            if (gcdata.isGroup) {
+                                                if (!gcdata.participantIDs.includes(inf[0].userID)) {
+                                                api.addUserToGroup(inf[0].userID, event.threadID)
+                                                api.setMessageReaction("✅", event.messageID, (err) => {
+                                                }, true);
                                                 } else {
-                                                    api.setMessageReaction("❓", event.messageID, (err) => {
+                                                    api.setMessageReaction("❎", event.messageID, (err) => {
                                                     }, true);
-                                                    api.sendMessage("Only for GC command!", event.threadID);
                                                 }
-                                            });
-                                        } else {
-                                            api.setMessageReaction("❎", event.messageID, (err) => {
-                                            }, true);
-                                            api.sendMessage("Dili nimo ma ban ang bossing vv!", event.threadID);
-                                        }
+                                            } else {
+                                                api.setMessageReaction("❓", event.messageID, (err) => {
+                                                }, true);
+                                                api.sendMessage("Only for GC command!", event.threadID);
+                                            }
+                                        });
                                     });
                                 } else {
                                     api.setMessageReaction("❎", event.messageID, (err) => {
                                     }, true);
                                 }
-                                }
                             }
-                            else {
-                            api.setMessageReaction("❎", event.messageID, (err) => {
-                            }, true);
-                            api.sendMessage("No perms lol", event.threadID, event.messageID);
-                            }
-                        });
-                        break;
-                    }
-                    if (event.body.includes('!unban')) {
-                        api.getUserInfo(event.senderID, (err, data) => {
-                            if (vips.includes(event.senderID)) {
-                                let msg = event.body.split(/(?<=^\S+)\s/);
-                                if (msg[0] == "!unban") {
-                                    if (msg.length != 1) {
-                                        let person = msg[1];
-                                        api.getUserID(person, (err, inf) => {
-                                            api.getThreadInfo(event.threadID, (err, data) => {
-                                                if (data.isGroup) {
-                                                    if (!data.participantIDs.includes(inf[0].userID)) {
-                                                    api.addUserToGroup(inf[0].userID, event.threadID)
-                                                    api.setMessageReaction("✅", event.messageID, (err) => {
-                                                    }, true);
-                                                    } else {
-                                                        api.setMessageReaction("❎", event.messageID, (err) => {
-                                                        }, true);
-                                                    }
-                                                } else {
-                                                    api.setMessageReaction("❓", event.messageID, (err) => {
-                                                    }, true);
-                                                    api.sendMessage("Only for GC command!", event.threadID);
-                                                }
-                                            });
-                                        });
-                                    } else {
-                                        api.setMessageReaction("❎", event.messageID, (err) => {
-                                        }, true);
-                                    }
-                                }
-                            }
-                            else {
-                            api.setMessageReaction("❎", event.messageID, (err) => {
-                            }, true);
-                            api.sendMessage("No perms lol", event.threadID, event.messageID);
-                            }
-                        });
+                        }
+                        else {
+                        api.setMessageReaction("❎", event.messageID, (err) => {
+                        }, true);
+                        api.sendMessage("No perms lol", event.threadID, event.messageID);
+                        }
                         break;
                     }
                     if(event.body === '!help') {
