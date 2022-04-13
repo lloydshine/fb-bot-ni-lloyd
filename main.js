@@ -30,7 +30,7 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                             if (event.logMessageType == "log:subscribe") {
                                 let joined = event.logMessageData['addedParticipants'][0]['fullName'];
                                 var msg = {
-                                    body: ">Welcome " + joined + " the " + gcp.length + "th member of " + data.threadName + "!",
+                                    body: ">Welcome @" + joined + " the " + gcp.length + "th member of " + data.threadName + "!",
                                     attachment: fs.createReadStream(__dirname + '/img/welcome.gif')
                                 }
                                 api.sendMessage(msg, event.threadID);
