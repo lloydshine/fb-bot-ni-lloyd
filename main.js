@@ -30,7 +30,7 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                             if (event.logMessageType == "log:subscribe") {
                                 let joined = event.logMessageData['addedParticipants'][0]['fullName'];
                                 var msg = {
-                                    body: ">Welcome @" + joined + "\n>Member No." + gcp.length + " of " + data.threadName + "!",
+                                    body: ">Welcome " + joined + "\n>Member No." + gcp.length + " of " + data.threadName + "!",
                                 }
                                 api.sendMessage(msg, event.threadID);
                                 //console.log(event.logMessageData);
@@ -38,7 +38,7 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                             else if (event.logMessageType == "log:unsubscribe") {
                                 api.getUserInfo(event.logMessageData['leftParticipantFbId'], (err, data) => {
                                     let left = data[event.logMessageData['leftParticipantFbId']]['name'];
-                                    api.sendMessage(">Bye @" + left + "!", event.threadID);
+                                    api.sendMessage(">Bye " + left + "!", event.threadID);
                                     //console.log(event.logMessageData)
                                 });
                             }
