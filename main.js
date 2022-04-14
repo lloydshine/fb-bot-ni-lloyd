@@ -35,7 +35,6 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                                     mentions: [{
                                          tag: '@Sender',
                                          id: joined,
-                                         fromIndex: 9, // Highlight the second occurrence of @Sender
                                     }],
                                 }
                                 api.sendMessage(msg, event.threadID);
