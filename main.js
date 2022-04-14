@@ -38,7 +38,7 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                             else if (event.logMessageType == "log:unsubscribe") {
                                 api.getUserInfo(event.logMessageData['leftParticipantFbId'], (err, data) => {
                                     let left = data[event.logMessageData['leftParticipantFbId']]['name'];
-                                    api.sendMessage(">Ayaw nag balik @" + left + "!", event.threadID);
+                                    api.sendMessage(">Bye @" + left + "!", event.threadID);
                                     //console.log(event.logMessageData)
                                 });
                             }
