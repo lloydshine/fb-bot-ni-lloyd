@@ -29,8 +29,15 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                             let gcp = data.participantIDs;
                             if (event.logMessageType == "log:subscribe") {
                                 let joined = event.logMessageData['addedParticipants'][0]['fullName'];
+                                let n;
+                                switch(gcp) {
+                                    case 1: n = "st"; break;
+                                    case 2: n = "nd"; break;
+                                    case 3: n = "rd"; break;
+                                    default: n = "th";
+                                }
                                 var msg = {
-                                    body: "Welcome @" + joined + " the " + gcp.length + "th member of " + data.threadName + "!",
+                                    body: "Welcome @" + joined + " the " + gcp.length + n + " member of " + data.threadName + "!",
                                 }
                                 api.sendMessage(msg, event.threadID);
                                 //console.log(event.logMessageData);
