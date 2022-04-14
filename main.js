@@ -28,14 +28,9 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                         api.getThreadInfo(event.threadID, (err, data) => {
                             let gcp = data.participantIDs;
                             if (event.logMessageType == "log:subscribe") {
-                                console.log(event.logMessageData['addedParticipants'][0]);
-                                let joined = event.logMessageData['addedParticipants'][0]['UserFbId'];
+                                let joined = event.logMessageData['addedParticipants'][0]['fullName'];
                                 var msg = {
-                                    body: ">Welcome @Sender, the " + gcp.length + "th member of " + data.threadName + "!",
-                                    mentions: [{
-                                         tag: '@Sender',
-                                         id: joined
-                                    }]
+                                    body: "Welcome @" + joined + " the " + gcp.length + "th member of " + data.threadName + "!",
                                 }
                                 api.sendMessage(msg, event.threadID);
                                 //console.log(event.logMessageData);
