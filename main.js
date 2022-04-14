@@ -28,10 +28,15 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                         api.getThreadInfo(event.threadID, (err, data) => {
                             let gcp = data.participantIDs;
                             if (event.logMessageType == "log:subscribe") {
+                                console.log(event.logMessageData['addedParticipants'][0]);
                                 let joined = event.logMessageData['addedParticipants'][0]['fullName'];
                                 var msg = {
                                     body: ">Welcome @" + joined + " the " + gcp.length + "th member of " + data.threadName + "!",
-                                    attachment: fs.createReadStream(__dirname + '/img/welcome.gif')
+                                    //mentions: [{
+                                    //     tag: '@Sender',
+                                    //     id: message.senderID,
+                                    //     fromIndex: 9, // Highlight the second occurrence of @Sender
+                                    //}],
                                 }
                                 api.sendMessage(msg, event.threadID);
                                 //console.log(event.logMessageData);
