@@ -93,7 +93,7 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                         break;
                     }
                     if(event.body === '!top69') {
-                        api.sendMessage(score[event.senderID], event.threadID);
+                        api.sendMessage(score.score[event.senderID], event.threadID);
                     }
                     if(event.body.includes("!nick")) {
                         api.getUserInfo(event.senderID, (err, data) => {
