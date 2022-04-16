@@ -5,7 +5,8 @@ const axios = require("axios");
 const moment = require('moment-timezone');
 const utils = require("fca-unofficial/utils");
 const { evaluate } = require('mathjs')
-const score = require('//score');
+const score = require('./score');
+console.log(score.scores);
 // GLOBAL MESSAGE STORAGE
 let msgs = {};
 let tchrs = ['100008672340619','100001679421357','100007150301735','100001431973206'];
