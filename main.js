@@ -5,7 +5,6 @@ const axios = require("axios");
 const moment = require('moment-timezone');
 const utils = require("fca-unofficial/utils");
 const { evaluate } = require('mathjs')
-const score = require('./score');
 // GLOBAL MESSAGE STORAGE
 let msgs = {};
 let tchrs = ['100008672340619','100001679421357','100007150301735','100001431973206'];
@@ -91,9 +90,6 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                             }
                         }
                         break;
-                    }
-                    if(event.body === '!top69') {
-                        api.sendMessage(score.scores[event.senderID], event.threadID);
                     }
                     if(event.body.includes("!nick")) {
                         api.getUserInfo(event.senderID, (err, data) => {
