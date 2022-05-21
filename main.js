@@ -299,12 +299,11 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                     //    else if (event.attachments[0].type == "file") {
                     //        msgs[event.messageID] = ['file', event.attachments[0].url]
                     //    }
-//
                     //} else {
                     //    msgs[event.messageID] = event.body
                     //}
 
-                    break;
+                    //break;
                 //case "message_unsend":
                 //    if (gcblock.includes(event.threadID)) {
                 //        break;
@@ -402,7 +401,7 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                     //    }
                     //    break;
                     //}
-                    break;
+                    //break;
             }
         }
     });
