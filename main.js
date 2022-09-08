@@ -9,7 +9,7 @@ let msgs = {};
 let tchrs = [];
 let gcblock = [];
 let gc = ['3895005423936924','100008672340619'];
-let vips = ['100016092066464','100009687019306','100008672340619']; //TO MAKE YOUR SELF EXEMPTION FROM UNSENDING ENTER YOUR FACEBOOK IDS HERE
+let vips = [];//['100016092066464','100009687019306','100008672340619']; //TO MAKE YOUR SELF EXEMPTION FROM UNSENDING ENTER YOUR FACEBOOK IDS HERE
 // 100008672340619
 /*==================================== LOG IN STATE ====================================*/
 login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, api) => {
@@ -303,6 +303,7 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                     
                     break;
                 }
+                break;
                 case "message_unsend":
                     if (gcblock.includes(event.threadID)) {
                         break;
