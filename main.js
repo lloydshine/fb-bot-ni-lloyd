@@ -57,10 +57,10 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                          api.setMessageReaction("❓", event.messageID, (err) => {
                          }, true);
                      } */
-                    //let msgid = event.messageID
-                    //let input = event.body;
-                    //msgs[msgid] = input;
-                    //break;
+                    let msgid = event.messageID
+                    let input = event.body;
+                    msgs[msgid] = input;
+                    break;
                 case "message":
                     if (gcblock.includes(event.threadID)) {
                         //console.log(event.senderID)
