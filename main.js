@@ -5,10 +5,9 @@ const axios = require("axios");
 const moment = require('moment-timezone');
 const { evaluate } = require('mathjs')
 // GLOBAL MESSAGE STORAGE
-let msgs = {};
-let tchrs = ['100008672340619','100001679421357','100007150301735','100001431973206'];
-let gcblock = ['6852758538130361','5007986799269137'];
-let gc = ['3895005423936924','4870422729659575','5030346047032431','100008672340619'];
+let tchrs = [];
+let gcblock = [];
+let gc = ['3895005423936924','100008672340619'];
 let vips = ['100016092066464','100009687019306','100008672340619']; //TO MAKE YOUR SELF EXEMPTION FROM UNSENDING ENTER YOUR FACEBOOK IDS HERE
 // 100008672340619
 /*==================================== LOG IN STATE ====================================*/
@@ -234,25 +233,25 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                         let day = moment().tz("Asia/Manila").format('dddd');
                         let todaymsg = "Today is " + day;
                         if (day === "Monday") {
-                            api.sendMessage(">"+todaymsg + "\nIT Class Schedule: \nGEC3 - 9-10 AM - Attendance!\nP.E 2 - 1-3 PM\nCC103 - 3-5 PM - \nhttps://meet.google.com/wyu-sbxg-ugw", event.threadID);
+                            api.sendMessage(">"+todaymsg + "\nIT Class Schedule: \nGEC6 9 AM -12 PM Attendance!\nMS101 1-4 PM Attendance!\nCC105 - 5-7 PM", event.threadID);
                         }
                         else if (day == "Tuesday") {
-                            api.sendMessage(">"+todaymsg + "\nIT Class Schedule: \nGEC4 - 1-2 PM - Attendance!\nHCI 101 - 3-5 PM - \nhttps://meet.google.com/vja-bgrr-rhs", event.threadID);
+                            api.sendMessage(">"+todaymsg + "\nIT Class Schedule: \nGEC5 - 10:30 AM -12 PM - Attendance!\nPE3 1-3 PM\nSDF101 6-8 PM", event.threadID);
                         }
                         else if (day == "Wednesday") {
-                            api.sendMessage(">"+todaymsg + "\nIT Class Schedule: \nGEC3 - 9-10 AM - Attendance!\nCC103 LAB - 4-7 PM - \nhttps://meet.google.com/wyu-sbxg-ugw", event.threadID);
+                            api.sendMessage(">"+todaymsg + "\nIT Class Schedule: \nGEC6 9 AM -12 PM Attendance!\nSDF101 5:30-8 PM", event.threadID);
                         }
                         else if (day == "Thursday") {
-                            api.sendMessage(">"+todaymsg + "\nIT Class Schedule: \nGEC4 - 1-2 PM - Attendance!\nHCI 101 LAB - 4-7 PM - \nhttps://meet.google.com/vja-bgrr-rhs", event.threadID);
+                            api.sendMessage(">"+todaymsg + "\nIT Class Schedule: \nGEC5 - 10:30 AM -12 PM Attendance!\nCC104 5:30 - 7 PM", event.threadID);
                         }
                         else if (day == "Friday") {
-                            api.sendMessage(">"+todaymsg + "\nIT Class Schedule: \nCalculus II - 9 AM - 12 PM - Attendance!\nDS 101 - 5-8 PM", event.threadID);
+                            api.sendMessage(">"+todaymsg + "\nIT Class Schedule: \nIPT 3-5 PM\nIM101 6:30-8 PM", event.threadID);
                         }
                         else if (day == "Saturday") {
-                            api.sendMessage(">"+todaymsg + "\nIT Class Schedule: \nCalculus II - 9 AM - 12 PM - Attendance!", event.threadID);
+                            api.sendMessage(">"+todaymsg + "\nIT Class Schedule: \nCC105 9AM - 12PM\nIPT101 1:30 - 4 PM", event.threadID);
                         }
                         else if (day == "Sunday") {
-                            api.sendMessage(">"+todaymsg + "\nIT Class Schedule: \nNSTP 02 - Bagsak nata!", event.threadID);
+                            api.sendMessage(">"+todaymsg + "\nIT Class Schedule: \nCC104 9AM - 12PM\nIM101 4:30 - 7 PM", event.threadID);
                         }
                         break;
                     }
