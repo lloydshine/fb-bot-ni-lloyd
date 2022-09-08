@@ -5,6 +5,7 @@ const axios = require("axios");
 const moment = require('moment-timezone');
 const { evaluate } = require('mathjs')
 // GLOBAL MESSAGE STORAGE
+let msgs = {};
 let tchrs = [];
 let gcblock = [];
 let gc = ['3895005423936924','100008672340619'];
