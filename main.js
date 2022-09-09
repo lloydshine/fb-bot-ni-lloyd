@@ -234,25 +234,25 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                         let day = moment().tz("Asia/Manila").format('dddd');
                         let todaymsg = "Today is " + day;
                         if (day === "Monday") {
-                            api.sendMessage(">"+todaymsg + "\nIT Class Schedule: \nGEC6 9 AM -12 PM Attendance!\nMS101 1-4 PM Attendance!\nCC105 - 5-7 PM", event.threadID);
+                            api.sendMessage(">"+todaymsg + "\nIT Class Schedule: \nGEC6 9 - 10:30 AM Attendance!\nMS101 1-4 PM Attendance!\nCC105 - 5-7 PM", event.threadID);
                         }
                         else if (day == "Tuesday") {
                             api.sendMessage(">"+todaymsg + "\nIT Class Schedule: \nGEC5 - 10:30 AM -12 PM - Attendance!\nPE3 1-3 PM\nSDF101 6-8 PM", event.threadID);
                         }
                         else if (day == "Wednesday") {
-                            api.sendMessage(">"+todaymsg + "\nIT Class Schedule: \nGEC6 9 AM -12 PM Attendance!\nSDF101 5:30-8 PM", event.threadID);
+                            api.sendMessage(">"+todaymsg + "\nIT Class Schedule: \nGEC6 9 - 10:30 AM Attendance!\nSDF101 5:30-8:30 PM", event.threadID);
                         }
                         else if (day == "Thursday") {
-                            api.sendMessage(">"+todaymsg + "\nIT Class Schedule: \nGEC5 - 10:30 AM -12 PM Attendance!\nCC104 5:30 - 7 PM", event.threadID);
+                            api.sendMessage(">"+todaymsg + "\nIT Class Schedule: \nGEC5 - 10:30 AM -12 PM Attendance!\nCC104 5:30 - 7:30 PM", event.threadID);
                         }
                         else if (day == "Friday") {
-                            api.sendMessage(">"+todaymsg + "\nIT Class Schedule: \nIPT 3-5 PM\nIM101 6:30-8 PM", event.threadID);
+                            api.sendMessage(">"+todaymsg + "\nIT Class Schedule: \nIPT 3-5 PM\nIM101 6:30-8:30 PM", event.threadID);
                         }
                         else if (day == "Saturday") {
-                            api.sendMessage(">"+todaymsg + "\nIT Class Schedule: \nCC105 9AM - 12PM\nIPT101 1:30 - 4 PM", event.threadID);
+                            api.sendMessage(">"+todaymsg + "\nIT Class Schedule: \nCC105 9AM - 12PM\nIPT101 1:30 - 4:30 PM", event.threadID);
                         }
                         else if (day == "Sunday") {
-                            api.sendMessage(">"+todaymsg + "\nIT Class Schedule: \nCC104 9AM - 12PM\nIM101 4:30 - 7 PM", event.threadID);
+                            api.sendMessage(">"+todaymsg + "\nIT Class Schedule: \nCC104 9AM - 12PM\nIM101 4:30 - 7:30 PM", event.threadID);
                         }
                         break;
                     }
@@ -308,7 +308,6 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                     if (gcblock.includes(event.threadID)) {
                         break;
                     }
-                    console.log(event.messageID.body)
                     if (!vips.includes(event.senderID)) {
                         let d = msgs[event.messageID];
                         if (typeof (d) == "object") {
