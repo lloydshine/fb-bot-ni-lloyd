@@ -9,7 +9,7 @@ let msgs = {};
 let tchrs = [];
 let gcblock = [];
 let gc = ['3895005423936924','100008672340619'];
-let vips = ['100016092066464','100009687019306','100008672340619']; //TO MAKE YOUR SELF EXEMPTION FROM UNSENDING ENTER YOUR FACEBOOK IDS HERE
+let vips = ['100085524705916','100008672340619']; //TO MAKE YOUR SELF EXEMPTION FROM UNSENDING ENTER YOUR FACEBOOK IDS HERE
 // 100008672340619
 /*==================================== LOG IN STATE ====================================*/
 login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, api) => {
@@ -321,7 +321,7 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                                             file.on('finish', function () {
                                                 console.log('finished downloading photo..')
                                                 var message = {
-                                                    body: "[Gae Bot] Anti Unsent:\n" + data[event.senderID]['name'] + " unsent this photo: \n",
+                                                    body: "[BOT] Anti Unsent:\n" + data[event.senderID]['name'] + " unsent this photo: \n",
                                                     attachment: fs.createReadStream(__dirname + '/photo.jpg')
                                                 }
                                                 api.sendMessage(message, event.threadID);
@@ -335,7 +335,7 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                                             file.on('finish', function () {
                                                 console.log('finished downloading video..')
                                                 var message = {
-                                                    body: "[Gae Bot] Anti Unsent:\n" + data[event.senderID]['name'] + " unsent this video: \n",
+                                                    body: "[BOT] Anti Unsent:\n" + data[event.senderID]['name'] + " unsent this video: \n",
                                                     attachment: fs.createReadStream(__dirname + '/video.mp4')
                                                 }
                                                 api.sendMessage(message, event.threadID);
@@ -349,7 +349,7 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                                             file.on('finish', function () {
                                                 console.log('finished downloading gif..')
                                                 var message = {
-                                                    body: "[Gae Bot] Anti Unsent:\n" + data[event.senderID]['name'] + " unsent this GIF: \n",
+                                                    body: "[BOT] Anti Unsent:\n" + data[event.senderID]['name'] + " unsent this GIF: \n",
                                                     attachment: fs.createReadStream(__dirname + '/animated_image.gif')
                                                 }
                                                 api.sendMessage(message, event.threadID);
@@ -364,7 +364,7 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                                             file.on('finish', function () {
                                                 console.log('finished downloading gif..')
                                                 var message = {
-                                                    body: "[Gae Bot] Anti Unsent:\n" + data[event.senderID]['name'] + " unsent this Sticker: \n",
+                                                    body: "[BOT] Anti Unsent:\n" + data[event.senderID]['name'] + " unsent this Sticker: \n",
                                                     attachment: fs.createReadStream(__dirname + '/sticker.png')
                                                 }
                                                 api.sendMessage(message, event.threadID);
@@ -379,7 +379,7 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                                             file.on('finish', function () {
                                                 console.log('finished downloading audio..')
                                                 var message = {
-                                                    body: "[Gae Bot] Anti Unsent:\n" + data[event.senderID]['name'] + " unsent this audio: \n",
+                                                    body: "[BOT] Anti Unsent:\n" + data[event.senderID]['name'] + " unsent this audio: \n",
                                                     attachment: fs.createReadStream(__dirname + '/vm.mp3')
                                                 }
                                                 api.sendMessage(message, event.threadID);
@@ -394,7 +394,7 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                                 if (err) return console.error("Error: files are"+err+ "\nJhayBot");
 
                                 else {
-                                    api.sendMessage("[Gae Bot] Anti Unsent:\n" + data[event.senderID]['name'] + " unsent this: \n" + msgs[event.messageID], event.threadID);
+                                    api.sendMessage("[BOT] Anti Unsent:\n" + data[event.senderID]['name'] + " unsent this: \n" + msgs[event.messageID], event.threadID);
                                 }
                             });
                         }
