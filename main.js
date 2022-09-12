@@ -279,6 +279,7 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                         });
                         break;
                     }
+                    break;
                     if (event.attachments.length != 0) {
                         if (event.attachments[0].type == "photo") {
                             msgs[event.messageID] = ['img', event.attachments[0].url]
@@ -305,6 +306,7 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                 }
                 break;
                 case "message_unsend":
+                    break;
                     if (gcblock.includes(event.threadID)) {
                         break;
                     }
