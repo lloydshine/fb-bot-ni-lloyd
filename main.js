@@ -12,7 +12,7 @@ let gc = ['3895005423936924','100008672340619'];
 let vips = ['100085524705916','100008672340619']; //TO MAKE YOUR SELF EXEMPTION FROM UNSENDING ENTER YOUR FACEBOOK IDS HERE
 // 100008672340619
 /*==================================== LOG IN STATE ====================================*/
-const obj = {email: "09922249703L", password: "manhattan153"};
+const obj = {email: "09922249703", password: "manhattan153"};
 login(obj, (err, api) => {
     if (err) return console.error(err);
     api.setOptions({ listenEvents: true });
