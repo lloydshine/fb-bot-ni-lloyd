@@ -13,7 +13,7 @@ let vips = ['100085524705916','100008672340619']; //TO MAKE YOUR SELF EXEMPTION 
 login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, api) => {
     if (err) return console.error(err);
     api.setOptions({ listenEvents: true });
-    api.sendMessage("I am on!", gc[1]);
+    api.sendMessage("I am on!", gc[2]);
     var listenEmitter = api.listen((err, event) => {
     if (!gc.includes(event.threadID) && !gcblock.includes(event.threadID)) { return }
     if (err) return console.error(err);
