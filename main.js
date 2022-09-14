@@ -23,23 +23,29 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                 break;
             }
             api.getThreadInfo(event.threadID, (err, data) => {
-            let gcp = data.participantIDs;
-            console.log(event.logMessageData);
-            switch(event.logMessageType) {
-                case "log:subscribe":
-                    let joined = event.logMessageData['addedParticipants'][0]['fullName'];
-                    var msg = {
-                        body: ">Welcome " + joined + "\n>Member No." + gcp.length + " of " + data.threadName + "!",
+                let gcp = data.participantIDs;
+                console.log(event.logMessageData);
+                switch(event.logMessageType) {
+                    case "log:subscribe":
+                        let added = event.logMessageData['addedParticipants'];
+                        for(let x = 0; x < added.length; x++) {
+                            api.getUserInfo(event.logMessageData['userFbId'], (err, user) => {
+                                console.log(user);
+                                let joined = event.logMessageData['addedParticipants'][x]['fullName'];
+                                var msg = {
+                                    body: ">Welcome " + joined + "\n>Member No." + gcp.length + " of " + data.threadName + "!",
+                                }
+                                api.sendMessage(msg, event.threadID);
+                            });
+                        }
+                        break;
+                    case "log:unsubscribe":
+                        api.getUserInfo(event.logMessageData['leftParticipantFbId'], (err, data) => {
+                            let left = data[event.logMessageData['leftParticipantFbId']]['name'];
+                            api.sendMessage(">Bye " + left + "!", event.threadID);
+                        });
                     }
-                    api.sendMessage(msg, event.threadID);
-                    break;
-                case "log:unsubscribe":
-                    api.getUserInfo(event.logMessageData['leftParticipantFbId'], (err, data) => {
-                        let left = data[event.logMessageData['leftParticipantFbId']]['name'];
-                        api.sendMessage(">Bye " + left + "!", event.threadID);
-                    });
-                }
-            });
+                });
             break;
         case "message":
             if (gcblock.includes(event.threadID)) {
