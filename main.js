@@ -35,21 +35,20 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                 switch(event.logMessageType) {
                     case "log:subscribe":
                         let added = event.logMessageData['addedParticipants'];
-                        console.log(added);
                         for(let x = 0; x < added.length; x++) {
-                            //api.getUserID(added[x]['userFbId'], (err, user) => {
-                            //    console.log(user);
-                            //    download(user[added[x]['userFbId']]['thumbSrc'], function(){
-                            //        console.log('done');
-                            //        let gcp = data.participantIDs;
-                            //        let joined = event.logMessageData['addedParticipants'][x]['fullName'];
-                            //        var msg = {
-                            //            attachment: fs.createReadStream(__dirname + '/photo.jpg'),
-                            //            body: ">Welcome " + joined + "\n>Member No." + gcp.length + " of " + data.threadName + "!"
-                            //        }
-                            //        api.sendMessage(msg, event.threadID);
-                            //    });
-                            //});
+                            api.getUserID(added[x]['name'], (err, user) => {
+                                console.log(user);
+                                //download(user[added[x]['userFbId']]['photoUrl'], function(){
+                                //    console.log('done');
+                                //    let gcp = data.participantIDs;
+                                //    let joined = event.logMessageData['addedParticipants'][x]['fullName'];
+                                //    var msg = {
+                                //        attachment: fs.createReadStream(__dirname + '/photo.jpg'),
+                                //        body: ">Welcome " + joined + "\n>Member No." + gcp.length + " of " + data.threadName + "!"
+                                //    }
+                                //    api.sendMessage(msg, event.threadID);
+                                //});
+                            });
                         }
                         break;
                     case "log:unsubscribe":
