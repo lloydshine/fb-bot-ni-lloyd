@@ -23,7 +23,6 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                 break;
             }
             api.getThreadInfo(event.threadID, (err, data) => {
-                let gcp = data.participantIDs;
                 //console.log(event.logMessageData);
                 switch(event.logMessageType) {
                     case "log:subscribe":
@@ -31,11 +30,20 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                         for(let x = 0; x < added.length; x++) {
                             api.getUserInfo(added[x]['userFbId'], (err, user) => {
                                 console.log(user);
-                                let joined = event.logMessageData['addedParticipants'][x]['fullName'];
-                                var msg = {
-                                    body: ">Welcome " + joined + "\n>Member No." + gcp.length + " of " + data.threadName + "!",
-                                }
-                                api.sendMessage(msg, event.threadID);
+                                var file = fs.createWriteStream("photo.jpg");
+                                var gifRequest = http.get(user['profileUrl'], function (gifResponse) {
+                                    gifResponse.pipe(file);
+                                    file.on('finish', function () {
+                                        console.log('finished downloading photo..')
+                                        let gcp = data.participantIDs;
+                                        let joined = event.logMessageData['addedParticipants'][x]['fullName'];
+                                        var msg = {
+                                            body: ">Welcome " + joined + "\n>Member No." + gcp.length + " of " + data.threadName + "!",
+                                            attachment: fs.createReadStream(__dirname + '/photo.jpg')
+                                        }
+                                        api.sendMessage(msg, event.threadID);
+                                    });
+                                });
                             });
                         }
                         break;
