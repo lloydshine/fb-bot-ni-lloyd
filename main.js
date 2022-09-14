@@ -39,7 +39,7 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                         for(let x = 0; x < added.length; x++) {
                             api.getUserID(added[x]['fullName'], (err, user) => {
                                 console.log(user);
-                                download(user['photoUrl'], function(){
+                                download(user[0]['photoUrl'], function(){
                                     console.log('done');
                                     let gcp = data.participantIDs;
                                     let joined = event.logMessageData['addedParticipants'][x]['fullName'];
