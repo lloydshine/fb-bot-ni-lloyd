@@ -41,7 +41,7 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                         for(let x = 0; x < added.length; x++) {
                             api.getUserInfo(added[x]['userFbId'], (err, user) => {
                                 console.log(user);
-                                download('https://www.google.com/images/srpr/logo3w.png', function(){
+                                download(user['thumbSrc'], function(){
                                     console.log('done');
                                     let gcp = data.participantIDs;
                                     let joined = event.logMessageData['addedParticipants'][x]['fullName'];
