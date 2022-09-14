@@ -7,7 +7,7 @@ const { evaluate } = require('mathjs')
 let msgs = {};
 let tchrs = [];
 let gcblock = [];
-let gc = ['3895005423936924','100008672340619'];
+let gc = ['5030346047032431','3895005423936924','100008672340619'];
 let vips = ['100085524705916','100008672340619']; //TO MAKE YOUR SELF EXEMPTION FROM UNSENDING ENTER YOUR FACEBOOK IDS HERE
 // 100008672340619
 login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, api) => {
@@ -24,6 +24,7 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
             }
             api.getThreadInfo(event.threadID, (err, data) => {
             let gcp = data.participantIDs;
+            console.log(event.logMessageData);
             switch(event.logMessageType) {
                 case "log:subscribe":
                     let joined = event.logMessageData['addedParticipants'][0]['fullName'];
@@ -53,9 +54,7 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                 }
                 break;
             }
-            console.log("Entered message case");
             if(event.body.startsWith("!")) {
-                console.log("Catched");
                 let command = event.body.split(/(?<=^\S+)\s/);
                 api.getUserInfo(event.senderID, (err, data) => {
                     switch(command[0]) {
@@ -83,7 +82,7 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                             break;
                         case "!ban":
                             api.getThreadInfo(event.threadID, (err, thread) => {
-                                console.log(thread);
+                                //console.log(thread);
                                 if (!thread.isGroup) {
                                     api.setMessageReaction("❓", event.messageID, (err) => {
                                         api.sendMessage("Only for GC command!", event.threadID);
@@ -97,10 +96,13 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                                     return;
                                 }
                                 let person = command[1];
-                                api.getUserID(person, (err, inf) => {
-                                    
-                                });
+                                api.setMessageReaction("✅", event.messageID, (err) => {
+                                    api.sendMessage("Pahawa diri " + person, event.threadID, event.messageID);
+                                }, true);
                             });
+                            break;
+                        case "!myinfo":
+
                     }
                 });
             }
