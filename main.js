@@ -1,6 +1,6 @@
 var fs = require('fs'),
     request = require('request');
-var images = require("images");
+var Jimp = require('jimp');
 const http = require('https'); // or 'https' for https:// URLs
 const login = require("fca-unofficial"); //FACEBOOK API UNOFFICIAL
 const moment = require('moment-timezone');
@@ -18,6 +18,19 @@ var download = function(uri,callback){
       request(uri).pipe(fs.createWriteStream("photo.jpg")).on('close', callback);
     });
 };
+
+async function overlay(thread_name, fb_name) {
+    // Reading image
+    const image = await Jimp.read("welcome.jpg");
+    const overl = await Jimp.read("photo.jpg");
+    // Defining the text font
+    const font = await Jimp.loadFont(Jimp.FONT_SANS_32_BLACK);
+    image.print(font, 75, 50, thread_name);
+    image.composite(overl, 180,100);
+    image.print(font, 75, 150, fb_name);
+    // Writing image after processing
+    await image.writeAsync("photo.jpg");
+}
 
 login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, api) => {
     if (err) return console.error(err);
@@ -38,18 +51,13 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                         let added = event.logMessageData['addedParticipants'];
                         console.log(added);
                         for(let x = 0; x < added.length; x++) {
-                            api.getUserID(added[x]['fullName'], (err, user) => {
+                            api.getUserInfo(added[x]['userFbId'], (err, user) => {
                                 console.log(user);
-                                download(user[0]['photoUrl'], function(){
+                                download(user[0]['thumbSrc'], function(){
+                                    let joined = event.logMessageData['addedParticipants'][x]['fullName'];
+                                    overlay(data.threadName,joined)
                                     console.log('done');
                                     let gcp = data.participantIDs;
-                                    let joined = event.logMessageData['addedParticipants'][x]['fullName'];
-                                    images("\welcome.jpg")
-                                        .size(250,120)
-                                        .draw(images("\photo.jpg"), 170, 40)  
-                                        .save("photo.jpg", {   
-                                            quality : 50 
-                                        });
                                     var msg = {
                                         attachment: fs.createReadStream(__dirname + '/photo.jpg'),
                                         body: ">Welcome " + joined + "\n>Member No." + gcp.length + " of " + data.threadName + "!"
