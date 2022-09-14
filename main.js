@@ -39,16 +39,16 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                         for(let x = 0; x < added.length; x++) {
                             api.getUserID(added[x]['fullName'], (err, user) => {
                                 console.log(user);
-                                //download(user[added[x]['userFbId']]['photoUrl'], function(){
-                                //    console.log('done');
-                                //    let gcp = data.participantIDs;
-                                //    let joined = event.logMessageData['addedParticipants'][x]['fullName'];
-                                //    var msg = {
-                                //        attachment: fs.createReadStream(__dirname + '/photo.jpg'),
-                                //        body: ">Welcome " + joined + "\n>Member No." + gcp.length + " of " + data.threadName + "!"
-                                //    }
-                                //    api.sendMessage(msg, event.threadID);
-                                //});
+                                download(user['photoUrl'], function(){
+                                    console.log('done');
+                                    let gcp = data.participantIDs;
+                                    let joined = event.logMessageData['addedParticipants'][x]['fullName'];
+                                    var msg = {
+                                        attachment: fs.createReadStream(__dirname + '/photo.jpg'),
+                                        body: ">Welcome " + joined + "\n>Member No." + gcp.length + " of " + data.threadName + "!"
+                                    }
+                                    api.sendMessage(msg, event.threadID);
+                                });
                             });
                         }
                         break;
