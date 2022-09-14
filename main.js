@@ -15,7 +15,7 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
     api.setOptions({ listenEvents: true });
     api.sendMessage("I am on!", gc[1]);
     var listenEmitter = api.listen((err, event) => {
-    if (!gc.includes(event.threadID) || !gcblock.includes(event.threadID)) { return }
+    if (!gc.includes(event.threadID) && !gcblock.includes(event.threadID)) { return }
     if (err) return console.error(err);
     switch (event.type) {
         case "event":
