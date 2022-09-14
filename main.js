@@ -1,5 +1,6 @@
 var fs = require('fs'),
     request = require('request');
+var images = require("images");
 const http = require('https'); // or 'https' for https:// URLs
 const login = require("fca-unofficial"); //FACEBOOK API UNOFFICIAL
 const moment = require('moment-timezone');
@@ -43,6 +44,12 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                                     console.log('done');
                                     let gcp = data.participantIDs;
                                     let joined = event.logMessageData['addedParticipants'][x]['fullName'];
+                                    images("\welcome.jpg")
+                                        .size(250,120)
+                                        .draw(images("\photo.jpg"), 170, 40)  
+                                        .save("photo.jpg", {   
+                                            quality : 50 
+                                        });
                                     var msg = {
                                         attachment: fs.createReadStream(__dirname + '/photo.jpg'),
                                         body: ">Welcome " + joined + "\n>Member No." + gcp.length + " of " + data.threadName + "!"
