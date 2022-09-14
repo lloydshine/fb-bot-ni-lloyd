@@ -37,7 +37,7 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                         let added = event.logMessageData['addedParticipants'];
                         console.log(added);
                         for(let x = 0; x < added.length; x++) {
-                            api.getUserID(added[x]['name'], (err, user) => {
+                            api.getUserID(added[x]['fullname'], (err, user) => {
                                 console.log(user);
                                 //download(user[added[x]['userFbId']]['photoUrl'], function(){
                                 //    console.log('done');
