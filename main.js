@@ -24,12 +24,12 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
             }
             api.getThreadInfo(event.threadID, (err, data) => {
                 let gcp = data.participantIDs;
-                console.log(event.logMessageData);
+                //console.log(event.logMessageData);
                 switch(event.logMessageType) {
                     case "log:subscribe":
                         let added = event.logMessageData['addedParticipants'];
                         for(let x = 0; x < added.length; x++) {
-                            api.getUserInfo(event.logMessageData['userFbId'], (err, user) => {
+                            api.getUserInfo(added[x]['userFbId'], (err, user) => {
                                 console.log(user);
                                 let joined = event.logMessageData['addedParticipants'][x]['fullName'];
                                 var msg = {
