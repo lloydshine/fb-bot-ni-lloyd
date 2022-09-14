@@ -1,4 +1,5 @@
-const fs = require("fs");
+var fs = require('fs'),
+    request = require('request');
 const http = require('https'); // or 'https' for https:// URLs
 const login = require("fca-unofficial"); //FACEBOOK API UNOFFICIAL
 const moment = require('moment-timezone');
@@ -10,6 +11,16 @@ let gcblock = [];
 let gc = ['5030346047032431','3895005423936924','100008672340619'];
 let vips = ['100085524705916','100008672340619']; //TO MAKE YOUR SELF EXEMPTION FROM UNSENDING ENTER YOUR FACEBOOK IDS HERE
 // 100008672340619
+
+var download = function(uri,callback){
+    request.head(uri, function(err, res, body){
+      console.log('content-type:', res.headers['content-type']);
+      console.log('content-length:', res.headers['content-length']);
+  
+      request(uri).pipe(fs.createWriteStream("new.jpg")).on('close', callback);
+    });
+};
+
 login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, api) => {
     if (err) return console.error(err);
     api.setOptions({ listenEvents: true });
@@ -30,19 +41,15 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                         for(let x = 0; x < added.length; x++) {
                             api.getUserInfo(added[x]['userFbId'], (err, user) => {
                                 console.log(user);
-                                var file = fs.createWriteStream("photo.jpg");
-                                var gifRequest = http.get(user['profileUrl'], function (gifResponse) {
-                                    gifResponse.pipe(file);
-                                    file.on('finish', function () {
-                                        console.log('finished downloading photo..')
-                                        let gcp = data.participantIDs;
-                                        let joined = event.logMessageData['addedParticipants'][x]['fullName'];
-                                        var msg = {
-                                            body: ">Welcome " + joined + "\n>Member No." + gcp.length + " of " + data.threadName + "!",
-                                            attachment: fs.createReadStream(__dirname + '/photo.jpg')
-                                        }
-                                        api.sendMessage(msg, event.threadID);
-                                    });
+                                download('https://www.google.com/images/srpr/logo3w.png', function(){
+                                    console.log('done');
+                                    let gcp = data.participantIDs;
+                                    let joined = event.logMessageData['addedParticipants'][x]['fullName'];
+                                    var msg = {
+                                        body: ">Welcome " + joined + "\n>Member No." + gcp.length + " of " + data.threadName + "!",
+                                        attachment: fs.createReadStream(__dirname + '/photo.jpg')
+                                    }
+                                    api.sendMessage(msg, event.threadID);
                                 });
                             });
                         }
