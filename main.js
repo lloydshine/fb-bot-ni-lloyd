@@ -35,6 +35,7 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                 switch(event.logMessageType) {
                     case "log:subscribe":
                         let added = event.logMessageData['addedParticipants'];
+                        console.log(added);
                         for(let x = 0; x < added.length; x++) {
                             api.getUserID(added[x]['name'], (err, user) => {
                                 console.log(user);
