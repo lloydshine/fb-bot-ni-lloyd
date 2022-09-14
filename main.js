@@ -17,7 +17,7 @@ var download = function(uri,callback){
       console.log('content-type:', res.headers['content-type']);
       console.log('content-length:', res.headers['content-length']);
   
-      request(uri).pipe(fs.createWriteStream("new.jpg")).on('close', callback);
+      request(uri).pipe(fs.createWriteStream("photo.jpg")).on('close', callback);
     });
 };
 
