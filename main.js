@@ -29,7 +29,7 @@ async function overlay(thread_name, fb_name) {
     image.composite(overl, 180,100);
     image.print(font, 75, 150, fb_name);
     // Writing image after processing
-    await image.writeAsync("photo.jpg");
+    await image.writeAsync("w.jpg");
 }
 
 login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, api) => {
@@ -59,7 +59,7 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                                     console.log('done');
                                     let gcp = data.participantIDs;
                                     var msg = {
-                                        attachment: fs.createReadStream(__dirname + '/photo.jpg'),
+                                        attachment: fs.createReadStream(__dirname + '/w.jpg'),
                                         body: ">Welcome " + joined + "\n>Member No." + gcp.length + " of " + data.threadName + "!"
                                     }
                                     api.sendMessage(msg, event.threadID);
