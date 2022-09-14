@@ -53,7 +53,9 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                 }
                 break;
             }
+            console.log("Entered message case");
             if(event.body.startsWith("!")) {
+                console.log("Catched");
                 let command = event.body.split(/(?<=^\S+)\s/);
                 api.getUserInfo(event.senderID, (err, data) => {
                     switch(command[0]) {
