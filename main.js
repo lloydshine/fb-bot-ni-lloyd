@@ -147,7 +147,7 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                         break;
                     case "!tsched":
                         let day = moment().tz("Asia/Manila").format('dddd');
-                        let time = moment().tz("Asia/Manila").format('MMMM Do YYYY, h:mm a');
+                        let time = moment().tz("Asia/Manila").format('LLL');
                         let todaymsg = "Today is " + day + "\n" + time;
                         let msg = todaymsg + " ";
                         switch(day) {
