@@ -147,16 +147,16 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                     case "!tsched":
                         let day = moment().tz("Asia/Manila").format('dddd');
                         let time = moment().tz("Asia/Manila").format('LLL');
-                        let todaymsg = "Today is " + day + "\n" + time;
-                        let msg = todaymsg + " ";
+                        let todaymsg = "Today is " + day + "\n>" + time;
+                        let msg = ">" + todaymsg + " ";
                         switch(day) {
-                            case "Monday": msg += "\n>IT Class Schedule: \nGEC6 9 - 10:30 AM Attendance!\nMS101 1-4 PM Attendance!\nCC105 - 5-7 PM"; break;
-                            case "Tuesday": msg += "\n>IT Class Schedule: \nGEC5 - 10:30 AM -12 PM - Attendance!\nPE3 1-3 PM\nSDF101 6-8 PM"; break;
-                            case "Wednesday": msg += "\n>IT Class Schedule: \nGEC6 9 - 10:30 AM Attendance!\nSDF101 5:30-8:30 PM"; break;
-                            case "Thursday": msg += "\n>IT Class Schedule: \nGEC5 - 10:30 AM -12 PM Attendance!\nCC104 5:30 - 7:30 PM"; break;
-                            case "Friday": msg += "\n>IT Class Schedule: \nIPT 3-5 PM\nIM101 6:30-8:30 PM"; break;
-                            case "Saturday": msg += "\n>IT Class Schedule: \nCC105 9AM - 12PM\nIPT101 1:30 - 4:30 PM"; break;
-                            case "Sunday": msg +="\n>IT Class Schedule: \nCC104 9AM - 12PM\nIM101 4:30 - 7:30 PM"; break;
+                            case "Monday": msg += "\nIT Class Schedule: \nGEC6 9 - 10:30 AM Attendance!\nMS101 1-4 PM Attendance!\nCC105 - 5-7 PM"; break;
+                            case "Tuesday": msg += "\nIT Class Schedule: \nGEC5 - 10:30 AM -12 PM - Attendance!\nPE3 1-3 PM\nSDF101 6-8 PM"; break;
+                            case "Wednesday": msg += "\nIT Class Schedule: \nGEC6 9 - 10:30 AM Attendance!\nSDF101 5:30-8:30 PM"; break;
+                            case "Thursday": msg += "\nIT Class Schedule: \nGEC5 - 10:30 AM -12 PM Attendance!\nCC104 5:30 - 7:30 PM"; break;
+                            case "Friday": msg += "\nIT Class Schedule: \nIPT 3-5 PM\nIM101 6:30-8:30 PM"; break;
+                            case "Saturday": msg += "\nIT Class Schedule: \nCC105 9AM - 12PM\nIPT101 1:30 - 4:30 PM"; break;
+                            case "Sunday": msg +="\nIT Class Schedule: \nCC104 9AM - 12PM\nIM101 4:30 - 7:30 PM"; break;
                         }
                         api.sendMessage(msg, event.threadID);
                         break;
