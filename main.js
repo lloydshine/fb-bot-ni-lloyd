@@ -163,7 +163,7 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                         break;
                     case "!sched":
                         let uri = data[event.senderID]['thumbSrc'];
-                        download(uri, function(){
+                        download(uri,"photo.jpg", function(){
                             images("sched.jpg")
                                 .size(579,472) 
                                 .draw(images("photo.jpg"), 280, 200) 
