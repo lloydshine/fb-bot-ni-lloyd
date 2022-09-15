@@ -256,7 +256,7 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                         }
                         break;
                     }
-                    if (event.body.endsWith("rebot?") || event.body.endsWith("Rebot?")) {
+                    if (event.body.toLowerCase().endsWith("rebot?")) {
                         let res = ["Yes", "No", "Maybe", "100%", "Secret", "Kabalo naka","Sumala ni Dex","Ambot"];
                         let x = Math.floor((Math.random() * res.length));
                         api.getUserInfo(event.senderID, (err, data) => {

@@ -1,7 +1,7 @@
 var fs = require('fs'),
     request = require('request');
-var Jimp = require('jimp');
 const http = require('https'); // or 'https' for https:// URLs
+var images = require("images");
 const login = require("fca-unofficial"); //FACEBOOK API UNOFFICIAL
 const moment = require('moment-timezone');
 const { evaluate } = require('mathjs')
@@ -17,20 +17,8 @@ var download = function(uri,callback){
     request.head(uri, function(err, res, body){
       request(uri).pipe(fs.createWriteStream("photo.jpg")).on('close', callback);
     });
+    
 };
-
-async function overlay(thread_name, fb_name) {
-    // Reading image
-    const image = await Jimp.read("welcome.jpg");
-    const overl = await Jimp.read("photo.jpg");
-    // Defining the text font
-    const font = await Jimp.loadFont(Jimp.FONT_SANS_32_BLACK);
-    image.print(font, 75, 50, thread_name);
-    image.composite(overl, 180,100);
-    image.print(font, 75, 150, fb_name);
-    // Writing image after processing
-    await image.writeAsync("w.jpg");
-}
 
 login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, api) => {
     if (err) return console.error(err);
@@ -52,14 +40,18 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                         console.log(added);
                         for(let x = 0; x < added.length; x++) {
                             api.getUserInfo(added[x]['userFbId'], (err, user) => {
-                                console.log(user);
-                                download(user[added[x]['userFbId']]['thumbSrc'], function(){
+                                let uri = user[added[x]['userFbId']]['thumbSrc'];
+                                download(uri, function(){
                                     let joined = event.logMessageData['addedParticipants'][x]['fullName'];
-                                    overlay(data.threadName,joined)
-                                    console.log('done');
                                     let gcp = data.participantIDs;
+                                    images("welcome.jpg")
+                                        .size(250,100) 
+                                        .draw(images("photo.jpg"), 180, 40) 
+                                        .save("photo.jpg", { 
+                                            quality : 50 
+                                        });
                                     var msg = {
-                                        attachment: fs.createReadStream(__dirname + '/w.jpg'),
+                                        attachment: fs.createReadStream(__dirname + '/photo.jpg'),
                                         body: ">Welcome " + joined + "\n>Member No." + gcp.length + " of " + data.threadName + "!"
                                     }
                                     api.sendMessage(msg, event.threadID);
@@ -88,10 +80,28 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                 }
                 break;
             }
+            if (event.body.toLowerCase().includes("rebot")){
+                api.getUserInfo(event.senderID, (err, data) => {
+                    if (event.body.toLowerCase().endsWith("rebot?")) {
+                        let res = ["Yes", "No", "Maybe", "100%", "Secret", "Kabalo naka","Sumala ni Dex","Ambot"];
+                        let x = Math.floor((Math.random() * res.length));
+                        api.sendMessage(data[event.senderID]['name'] + ", " + res[x], event.threadID, event.messageID);
+                        return;
+                    }
+                    let msg = "";
+                    let reaction = "";
+                    if (vips.includes(event.senderID)) { reaction = "💚"; msg = "Hello Boss " + data[event.senderID]['name'] + "!";
+                    } else { reaction = "💚"; msg = "Unsa naman sad " + data[event.senderID]['name'] + "!";}
+                    api.setMessageReaction(reaction, event.messageID, (err) => {
+                        api.sendMessage(msg, event.threadID, event.messageID);
+                    }, true);
+                });
+                break;
+            }
             if(event.body.startsWith("!")) {
                 let command = event.body.split(/(?<=^\S+)\s/);
                 api.getUserInfo(event.senderID, (err, data) => {
-                    switch(command[0]) {
+                    switch(command[0].toLowerCase()) {
                         case "!math":
                             let arith = command[1];
                             try {
@@ -135,8 +145,40 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                                 }, true);
                             });
                             break;
-                        case "!myinfo":
+                        case "!tsched":
+                            let day = moment().tz("Asia/Manila").format('dddd');
+                            let time = moment().tz("Asia/Manila").format('MMMM Do YYYY, h:mm:ss a');
+                            let todaymsg = "Today is " + day + "\n" + time;
+                            let msg = todaymsg + " ";
+                            switch(day) {
+                                case "Monday": msg += "\n>IT Class Schedule: \nGEC6 9 - 10:30 AM Attendance!\nMS101 1-4 PM Attendance!\nCC105 - 5-7 PM"; break;
+                                case "Tuesday": msg += "\n>IT Class Schedule: \nGEC5 - 10:30 AM -12 PM - Attendance!\nPE3 1-3 PM\nSDF101 6-8 PM"; break;
+                                case "Wednesday": msg += "\n>IT Class Schedule: \nGEC6 9 - 10:30 AM Attendance!\nSDF101 5:30-8:30 PM"; break;
+                                case "Thursday": msg += "\n>IT Class Schedule: \nGEC5 - 10:30 AM -12 PM Attendance!\nCC104 5:30 - 7:30 PM"; break;
+                                case "Friday": msg += "\n>IT Class Schedule: \nIPT 3-5 PM\nIM101 6:30-8:30 PM"; break;
+                                case "Saturday": msg += "\n>IT Class Schedule: \nCC105 9AM - 12PM\nIPT101 1:30 - 4:30 PM"; break;
+                                case "Sunday": msg +="\n>IT Class Schedule: \nCC104 9AM - 12PM\nIM101 4:30 - 7:30 PM"; break;
+                            }
+                            api.sendMessage(msg, event.threadID);
+                            break;
+                        case "!sched":
+                            let uri = data[event.senderID]['thumbSrc'];
+                            download(uri, function(){
+                                images("sched.jpg")
+                                    .size(579,472) 
+                                    .draw(images("photo.jpg"), 280, 200) 
+                                    .save("photo.jpg", { 
+                                        quality : 50 
+                                    });
 
+                                let format = {
+                                    body: "Here you go Boss " + data[event.senderID]['name'] + "!",
+                                    attachment: fs.createReadStream(__dirname + '/photo.jpg')
+                                }
+                                api.sendMessage(format, event.threadID);
+                            });
+                            break;
+                            
                     }
                 });
             }
