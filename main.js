@@ -45,7 +45,6 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                                     let joined = event.logMessageData['addedParticipants'][x]['fullName'];
                                     let gcp = data.participantIDs;
                                     images("welcome.jpg")
-                                        .size(250,100) 
                                         .draw(images("photo.jpg"), 180, 40) 
                                         .save("photo.jpg", { 
                                             quality : 50 
@@ -165,7 +164,6 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                         let uri = data[event.senderID]['thumbSrc'];
                         download(uri,"photo.jpg", function(){
                             images("sched.jpg")
-                                .size(579,472) 
                                 .draw(images("photo.jpg"), 280, 200) 
                                 .save("photo.jpg", { 
                                     quality : 50 
@@ -193,7 +191,6 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                                     let partner = inf[random_id]['name'];
                                     download(uri2,"photo2.jpg", function(){
                                         images("love.jpg")
-                                            .size(250,100) 
                                             .draw(images("photo1.jpg"), 40, 40) 
                                             .draw(images("photo2.jpg"), 180, 40) 
                                             .save("photo.jpg", { 
