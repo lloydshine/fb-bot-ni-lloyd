@@ -150,7 +150,7 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                         let todaymsg = "Today is " + day + "\n>" + time;
                         let msg = ">" + todaymsg + " ";
                         switch(day) {
-                            case "Monday": msg += "\nIT Class Schedule: \nGEC6 9 - 10:30 AM Attendance!\nMS101 1-4 PM Attendance!\nCC105 - 5-7 PM"; break;
+                            case "Monday": msg += "\nIT Class Schedule:\nGEC6 9 - 10:30 AM Attendance!\nMS101 1-4 PM Attendance!\nCC105 - 5-7 PM"; break;
                             case "Tuesday": msg += "\nIT Class Schedule: \nGEC5 - 10:30 AM -12 PM - Attendance!\nPE3 1-3 PM\nSDF101 6-8 PM"; break;
                             case "Wednesday": msg += "\nIT Class Schedule: \nGEC6 9 - 10:30 AM Attendance!\nSDF101 5:30-8:30 PM"; break;
                             case "Thursday": msg += "\nIT Class Schedule: \nGEC5 - 10:30 AM -12 PM Attendance!\nCC104 5:30 - 7:30 PM"; break;
