@@ -140,7 +140,7 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                             }
                             let person = command[1];
                             api.setMessageReaction("✅", event.messageID, (err) => {
-                                api.sendMessage("Pahawa diri " + person, event.threadID, event.messageID);
+                                api.sendMessage(" >Pahawa diri " + person, event.threadID, event.messageID);
                             }, true);
                         });
                         break;
