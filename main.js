@@ -158,7 +158,7 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                             case "Saturday": msg += "\nIT Class Schedule: \nCC105 9AM - 12PM\nIPT101 1:30 - 4:30 PM"; break;
                             case "Sunday": msg +="\nIT Class Schedule: \nCC104 9AM - 12PM\nIM101 4:30 - 7:30 PM"; break;
                         }
-                        api.sendMessage(msg, event.threadID);
+                        api.sendMessage(msg + "\n\n" + data[event.senderID]['name'] + " skwela sad!", event.threadID);
                         break;
                     case "!sched":
                         let uri = data[event.senderID]['thumbSrc'];
