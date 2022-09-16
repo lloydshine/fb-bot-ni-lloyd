@@ -147,7 +147,7 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                     case "!tsched":
                         let day = moment().tz("Asia/Manila").format('dddd');
                         let time = moment().tz("Asia/Manila").format('LLL');
-                        let todaymsg = "Today is " + day + "\n>" + time;
+                        let todaymsg = "Today is " + day + " \n>" + time;
                         let msg = ">" + todaymsg + " ";
                         switch(day) {
                             case "Monday": msg += "\nIT Class Schedule:\nGEC6 9 - 10:30 AM Attendance!\nMS101 1-4 PM Attendance!\nCC105 - 5-7 PM"; break;
