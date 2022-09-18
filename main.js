@@ -9,8 +9,9 @@ const { evaluate } = require('mathjs')
 let msgs = {};
 let tchrs = [];
 let gcblock = [];
-let gc = ['5030346047032431','3895005423936924','100008672340619'];
-let vips = ['100085524705916','100008672340619']; //TO MAKE YOUR SELF EXEMPTION FROM UNSENDING ENTER YOUR FACEBOOK IDS HERE
+let main = ['5896664363701089','3895005423936924']
+let gc = ['5030346047032431','3895005423936924','100008672340619','5896664363701089'];
+let vips = ['100085524705916','100008672340619','100009403889511']; //TO MAKE YOUR SELF EXEMPTION FROM UNSENDING ENTER YOUR FACEBOOK IDS HERE
 // 100008672340619
 
 var download = function(uri,filename,callback){
@@ -23,7 +24,7 @@ var download = function(uri,filename,callback){
 login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, api) => {
     if (err) return console.error(err);
     api.setOptions({ listenEvents: true });
-    api.sendMessage("I am on!", gc[2]);
+    api.sendMessage("I am on! :" + moment().tz("Asia/Manila").format('LLL'), gc[2]);
     var listenEmitter = api.listen((err, event) => {
     if (!gc.includes(event.threadID) && !gcblock.includes(event.threadID)) { return }
     if (err) return console.error(err);
@@ -67,17 +68,18 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                 });
             break;
         case "message":
-            if (gcblock.includes(event.threadID)) {
-                //console.log(event.senderID)
-                let petertagjes = '3895005423936924';
-                if (tchrs.includes(event.senderID)) {
-                    api.getUserInfo(event.senderID, (err, data) => {
-                        api.getThreadInfo(event.threadID, (err, info) => {
-                            api.sendMessage(">BOT MESSAGE FORWARD\n" + data[event.senderID]['name'] + " sent this\nfrom "+info.threadName+":\n>" + event.body, petertagjes);
-                        });   
+            if (event.threadID == main[0] && event.body.startsWith("!") && vips.includes(event.senderID)) {
+                let command = event.body.split(/(?<=^\S+)\s/);
+                api.getUserInfo(event.senderID, (err, data) => {
+                    api.getThreadInfo(event.threadID, (err, thread) => {
+                        switch(command[0].toLowerCase()) {
+                            case "!announce":
+                              let ann = data[event.senderID]['name']+" announced in "+thread.threadName+"\n>";
+                              api.sendMessage(ann + command[0], main[1]);
+                        }
                     });
-                }
-                break;
+                });
+                return;
             }
             if (event.body.toLowerCase().includes("rebot")){
                 api.getUserInfo(event.senderID, (err, data) => {
@@ -101,6 +103,13 @@ login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) }, (err, 
                 let command = event.body.split(/(?<=^\S+)\s/);
                 api.getUserInfo(event.senderID, (err, data) => {
                 switch(command[0].toLowerCase()) {
+                    case "!annouce":
+                        if(!vips.includes(event.senderID)) return;
+                        api.getThreadInfo(event.threadID, (err, thread) => {
+                            let ann = data[event.senderID]['name']+" announced in "+thread.threadName+"\n>";
+                            api.sendMessage(ann + command[0], main[0]);
+                        });
+                        break;
                     case "!math":
                         let arith = command[1];
                         try {
