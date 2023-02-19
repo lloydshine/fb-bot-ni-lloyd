@@ -31,6 +31,7 @@ login(
     if (err) return console.error(err);
     api.setOptions({ listenEvents: true });
     console.log("ON");
+    api.sendMessage("I am on!", "100008672340619");
     var listenEmitter = api.listen((err, event) => {
       if (!gc.includes(event.threadID) && !gcblock.includes(event.threadID)) {
         return;
