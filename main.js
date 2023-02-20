@@ -2,11 +2,12 @@ var fs = require("fs"),
   request = require("request");
 const http = require("https"); // or 'https' for https:// URLs
 const login = require("fca-unofficial"); //FACEBOOK API UNOFFICIAL
+const apikey = JSON.parse(fs.readFileSync('./api_key.json', 'utf8'))
 
 const { Configuration, OpenAIApi } = require("openai");
 
 const configuration = new Configuration({
-  apiKey: "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",
+  apiKey: apikey.openai,
 });
 const openai = new OpenAIApi(configuration);
 
@@ -16,7 +17,7 @@ let tchrs = [];
 let gcblock = [];
 let main = ["5896664363701089", "3895005423936924"];
 let gc = [
-  "5030346047032431",
+  "5201136466661918",
   "3895005423936924",
   "100008672340619",
   "5896664363701089",
@@ -80,38 +81,24 @@ login(
           });
           break;
         case "message":
-          if (
-            event.threadID == main[0] &&
-            event.body.startsWith("!") &&
-            vips.includes(event.senderID)
-          ) {
-            let command = event.body.split(/(?<=^\S+)\s/);
-            api.getUserInfo(event.senderID, (err, data) => {
-              api.getThreadInfo(event.threadID, (err, thread) => {
-                switch (command[0].toLowerCase()) {
-                  case "!announce":
-                    let ann =
-                      data[event.senderID]["name"] +
-                      " announced in " +
-                      thread.threadName +
-                      "\n>";
-                    api.sendMessage(ann + command[0], main[1]);
-                }
-              });
-            });
-            return;
-          }
           if (event.body.startsWith("!")) {
             let command = event.body.split(/(?<=^\S+)\s/);
             api.getUserInfo(event.senderID, (err, data) => {
               switch (command[0].toLowerCase()) {
                 case "!imagine":
+                    api.setMessageReaction(
+                      "🆙",
+                      event.messageID,
+                      (err) => {
+                        if (err) return console.error(err);
+                      },
+                      true
+                    );
                   const response = openai.createImage({
                     prompt: command[1],
                     n: 1,
                     size: "256x256",
                   });
-                  console.info("Loading Response ...");
                   response
                   .then((r) => {
                     image_url = r.data.data[0].url;
@@ -119,7 +106,6 @@ login(
                     var gifRequest = http.get(image_url, function (gifResponse) {
                       gifResponse.pipe(file);
                       file.on("finish", function () {
-                        console.log("finished downloading photo..");
                         var message = {
                           body:
                           command[1],
@@ -130,9 +116,7 @@ login(
                         api.sendMessage(message, event.threadID);
                       });
                     });
-                    console.log(image_url);
                     //api.sendMessage(data[event.senderID]['name'] + " " + r.data.choices[0].text, event.threadID, event.messageID);
-                    console.info("Sent");
                   })
                   .catch((error) => {
                     api.sendMessage("Abnormal na request bv!", event.threadID);
@@ -140,14 +124,20 @@ login(
                   
                   break;
                 case "!ai":
+                    api.setMessageReaction(
+                      "🆙",
+                      event.messageID,
+                      (err) => {
+                        if (err) return console.error(err);
+                      },
+                      true
+                    );
                   api.getUserInfo(event.senderID, (err, data) => {
                     const completion = openai.createCompletion({
                       model: "text-davinci-003",
                       prompt: command[1],
                       max_tokens: 1000,
                     });
-
-                    console.info("Loading Response ...");
                     completion.then((r) => {
                       api.sendMessage(
                         data[event.senderID]["name"] +
@@ -156,21 +146,9 @@ login(
                         event.threadID,
                         event.messageID
                       );
-                      console.info("Sent");
                     });
 
                     return;
-                  });
-                  break;
-                case "!annouce":
-                  if (!vips.includes(event.senderID)) return;
-                  api.getThreadInfo(event.threadID, (err, thread) => {
-                    let ann =
-                      data[event.senderID]["name"] +
-                      " announced in " +
-                      thread.threadName +
-                      "\n>";
-                    api.sendMessage(ann + command[0], main[0]);
                   });
                   break;
                 case "!nick":
