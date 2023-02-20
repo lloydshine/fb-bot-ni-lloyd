@@ -6,7 +6,7 @@ const login = require("fca-unofficial"); //FACEBOOK API UNOFFICIAL
 const { Configuration, OpenAIApi } = require("openai");
 
 const configuration = new Configuration({
-  apiKey: "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",
+  apiKey: "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",
 });
 const openai = new OpenAIApi(configuration);
 
