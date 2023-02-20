@@ -2,7 +2,7 @@ var fs = require("fs"),
   request = require("request");
 const http = require("https"); // or 'https' for https:// URLs
 const login = require("fca-unofficial"); //FACEBOOK API UNOFFICIAL
-require('dotenv').config();
+require("dotenv").config();
 //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
 
 const { Configuration, OpenAIApi } = require("openai");
@@ -22,7 +22,7 @@ let gc = [
   "3895005423936924",
   "100008672340619",
   "5896664363701089",
-  '8276130495793097',
+  "5030346047032431",
 ];
 let vips = ["100085524705916", "100008672340619", "100009403889511"]; //TO MAKE YOUR SELF EXEMPTION FROM UNSENDING ENTER YOUR FACEBOOK IDS HERE
 // 100008672340619
@@ -87,53 +87,83 @@ login(
             api.getUserInfo(event.senderID, (err, data) => {
               switch (command[0].toLowerCase()) {
                 case "!imagine":
-                    api.setMessageReaction(
-                      "🆙",
-                      event.messageID,
-                      (err) => {
-                        if (err) return console.error(err);
-                      },
-                      true
-                    );
+                  api.setMessageReaction(
+                    "🆙",
+                    event.messageID,
+                    (err) => {
+                      if (err) return console.error(err);
+                    },
+                    true
+                  );
                   const response = openai.createImage({
                     prompt: command[1],
-                    n: 1,
+                    n: 3,
                     size: "256x256",
                   });
-                  response
-                  .then((r) => {
-                    console.log(r.data.data);
-                    image_url = r.data.data[0].url;
-                    var file = fs.createWriteStream("photo.jpg");
-                    var gifRequest = http.get(image_url, function (gifResponse) {
-                      gifResponse.pipe(file);
-                      file.on("finish", function () {
+                  response.then((r) => {
+                    const urls = [
+                      r.data.data[0].url,
+                      r.data.data[1].url,
+                      r.data.data[2].url,
+                    ];
+                    let streams = [];
+                    // Map the URLs to an array of promises that will be resolved when the files are downloaded
+                    const promises = urls.map((url, index) => {
+                      return new Promise((resolve, reject) => {
+                        http
+                          .get(url, (res) => {
+                            const fileStream = fs.createWriteStream(
+                              `photo${index + 1}.jpg`
+                            );
+                            res.pipe(fileStream);
+                            fileStream.on("finish", () => {
+                              console.log(
+                                `Downloaded photo${index + 1}.jpg`
+                              );
+                              streams.push(fs.createReadStream(__dirname + `/photo${index + 1}.jpg`))
+                              resolve();
+                            });
+                          })
+                          .on("error", (err) => {
+                            console.error(
+                              `Error downloading ${url}: ${err.message}`
+                            );
+                            reject();
+                          });
+                      });
+                    });
+
+                    // Wait for all promises to resolve before executing the next block of code
+                    Promise.all(promises)
+                      .then(() => {
+                        console.log("All photos have been downloaded");
                         var message = {
                           body:
                           command[1],
-                          attachment: fs.createReadStream(
-                            __dirname + "/photo.jpg"
-                          ),
+                          attachment: streams,
                         };
                         api.sendMessage(message, event.threadID);
+                      })
+                      .catch(() => {
+                        console.error(
+                          "There was an error downloading one or more photos"
+                        );
                       });
-                    });
-                    //api.sendMessage(data[event.senderID]['name'] + " " + r.data.choices[0].text, event.threadID, event.messageID);
                   })
                   .catch((error) => {
-                    api.sendMessage("Abnormal na request bv!", event.threadID);
+                    api.sendMessage("Wag kang bastos!", event.threadID,event.messageID);
                   });
-                  
+
                   break;
                 case "!ai":
-                    api.setMessageReaction(
-                      "🆙",
-                      event.messageID,
-                      (err) => {
-                        if (err) return console.error(err);
-                      },
-                      true
-                    );
+                  api.setMessageReaction(
+                    "🆙",
+                    event.messageID,
+                    (err) => {
+                      if (err) return console.error(err);
+                    },
+                    true
+                  );
                   api.getUserInfo(event.senderID, (err, data) => {
                     const completion = openai.createCompletion({
                       model: "text-davinci-003",
