@@ -2,7 +2,6 @@ var fs = require("fs"),
   request = require("request");
 const http = require("https"); // or 'https' for https:// URLs
 const login = require("fca-unofficial"); //FACEBOOK API UNOFFICIAL
-const apikey = JSON.parse(fs.readFileSync('./api_key.json', 'utf8'))
 require('dotenv').config();
 //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
 
