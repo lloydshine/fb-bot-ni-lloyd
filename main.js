@@ -3,11 +3,13 @@ var fs = require("fs"),
 const http = require("https"); // or 'https' for https:// URLs
 const login = require("fca-unofficial"); //FACEBOOK API UNOFFICIAL
 const apikey = JSON.parse(fs.readFileSync('./api_key.json', 'utf8'))
+require('dotenv').config();
+//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
 
 const { Configuration, OpenAIApi } = require("openai");
 
 const configuration = new Configuration({
-  apiKey: apikey.openai,
+  apiKey: process.env.openAI,
 });
 const openai = new OpenAIApi(configuration);
 
@@ -101,6 +103,7 @@ login(
                   });
                   response
                   .then((r) => {
+                    console.log(r.data.data);
                     image_url = r.data.data[0].url;
                     var file = fs.createWriteStream("photo.jpg");
                     var gifRequest = http.get(image_url, function (gifResponse) {
