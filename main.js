@@ -100,59 +100,61 @@ login(
                     n: 3,
                     size: "256x256",
                   });
-                  response.then((r) => {
-                    const urls = [
-                      r.data.data[0].url,
-                      r.data.data[1].url,
-                      r.data.data[2].url,
-                    ];
-                    let streams = [];
-                    // Map the URLs to an array of promises that will be resolved when the files are downloaded
-                    const promises = urls.map((url, index) => {
-                      return new Promise((resolve, reject) => {
-                        http
-                          .get(url, (res) => {
-                            const fileStream = fs.createWriteStream(
-                              `photo${index + 1}.jpg`
-                            );
-                            res.pipe(fileStream);
-                            fileStream.on("finish", () => {
-                              console.log(
-                                `Downloaded photo${index + 1}.jpg`
+                  response
+                    .then((r) => {
+                      const urls = [
+                        r.data.data[0].url,
+                        r.data.data[1].url,
+                        r.data.data[2].url,
+                      ];
+                      let streams = [];
+                      // Map the URLs to an array of promises that will be resolved when the files are downloaded
+                      const promises = urls.map((url, index) => {
+                        return new Promise((resolve, reject) => {
+                          http
+                            .get(url, (res) => {
+                              const fileStream = fs.createWriteStream(
+                                `photo${index + 1}.jpg`
                               );
-                              streams.push(fs.createReadStream(__dirname + `/photo${index + 1}.jpg`))
-                              resolve();
+                              res.pipe(fileStream);
+                              fileStream.on("finish", () => {
+                                console.log(`Downloaded photo${index + 1}.jpg`);
+                                streams.push(
+                                  fs.createReadStream(
+                                    __dirname + `/photo${index + 1}.jpg`
+                                  )
+                                );
+                                resolve();
+                              });
+                            })
+                            .on("error", (err) => {
+                              console.error(
+                                `Error downloading ${url}: ${err.message}`
+                              );
+                              reject();
                             });
-                          })
-                          .on("error", (err) => {
-                            console.error(
-                              `Error downloading ${url}: ${err.message}`
-                            );
-                            reject();
-                          });
+                        });
                       });
-                    });
 
-                    // Wait for all promises to resolve before executing the next block of code
-                    Promise.all(promises)
-                      .then(() => {
-                        console.log("All photos have been downloaded");
-                        var message = {
-                          body:
-                          command[1],
-                          attachment: streams,
-                        };
-                        api.sendMessage(message, event.threadID);
-                      })
-                      .catch(() => {
-                        console.error(
-                          "There was an error downloading one or more photos"
-                        );
-                      });
-                  })
-                  .catch((error) => {
-                    api.sendMessage("Wag kang bastos!", event.threadID,event.messageID);
-                  });
+                      // Wait for all promises to resolve before executing the next block of code
+                      Promise.all(promises)
+                        .then(() => {
+                          console.log("All photos have been downloaded");
+                          var message = {
+                            body: command[1],
+                            attachment: streams,
+                          };
+                          api.sendMessage(message, event.threadID);
+                        })
+                        .catch(() => {
+                          console.error(
+                            "There was an error downloading one or more photos"
+                          );
+                        });
+                    })
+                    .catch((error) => {
+                      api.sendMessage("No", event.threadID, event.messageID);
+                    });
 
                   break;
                 case "!ai":
@@ -170,16 +172,19 @@ login(
                       prompt: command[1],
                       max_tokens: 1000,
                     });
-                    completion.then((r) => {
-                      api.sendMessage(
-                        data[event.senderID]["name"] +
-                          " " +
-                          r.data.choices[0].text,
-                        event.threadID,
-                        event.messageID
-                      );
-                    });
-
+                    completion
+                      .then((r) => {
+                        api.sendMessage(
+                          data[event.senderID]["name"] +
+                            " " +
+                            r.data.choices[0].text,
+                          event.threadID,
+                          event.messageID
+                        );
+                      })
+                      .catch((error) => {
+                        api.sendMessage("No", event.threadID, event.messageID);
+                      });
                     return;
                   });
                   break;
