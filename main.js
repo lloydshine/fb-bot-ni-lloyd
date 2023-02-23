@@ -91,7 +91,7 @@ login(
                 case "!reminders":
                   let message = "";
                   reminders.forEach(function(rem, index) {
-                    message += `[${index+1}]. Event: ${rem.event}\nDate: ${rem.date}\nTime:${rem.time}\n-----------\n`;
+                    message += `[${index+1}].\n    Event: ${rem.event}\n    Date: ${rem.date}\n    Time: ${rem.time}\n-------------------\n`;
                   });
                   api.sendMessage(
                     `Reminders (${reminders.length}):\n`+message,
