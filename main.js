@@ -3,7 +3,8 @@ var fs = require("fs"),
 const http = require("https"); // or 'https' for https:// URLs
 const login = require("fca-unofficial"); //FACEBOOK API UNOFFICIAL
 require("dotenv").config();
-//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
+var moment = require("moment-timezone");
+moment().tz("Asia/Manila").format();
 
 const { Configuration, OpenAIApi } = require("openai");
 
@@ -13,6 +14,7 @@ const configuration = new Configuration({
 const openai = new OpenAIApi(configuration);
 
 // GLOBAL MESSAGE STORAGE
+let reminders = [];
 let msgs = {};
 let tchrs = [];
 let gcblock = [];
@@ -31,7 +33,7 @@ login(
   { appState: JSON.parse(fs.readFileSync("appstate.json", "utf8")) },
   (err, api) => {
     if (err) return console.error(err);
-    api.setOptions({ listenEvents: true,forceLogin: true });
+    api.setOptions({ listenEvents: true, forceLogin: true });
     console.log("ON");
     api.sendMessage("I am on!", "100008672340619");
     var listenEmitter = api.listen((err, event) => {
@@ -86,6 +88,34 @@ login(
             let command = event.body.split(/(?<=^\S+)\s/);
             api.getUserInfo(event.senderID, (err, data) => {
               switch (command[0].toLowerCase()) {
+                case "!remind":
+                  let rem = command[1].split(" | ");
+                  let r = {
+                    event: rem[0],
+                    date: rem[1],
+                    time: rem[2],
+                  };
+                  console.log(r);
+                  const phTimezone = "Asia/Manila";
+                  const now = moment().tz(phTimezone);
+                  const reminderDateTime = moment.tz(
+                    `${r.date} ${r.time}`,
+                    "YYYY-MM-DD h:mm A",
+                    phTimezone
+                  );
+
+                  // Calculate the duration until the reminder
+                  const duration = moment.duration(reminderDateTime.diff(now));
+                  const minutesUntilReminder = duration
+                      .asMinutes()
+                      .toFixed(0);
+                  const reminderTime = reminderDateTime.format("h:mm A");
+                  api.sendMessage( `${r.event} at ${reminderTime} (${minutesUntilReminder} minutes from now)`, event.threadID, event.messageID);
+                  // Schedule the reminder
+                  setTimeout(() => {
+                    api.sendMessage( `@${data[event.senderID]["name"]} ${r.event}`, event.threadID, event.messageID);
+                  }, duration.asMilliseconds());
+                  break;
                 case "!imagine":
                   api.setMessageReaction(
                     "🆙",
