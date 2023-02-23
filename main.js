@@ -88,6 +88,16 @@ login(
             let command = event.body.split(/(?<=^\S+)\s/);
             api.getUserInfo(event.senderID, (err, data) => {
               switch (command[0].toLowerCase()) {
+                case "!reminders":
+                  let message = "";
+                  reminders.forEach(function(rem, index) {
+                    message += `[${index+1}]. Event: ${rem.event}\nDate: ${rem.date}\nTime:${rem.time}\n-----------\n`;
+                  });
+                  api.sendMessage(
+                    `Reminders (${reminders.length}):\n`+message,
+                    event.threadID
+                  );
+                break;
                 case "!remind":
                   if (!vips.includes(event.senderID)) {
                     api.setMessageReaction(
@@ -105,11 +115,44 @@ login(
                     return;
                   }
                   let rem = command[1].split(" | ");
+                  if (rem.length !== 3) {
+                    // The input must have exactly 3 elements separated by " | "
+                    api.sendMessage(
+                      "Invalid input format. Usage: !remind event | date | time",
+                      event.threadID,
+                      event.messageID
+                    );
+                    return;
+                  }
                   let r = {
-                    event: rem[0],
-                    date: rem[1],
-                    time: rem[2],
+                    event: rem[0].trim(), // Remove any leading or trailing whitespace
+                    date: rem[1].trim(), // Remove any leading or trailing whitespace
+                    time: rem[2].trim(), // Remove any leading or trailing whitespace
                   };
+                  if (r.event === "") {
+                    api.sendMessage(
+                      "Event name cannot be empty.",
+                      event.threadID,
+                      event.messageID
+                    );
+                    return;
+                  }
+                  if (!/^\d{4}-\d{2}-\d{2}$/.test(r.date)) {
+                    api.sendMessage(
+                      "Invalid date format. Date must be in the format YYYY-MM-DD.",
+                      event.threadID,
+                      event.messageID
+                    );
+                    return;
+                  }
+                  if (!/^\d{1,2}:\d{2} (AM|PM)$/.test(r.time)) {
+                    api.sendMessage(
+                      "Invalid time format. Time must be in the format HH:MM AM/PM.",
+                      event.threadID,
+                      event.messageID
+                    );
+                    return;
+                  }
                   console.log(r);
                   const phTimezone = "Asia/Manila";
                   const now = moment().tz(phTimezone);
@@ -121,14 +164,22 @@ login(
 
                   // Calculate the duration until the reminder
                   const duration = moment.duration(reminderDateTime.diff(now));
-                  const minutesUntilReminder = duration
-                      .asMinutes()
-                      .toFixed(0);
+                  const minutesUntilReminder = duration.asMinutes().toFixed(0);
                   const reminderTime = reminderDateTime.format("h:mm A");
-                  api.sendMessage( `${r.event} at ${reminderTime} (${minutesUntilReminder} minutes from now)`, event.threadID, event.messageID);
+                  reminders.push(r);
+                  api.sendMessage(
+                    `${r.event} at ${reminderTime} (${minutesUntilReminder} minutes from now)`,
+                    event.threadID,
+                    event.messageID
+                  );
                   // Schedule the reminder
                   setTimeout(() => {
-                    api.sendMessage( `@${data[event.senderID]["name"]} ${r.event}`, event.threadID, event.messageID);
+                    reminders.splice(reminders.indexOf(r),1);
+                    api.sendMessage(
+                      `@${data[event.senderID]["name"]} ${r.event}`,
+                      event.threadID,
+                      event.messageID
+                    );
                   }, duration.asMilliseconds());
                   break;
                 case "!imagine":
