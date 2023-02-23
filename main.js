@@ -89,6 +89,21 @@ login(
             api.getUserInfo(event.senderID, (err, data) => {
               switch (command[0].toLowerCase()) {
                 case "!remind":
+                  if (!vips.includes(event.senderID)) {
+                    api.setMessageReaction(
+                      "❎",
+                      event.messageID,
+                      (err) => {
+                        api.sendMessage(
+                          "No perms lol",
+                          event.threadID,
+                          event.messageID
+                        );
+                      },
+                      true
+                    );
+                    return;
+                  }
                   let rem = command[1].split(" | ");
                   let r = {
                     event: rem[0],
