@@ -31,7 +31,7 @@ login(
   { appState: JSON.parse(fs.readFileSync("appstate.json", "utf8")) },
   (err, api) => {
     if (err) return console.error(err);
-    api.setOptions({ listenEvents: true });
+    api.setOptions({ listenEvents: true,forceLogin: true });
     console.log("ON");
     api.sendMessage("I am on!", "100008672340619");
     var listenEmitter = api.listen((err, event) => {
@@ -98,7 +98,7 @@ login(
                   const response = openai.createImage({
                     prompt: command[1],
                     n: 3,
-                    size: "256x256",
+                    size: "1024x1024",
                   });
                   response
                     .then((r) => {
