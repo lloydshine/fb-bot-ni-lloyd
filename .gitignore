@@ -2,3 +2,4 @@
 .env
 *.jpg
 appstate.json
+reminders.json
