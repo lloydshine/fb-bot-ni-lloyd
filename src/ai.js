@@ -1,5 +1,3 @@
-var fs = require("fs");
-const https = require("https");
 require("dotenv").config();
 const { Configuration, OpenAIApi } = require("openai");
 
@@ -8,7 +6,7 @@ const configuration = new Configuration({
 });
 const openai = new OpenAIApi(configuration);
 
-function ai(event,command,api) {
+async function ai(event, command, api) {
   api.setMessageReaction(
     "🆙",
     event.messageID,
@@ -17,25 +15,23 @@ function ai(event,command,api) {
     },
     true
   );
-  api.getUserInfo(event.senderID, (err, data) => {
-    const completion = openai.createCompletion({
+
+  try {
+    const data = await api.getUserInfo(event.senderID);
+    const completion = await openai.createCompletion({
       model: "text-davinci-003",
       prompt: command[1],
       max_tokens: 1000,
     });
-    completion
-      .then((r) => {
-        api.sendMessage(
-          data[event.senderID]["name"] + " " + r.data.choices[0].text,
-          event.threadID,
-          event.messageID
-        );
-      })
-      .catch((error) => {
-        api.sendMessage("No", event.threadID, event.messageID);
-      });
-    return;
-  });
+
+    api.sendMessage(
+      data[event.senderID]["name"] + " " + completion.data.choices[0].text,
+      event.threadID,
+      event.messageID
+    );
+  } catch (error) {
+    api.sendMessage("No", event.threadID, event.messageID);
+  }
 }
 
 module.exports = ai;

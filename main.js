@@ -60,7 +60,7 @@ login({ appState: JSON.parse(fs.readFileSync("appstate.json", "utf8")) }, async 
               ai(event, command, api);
               break;
             case "!nick":
-              nick(event, command, api);
+              nick(event,data,command, api);
               break;
             default:
               break;
