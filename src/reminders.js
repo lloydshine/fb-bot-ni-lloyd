@@ -14,9 +14,9 @@ const reminders = async (event, command, api) => {
         const formattedDateTime = reminderDateTime
           .tz("Asia/Manila")
           .format("MMM DD, YYYY h:mm A z");
-        message += `[${index + 1}].\n    Event: ${
+        message += `[${index + 1}].\nEvent:\n->${
           rem.event
-        }\n    Date and Time: ${formattedDateTime}\n-------------------\n`;
+        }\nDate and Time:\n->${formattedDateTime}\n--------------------------------------------\n`;
       });
       api.sendMessage(
         `Reminders (${reminders[event.threadID].length}):\n` + message,
@@ -26,7 +26,7 @@ const reminders = async (event, command, api) => {
 
     case "remove":
       reminders[event.threadID].splice(
-        parseInt(command[1].split(" ")[0]) - 1,
+        parseInt(command[1].split(" ")[1]) - 1,
         1
       );
 

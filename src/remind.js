@@ -42,7 +42,7 @@ function remind(event, command, api) {
 
   let reminders = JSON.parse(fs.readFileSync("reminders.json"));
 
-  reminders[event.threadID].push({ event: eventName, dateTime: reminderDateTime.valueOf() });
+  reminders[event.threadID].push({ event: eventName, dateTime: reminderDateTime.valueOf()});
 
   // Write the updated reminders object back to the file
   fs.writeFileSync("reminders.json", JSON.stringify(reminders));
@@ -59,7 +59,7 @@ function remind(event, command, api) {
 
   // Schedule the reminder
   setTimeout(() => {
-    const index = reminders[event.threadID].findIndex(r => r.dateTime === reminderDateTime.valueOf());
+    const index = reminders[event.threadID].findIndex(r => r.event === eventName);
     if (index !== -1) {
       reminders[event.threadID].splice(index, 1);
       // Write the updated reminders object back to the file
