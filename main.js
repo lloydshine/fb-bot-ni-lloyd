@@ -35,12 +35,16 @@ login(
       const reminderArr = rems[key];
       reminderArr.forEach((reminder) => {
         console.log(reminder);
+        const formattedDateTime = moment(reminder.dateTime)
+          .tz("Asia/Manila")
+          .format("YYYY-MM-DD h:mm A");
         const phTimezone = "Asia/Manila";
         const now = moment().tz(phTimezone);
-        const reminderDateTime = moment.tz(reminder.dateTime, "YYYY-MM-DD h:mm A", phTimezone);
+        const reminderDateTime = moment.tz(formattedDateTime, "YYYY-MM-DD h:mm A", phTimezone);
 
         // Calculate the duration until the reminder
         const duration = moment.duration(reminderDateTime.diff(now));
+        console.log(duration.asMilliseconds())
         setTimeout(() => {
           const index = reminderArr.findIndex(
             (r) => r.event === reminder.event
@@ -48,7 +52,7 @@ login(
           if (index !== -1) {
             reminderArr.splice(index, 1);
             // Write the updated reminders object back to the file
-            fs.writeFileSync("reminders.json", JSON.stringify(reminderArr));
+            fs.writeFileSync("reminders.json", JSON.stringify(rems));
             api.sendMessage(`REMINDER: ${reminder.event}`, key);
           }
         }, duration.asMilliseconds());
