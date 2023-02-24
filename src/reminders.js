@@ -3,6 +3,9 @@ const moment = require("moment-timezone");
 
 const reminders = async (event, command, api) => {
   const reminders = JSON.parse(fs.readFileSync("reminders.json"));
+  if(!reminders[event.threadID]) {
+    return;
+  }
 
   const com = command[1].split(" ");
 

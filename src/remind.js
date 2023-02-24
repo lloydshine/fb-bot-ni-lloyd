@@ -41,7 +41,9 @@ function remind(event, command, api) {
   }
 
   let reminders = JSON.parse(fs.readFileSync("reminders.json"));
-
+  if(!reminders[event.threadID]) {
+    reminders[event.threadID] = []
+  }
   reminders[event.threadID].push({ event: eventName, dateTime: reminderDateTime.valueOf()});
 
   // Write the updated reminders object back to the file
