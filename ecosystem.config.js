@@ -3,8 +3,8 @@ module.exports = {
     {
       name: "Process",
       script: "./main.js",
-      args: "--max-old-space-size=4096",
-      cron_restart: "10 7 * * *", // Restarts the app at 7:00 AM every day
+      interpreter_args: "--max-old-space-size=4096",
+      cron_restart: "20 7 * * *",
     },
     {
       name: "Scheduler",
