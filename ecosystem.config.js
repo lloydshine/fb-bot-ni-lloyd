@@ -3,9 +3,7 @@ module.exports = {
     {
       name: "Process",
       script: "./main.js",
-      interpreter: "node",
-      interpreter_args: "--max-old-space-size=4096",
-      cron_restart: "30 7 * * * Asia/Manila",
+      cron_restart: "0 45 8 * * * Asia/Manila",
     },
     
     {
