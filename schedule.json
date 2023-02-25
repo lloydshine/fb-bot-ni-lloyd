@@ -1,0 +1,91 @@
+{
+    "Monday": [
+        {
+            "code": "PF 102",
+            "number": "83379",
+            "course": "Event-Driven Programming",
+            "start_time": "09:30AM",
+            "end_time": "08:30PM"
+        }
+    ],
+    "Tuesday": [
+        {
+            "code": "GEC 7",
+            "number": "51492",
+            "course": "Science, Technology, and Society",
+            "start_time": "07:30AM",
+            "end_time": "09:00AM"
+        },
+        {
+            "code": "SIA 101",
+            "number": "83383",
+            "course": "Fundamentals of System Integration & Architecture",
+            "start_time": "09:30AM",
+            "end_time": "08:30PM"
+        }
+    ],
+    "Wednesday": [
+        {
+            "code": "NET 101",
+            "number": "83380",
+            "course": "Fundamentals of Networking",
+            "start_time": "09:30AM",
+            "end_time": "08:30PM"
+        }
+    ],
+    "Thursday": [
+        {
+            "code": "GEC 8",
+            "number": "51503",
+            "course": "Ethics",
+            "start_time": "09:00AM",
+            "end_time": "12:00PM"
+        }
+    ],
+    "Friday": [
+        {
+            "code": "CC 106",
+            "number": "83381",
+            "course": "Applications Development & Emerging Technologies",
+            "start_time": "04:00PM",
+            "end_time": "06:00PM"
+        },
+        {
+            "code": "GEC 9",
+            "number": "51518",
+            "course": "Life and Works of Rizal",
+            "start_time": "09:00AM",
+            "end_time": "12:00PM"
+        },
+        {
+            "code": "IM 102",
+            "number": "83382",
+            "course": "Advance Database Systems",
+            "start_time": "01:00PM",
+            "end_time": "03:00PM"
+        }
+    ],
+    "Saturday": [
+        {
+            "code": "CC 106",
+            "number": "83381",
+            "course": "Applications Development & Emerging Technologies",
+            "start_time": "01:30PM",
+            "end_time": "04:30PM"
+        },
+        {
+            "code": "IM 102",
+            "number": "83382",
+            "course": "Advance Database Systems",
+            "start_time": "05:30PM",
+            "end_time": "08:30PM"
+        },
+        {
+            "code": "PE 4",
+            "number": "51572",
+            "course": "PATH-FIT 4",
+            "start_time": "07:00AM",
+            "end_time": "09:00AM"
+        }
+    ]
+}
