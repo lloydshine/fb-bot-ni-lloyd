@@ -3,9 +3,7 @@ module.exports = {
     {
       name: "Process",
       script: "./main.js",
-      cron_restart: "0 45 8 * * * Asia/Manila",
     },
-    
     {
       name: "Scheduler",
       script: "./scheduler.js",
