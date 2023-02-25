@@ -87,5 +87,14 @@
             "start_time": "07:00AM",
             "end_time": "09:00AM"
         }
+    ],
+    "Sunday": [
+        {
+            "code": "Way Klase",
+            "number": "8",
+            "course": "O",
+            "start_time": "07:30AM",
+            "end_time": "04:30PM"
+        }
     ]
 }
