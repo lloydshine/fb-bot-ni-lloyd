@@ -30,9 +30,8 @@ login(
       const minutesBeforeReminder = 10; // Change this to set the number of minutes before the reminder time to send the initial notification
 
       if (duration.asMilliseconds() < 0) {
-        api.sendMessage(
-          `${course.code} is already done! ${course.start_time} - ${course.end_time}`,
-          "3895005423936924"
+        console.log(
+          `${course.code} is already done! ${course.start_time} - ${course.end_time}`
         );
         return;
       }
@@ -50,6 +49,27 @@ login(
         // Write the updated reminders object back to the file
         api.sendMessage(`${course.code} will start now!`, "3895005423936924");
       }, duration.asMilliseconds());
+    });
+
+    const listenEmitter = api.listen(async (err, event) => {
+      if (event.threadID != "3895005423936924") {
+        return;
+      }
+      if (err) return console.error(err);
+      switch (event.type) {
+        case "message":
+          if(!event.body.includes("sched")) {
+            return;
+          }
+          let message = `Today is ${currentDay}, Schedules:\n`
+          subjects.forEach((course,index) => {
+            message += `[${index+1}] ${course.code} ${course.start_time} - ${course.end_time}\n`;
+          })
+          api.sendMessage(message, "3895005423936924",event.messageID);
+          break;
+        default:
+          break;
+      }
     });
   }
 );
