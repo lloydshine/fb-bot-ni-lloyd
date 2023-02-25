@@ -28,14 +28,6 @@ login(
     console.log("ON");
     api.sendMessage("I am on!", "100008672340619");
 
-    setInterval(() => {
-      const message = {
-        body:"ambasollll~~",
-        attachment: fs.createReadStream("ambasol.mp4"),
-      };
-      api.sendMessage(message,"3895005423936924"); // Replace "1234567890" with the desired recipient ID
-    }, 60 * 60 * 1000); // 60 minutes * 60 seconds * 1000 milliseconds
-
     const remindersData = fs.readFileSync("reminders.json", "utf8");
     const rems = JSON.parse(remindersData);
     Object.keys(rems).forEach((key) => {
@@ -48,11 +40,25 @@ login(
           .format("YYYY-MM-DD h:mm A");
         const phTimezone = "Asia/Manila";
         const now = moment().tz(phTimezone);
-        const reminderDateTime = moment.tz(formattedDateTime, "YYYY-MM-DD h:mm A", phTimezone);
+        const reminderDateTime = moment.tz(
+          formattedDateTime,
+          "YYYY-MM-DD h:mm A",
+          phTimezone
+        );
 
         // Calculate the duration until the reminder
         const duration = moment.duration(reminderDateTime.diff(now));
-        console.log(duration.asMilliseconds())
+        console.log(duration.asMilliseconds());
+        const minutesBeforeReminder = 5; // Change this to set the number of minutes before the reminder time to send the initial notification
+
+        const initialDuration =
+          duration.asMilliseconds() - minutesBeforeReminder * 60 * 1000;
+        setTimeout(() => {
+          api.sendMessage(
+            `Your reminder for "${reminder.event}" is in ${minutesBeforeReminder} minutes.`,
+            key
+          );
+        }, initialDuration);
         setTimeout(() => {
           const index = reminderArr.findIndex(
             (r) => r.event === reminder.event

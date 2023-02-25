@@ -6,7 +6,10 @@ const schedule = require("./schedule.json");
 login(
   { appState: JSON.parse(fs.readFileSync("appstate1.json", "utf8")) },
   async (err, api) => {
+    api.setOptions({ listenEvents: true, forceLogin: true });
     if (err) return console.error(err);
+    console.log("ON");
+    api.sendMessage("I am on!", "100008672340619");
     const timezone = "Asia/Manila";
     const currentTime = moment().tz(timezone);
 
