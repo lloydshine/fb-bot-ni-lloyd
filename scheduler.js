@@ -3,15 +3,6 @@ const login = require("fca-unofficial");
 const moment = require("moment-timezone");
 const schedule = require("./schedule.json");
 
-// Define the shutdown handler
-const shutdownHandler = () => {
-  console.log("Shutting down...");
-  process.exit(0);
-};
-
-// Register the shutdown handler for SIGINT (Ctrl+C)
-process.on("SIGINT", shutdownHandler);
-
 login(
   { appState: JSON.parse(fs.readFileSync("appstate1.json", "utf8")) },
   async (err, api) => {
