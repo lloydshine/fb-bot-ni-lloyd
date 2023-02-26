@@ -50,12 +50,12 @@ login(
       // Schedule the reminder
       setTimeout(() => {
         // Write the updated reminders object back to the file
-        api.sendMessage(`${course.code} will start now!`, "3895005423936924");
+        api.sendMessage(`${course.code} will start now! (${course.start_time})\nAnd will end in ${course.end_time}`, "3895005423936924");
       }, duration.asMilliseconds());
     });
 
     const listenEmitter = api.listen(async (err, event) => {
-      if (event.threadID != "3895005423936924") {
+      if (event.threadID != "3895005423936924" || event.threadID != "100008672340619") {
         return;
       }
       if (err) return console.error(err);

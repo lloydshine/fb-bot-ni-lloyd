@@ -61,6 +61,7 @@ function remind(event, command, api) {
 
   // Schedule the reminder
   setTimeout(() => {
+    reminders = JSON.parse(fs.readFileSync("reminders.json"));
     const index = reminders[event.threadID].findIndex(r => r.event === eventName);
     if (index !== -1) {
       reminders[event.threadID].splice(index, 1);

@@ -28,11 +28,11 @@ login(
     console.log("ON");
     api.sendMessage("I am on!", "100008672340619");
 
-    const remindersData = fs.readFileSync("reminders.json", "utf8");
+    let remindersData = fs.readFileSync("reminders.json", "utf8");
     const rems = JSON.parse(remindersData);
     Object.keys(rems).forEach((key) => {
       console.log(key);
-      const reminderArr = rems[key];
+      let reminderArr = rems[key];
       reminderArr.forEach((reminder) => {
         console.log(reminder);
         const formattedDateTime = moment(reminder.dateTime)
@@ -60,6 +60,8 @@ login(
           );
         }, initialDuration);
         setTimeout(() => {
+          remindersData = fs.readFileSync("reminders.json", "utf8");
+          reminderArr = rems[key];
           const index = reminderArr.findIndex(
             (r) => r.event === reminder.event
           );
