@@ -3,6 +3,11 @@ const login = require("fca-unofficial");
 const moment = require("moment-timezone");
 const schedule = require("./schedule.json");
 
+const gc = [
+  "3895005423936924",
+  "100008672340619",
+];
+
 login(
   { appState: JSON.parse(fs.readFileSync("appstate1.json", "utf8")) },
   async (err, api) => {
@@ -55,8 +60,7 @@ login(
     });
 
     const listenEmitter = api.listen(async (err, event) => {
-      if (event.threadID != "3895005423936924" && event.threadID != "100008672340619") {
-        console.log("Read");
+      if (!gc.includes(event.threadID)) {
         return;
       }
       if (err) return console.error(err);
