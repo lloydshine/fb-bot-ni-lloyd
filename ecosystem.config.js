@@ -3,7 +3,7 @@ module.exports = {
     {
       name: "rb",
       script: "./main.js",
-      cron_restart: "0 0 0 * * *", // Restarts the app every day at 12:00 AM
+      cron_restart: "25 17 * * *", // Restarts the app every day at 12:00 AM
     },
     {
       name: "scd",
