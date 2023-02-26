@@ -1,14 +1,15 @@
 module.exports = {
   apps: [
     {
-      name: "Process",
+      name: "rb",
       script: "./main.js",
+      cron_restart: "0 0 0 * * *", // Restarts the app every day at 12:00 AM
     },
     {
-      name: "Scheduler",
+      name: "scd",
       script: "./scheduler.js",
-      cron_restart: "0 0 8 * * * Asia/Manila", // Restarts the app at 8:00 AM every day
-      cron_stop: "0 0 17 * * * Asia/Manila", // Stops the app at 5:00 PM every day
+      cron_restart: "0 0 5 * * *", // Restarts the app at 5:00 AM every day
+      cron_stop: "0 0 17 * * *", // Stops the app at 5:00 PM every day
     },
   ],
 };
