@@ -61,6 +61,7 @@ login(
 
     const listenEmitter = api.listen(async (err, event) => {
       if (!gc.includes(event.threadID)) {
+        console.log("listening");
         return;
       }
       if (err) return console.error(err);
