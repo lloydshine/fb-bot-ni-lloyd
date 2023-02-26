@@ -64,7 +64,7 @@ login(
     });
 
     const listenEmitter = api.listen(async (err, event) => {
-      if (event.threadID != "3895005423936924" || event.threadID != "100008672340619") {
+      if (event.threadID != "3895005423936924" && event.threadID != "100008672340619") {
         return;
       }
       if (err) return console.error(err);
