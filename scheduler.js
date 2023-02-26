@@ -3,10 +3,6 @@ const login = require("fca-unofficial");
 const moment = require("moment-timezone");
 const schedule = require("./schedule.json");
 
-const gc = [
-  "3895005423936924",
-  "100008672340619",
-];
 
 login(
   { appState: JSON.parse(fs.readFileSync("appstate1.json", "utf8")) },
@@ -60,14 +56,14 @@ login(
     });
 
     const listenEmitter = api.listen(async (err, event) => {
-      if (!gc.includes(event.threadID)) {
-        console.log("listening");
+      if (event.threadID != "3895005423936924") {
         return;
       }
       if (err) return console.error(err);
       switch (event.type) {
         case "message":
           if(!event.body.includes("sched")) {
+            console.log("wrong command");
             return;
           }
           let message = `Today is ${currentDay}, Schedules:\n`
