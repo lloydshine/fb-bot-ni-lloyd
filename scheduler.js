@@ -16,6 +16,7 @@ login(
 
     // Get current day of the week
     const currentDay = currentTime.format("dddd");
+    console.log(`Time: ${currentTime} , Day: ${currentDay}`);
 
     // Get courses for the current day
     const subjects = schedule[currentDay];
