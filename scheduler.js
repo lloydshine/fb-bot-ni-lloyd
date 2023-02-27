@@ -31,7 +31,7 @@ login(
       );
 
       // Calculate the duration until the reminder
-      const duration = moment.duration(reminderDateTime.diff(currentTime));
+      const duration = moment.duration(currentTime.diff(reminderDateTime));
       const minutesBeforeReminder = 10; // Change this to set the number of minutes before the reminder time to send the initial notification
 
       if (duration.asMilliseconds() < 0) {
