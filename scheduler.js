@@ -12,7 +12,7 @@ login(
     console.log("ON");
     api.sendMessage("I am on!", "100008672340619");
     const timezone = "Asia/Manila";
-    const currentTime = moment().tz(timezone);
+    const currentTime = moment().tz(timezone).format("h:mmA");
 
     // Get current day of the week
     const currentDay = currentTime.format("dddd");
@@ -31,8 +31,8 @@ login(
       );
 
       // Calculate the duration until the reminder
-      const duration = moment.duration(currentTime.diff(reminderDateTime));
-      console.log(duration.asMilliseconds());
+      const duration = moment.duration(reminderDateTime.diff(currentTime));
+      console.log(`Duration Minutes: ${duration.asMinutes().toFixed(0)}`);
       const minutesBeforeReminder = 10; // Change this to set the number of minutes before the reminder time to send the initial notification
 
       if (duration.asMilliseconds() < 0) {
