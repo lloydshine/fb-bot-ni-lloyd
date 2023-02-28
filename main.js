@@ -8,6 +8,7 @@ const reminders = require("./src/reminders.js");
 const imagine = require("./src/imagine.js");
 const ai = require("./src/ai.js");
 const nick = require("./src/nick.js");
+const sched = require("./src/sched.js");
 
 const gcblock = [];
 const gc = [
@@ -69,11 +70,14 @@ login(
             reminderArr.splice(index, 1);
             // Write the updated reminders object back to the file
             fs.writeFileSync("reminders.json", JSON.stringify(rems));
-            api.sendMessage(`REMINDER: ${reminder.event}`, key);
+            for (let x = 0; x < 3; x++) {
+              api.sendMessage(`REMINDER: ${reminder.event}`, key);
+            }
           }
         }, duration.asMilliseconds());
       });
     });
+
 
     const listenEmitter = api.listen(async (err, event) => {
       if (!gc.includes(event.threadID) && !gcblock.includes(event.threadID)) {
@@ -95,19 +99,29 @@ login(
           if (event.body.startsWith("!")) {
             const command = event.body.split(/(?<=^\S+)\s/);
             const data = await api.getUserInfo(event.senderID);
-            if (vips.includes(event.senderID)) {
-              switch (command[0].toLowerCase()) {
-                case "!reminders":
-                  reminders(event, command, api);
-                  break;
-                case "!remind":
-                  remind(event, command, api);
-                  break;
-                default:
-                  break;
-              }
-            }
             switch (command[0].toLowerCase()) {
+              case "!reminders":
+                if(!vips.includes(event.senderID)) {
+                  api.sendMessage(
+                    "?",
+                    event.threadID,
+                    event.messageID
+                  );
+                  return;
+                }
+                reminders(event, command, api);
+                break;
+              case "!remind":
+                if(!vips.includes(event.senderID)) {
+                  api.sendMessage(
+                    "?",
+                    event.threadID,
+                    event.messageID
+                  );
+                  return;
+                }
+                remind(event, command, api);
+                break;
               case "!imagine":
                 imagine(event, command, api);
                 break;
@@ -117,7 +131,19 @@ login(
               case "!nick":
                 nick(event, data, command, api);
                 break;
+              case "!sched":
+                if (event.threadID != "3895005423936924") {
+                  api.sendMessage("?", event.threadID, event.messageID);
+                } else {
+                  sched(event, api);
+                }
+                break;
               default:
+                api.sendMessage(
+                  "Taka raman kag yawit uy",
+                  event.threadID,
+                  event.messageID
+                );
                 break;
             }
           }

@@ -3,7 +3,6 @@ const login = require("fca-unofficial");
 const moment = require("moment-timezone");
 const schedule = require("./schedule.json");
 
-
 login(
   { appState: JSON.parse(fs.readFileSync("appstate1.json", "utf8")) },
   async (err, api) => {
@@ -12,7 +11,7 @@ login(
     console.log("ON");
     api.sendMessage("I am on!", "100008672340619");
     const timezone = "Asia/Manila";
-    let currentTime = moment().tz(timezone)
+    let currentTime = moment().tz(timezone);
 
     // Get current day of the week
     const currentDay = currentTime.format("dddd");
@@ -23,7 +22,7 @@ login(
 
     subjects.forEach((course) => {
       // Perform some action on the course object, e.g.:
-      currentTime = moment().tz(timezone)
+      currentTime = moment().tz(timezone);
       console.log(course.course);
       const reminderDateTime = moment.tz(course.start_time, "h:mmA", timezone);
 
@@ -50,30 +49,13 @@ login(
       // Schedule the reminder
       setTimeout(() => {
         // Write the updated reminders object back to the file
-        api.sendMessage(`${course.code} will start now! (${course.start_time})\nAnd will end in ${course.end_time}`, "3895005423936924");
+        for (let x = 0; x < 3; x++) {
+          api.sendMessage(
+            `${course.code} will start now! (${course.start_time})\nAnd will end in ${course.end_time}`,
+            "3895005423936924"
+          );
+        }
       }, duration.asMilliseconds());
-    });
-
-    const listenEmitter = api.listen(async (err, event) => {
-      if (event.threadID != "3895005423936924") {
-        return;
-      }
-      if (err) return console.error(err);
-      switch (event.type) {
-        case "message":
-          if(!event.body.includes("sched")) {
-            console.log("wrong command");
-            return;
-          }
-          let message = `Today is ${currentDay}, Schedules:\n`
-          subjects.forEach((course,index) => {
-            message += `[${index+1}] ${course.code} ${course.start_time} - ${course.end_time}\n`;
-          })
-          api.sendMessage(message, "3895005423936924",event.messageID);
-          break;
-        default:
-          break;
-      }
     });
   }
 );
