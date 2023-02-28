@@ -12,7 +12,7 @@ login(
     console.log("ON");
     api.sendMessage("I am on!", "100008672340619");
     const timezone = "Asia/Manila";
-    const currentTime = moment().tz(timezone).format("h:mmA");
+    let currentTime = moment().tz(timezone)
 
     // Get current day of the week
     const currentDay = currentTime.format("dddd");
@@ -23,12 +23,9 @@ login(
 
     subjects.forEach((course) => {
       // Perform some action on the course object, e.g.:
+      currentTime = moment().tz(timezone)
       console.log(course.course);
-      const reminderDateTime = moment.tz(
-        `${course.start_time}`,
-        "h:mmA",
-        timezone
-      );
+      const reminderDateTime = moment.tz(course.start_time, "h:mmA", timezone);
 
       // Calculate the duration until the reminder
       const duration = moment.duration(reminderDateTime.diff(currentTime));
