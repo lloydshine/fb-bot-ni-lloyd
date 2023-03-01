@@ -10,6 +10,10 @@ function sched(event,command,api) {
   const currentHour = currentTime.format("h:mmA");
   // Get courses for the current day
   const subjects = schedule[day];
+  if(!subjects) {
+    api.sendMessage("Huh?", "3895005423936924", event.messageID);
+    return;
+  }
   let message = `Time:${currentHour}\nSchedule for ${day}:\n`;
   subjects.forEach((course, index) => {
     message += `[${index + 1}] ${course.code} ${course.start_time}-${
