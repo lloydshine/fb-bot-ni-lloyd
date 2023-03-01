@@ -7,7 +7,6 @@ const pm2 = require('pm2');
 login(
   { appState: JSON.parse(fs.readFileSync("appstate1.json", "utf8")) },
   async (err, api) => {
-    api.setOptions({ listenEvents: true, forceLogin: true });
     if (err) return console.error(err);
     console.log("ON");
     api.sendMessage("I am on!", "100008672340619");
@@ -68,10 +67,6 @@ login(
       if (err) {
         console.error('Error stopping application:', err);
       } else {
-        api.sendMessage(
-          `My job here is done! See you Tommorow!`,
-          "3895005423936924"
-        );
         console.log('Application stopped successfully:', proc);
       }
     });
