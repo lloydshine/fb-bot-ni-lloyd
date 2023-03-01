@@ -1,12 +1,12 @@
 const moment = require("moment-timezone");
 const schedule = require("../schedule.json");
 
-function sched(event,api) {
+function sched(event,command,api) {
   const timezone = "Asia/Manila";
   let currentTime = moment().tz(timezone);
 
   // Get current day of the week
-  const currentDay = currentTime.format("dddd");
+  const currentDay = command ? command : currentTime.format("dddd");
   const currentHour = currentTime.format("h:mmA");
   // Get courses for the current day
   const subjects = schedule[currentDay];

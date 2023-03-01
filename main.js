@@ -135,7 +135,7 @@ login(
                 if (event.threadID != "3895005423936924") {
                   api.sendMessage("?", event.threadID, event.messageID);
                 } else {
-                  sched(event, api);
+                  sched(event,command[1],api);
                 }
                 break;
               default:
