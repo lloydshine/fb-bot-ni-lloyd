@@ -6,13 +6,13 @@ function sched(event,command,api) {
   let currentTime = moment().tz(timezone);
 
   // Get current day of the week
-  const currentDay = command ? command : currentTime.format("dddd");
+  const day = command ? command : currentTime.format("dddd");
   const currentHour = currentTime.format("h:mmA");
   // Get courses for the current day
-  const subjects = schedule[currentDay];
-  let message = `Today is:\n${currentDay},${currentHour}\nSchedule:\n`;
+  const subjects = schedule[day];
+  let message = `Time:${currentHour}\nSchedule for ${day}:\n`;
   subjects.forEach((course, index) => {
-    message += `[${index + 1}] ${course.code} ${course.start_time} - ${
+    message += `[${index + 1}] ${course.code} ${course.start_time}-${
       course.end_time
     }\n`;
   });
