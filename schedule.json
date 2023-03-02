@@ -35,6 +35,13 @@
     ],
     "Thursday": [
         {
+            "code": "GEC 7",
+            "number": "51492",
+            "course": "Science, Technology, and Society",
+            "start_time": "07:30AM",
+            "end_time": "09:00AM"
+        },
+        {
             "code": "GEC 8",
             "number": "51503",
             "course": "Ethics",
@@ -43,13 +50,6 @@
         }
     ],
     "Friday": [
-        {
-            "code": "CC 106",
-            "number": "83381",
-            "course": "Applications Development & Emerging Technologies",
-            "start_time": "04:00PM",
-            "end_time": "06:00PM"
-        },
         {
             "code": "GEC 9",
             "number": "51518",
@@ -63,9 +63,23 @@
             "course": "Advance Database Systems",
             "start_time": "01:00PM",
             "end_time": "03:00PM"
+        },
+        {
+            "code": "CC 106",
+            "number": "83381",
+            "course": "Applications Development & Emerging Technologies",
+            "start_time": "04:00PM",
+            "end_time": "06:00PM"
         }
     ],
     "Saturday": [
+        {
+            "code": "PE 4",
+            "number": "51572",
+            "course": "PATH-FIT 4",
+            "start_time": "07:00AM",
+            "end_time": "09:00AM"
+        },
         {
             "code": "CC 106",
             "number": "83381",
@@ -79,18 +93,11 @@
             "course": "Advance Database Systems",
             "start_time": "05:30PM",
             "end_time": "08:30PM"
-        },
-        {
-            "code": "PE 4",
-            "number": "51572",
-            "course": "PATH-FIT 4",
-            "start_time": "07:00AM",
-            "end_time": "09:00AM"
         }
     ],
     "Sunday": [
         {
-            "code": "Way Klase",
+            "code": "ML101",
             "number": "8",
             "course": "O",
             "start_time": "07:30AM",
