@@ -14,7 +14,7 @@ function sched(event,command,api) {
     api.sendMessage("Huh?", "3895005423936924", event.messageID);
     return;
   }
-  let message = `Time:${currentHour}\nSchedule for ${day}:\n`;
+  let message = `Time: ${currentHour}\nSchedule for ${day}:\n`;
   subjects.forEach((course, index) => {
     message += `[${index + 1}] ${course.code} ${course.start_time}-${
       course.end_time
