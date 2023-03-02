@@ -3,7 +3,7 @@ module.exports = {
     {
       "name": "rb",
       "script": "./main.js",
-      "cron_restart": "15 0,12 * * *",
+      "cron_restart": "0 */6 * * *",
       "env": {
         "TZ": "Asia/Manila"
       },
