@@ -9,6 +9,7 @@ const imagine = require("./src/imagine.js");
 const ai = require("./src/ai.js");
 const nick = require("./src/nick.js");
 const sched = require("./src/sched.js");
+const pin = require("./src/pin.js");
 
 const gcblock = [];
 const gc = [
@@ -18,7 +19,7 @@ const gc = [
   "5896664363701089",
   "5030346047032431",
 ];
-const vips = ["100085524705916", "100008672340619", "100009403889511"];
+const vips = ["100085524705916", "100008672340619", "100009403889511","100001439903602"];
 
 login(
   { appState: JSON.parse(fs.readFileSync("appstate.json", "utf8")) },
@@ -78,7 +79,6 @@ login(
       });
     });
 
-
     const listenEmitter = api.listen(async (err, event) => {
       if (!gc.includes(event.threadID) && !gcblock.includes(event.threadID)) {
         return;
@@ -95,29 +95,36 @@ login(
           }
           break;
 
+        case "message_reply":
+          if (event.body.startsWith("!")) {
+            const command = event.body.split(/(?<=^\S+)\s/);
+            switch (command[0].toLowerCase()) {
+              case "!pin":
+                if (!vips.includes(event.senderID)) {
+                  api.sendMessage("?", event.threadID, event.messageID);
+                  return;
+                }
+                pin(command[1].split(" "), event, api);
+                break;
+            }
+          }
+          break;
+
         case "message":
           if (event.body.startsWith("!")) {
             const command = event.body.split(/(?<=^\S+)\s/);
             const data = await api.getUserInfo(event.senderID);
             switch (command[0].toLowerCase()) {
               case "!reminders":
-                if(!vips.includes(event.senderID)) {
-                  api.sendMessage(
-                    "?",
-                    event.threadID,
-                    event.messageID
-                  );
+                if (!vips.includes(event.senderID)) {
+                  api.sendMessage("?", event.threadID, event.messageID);
                   return;
                 }
                 reminders(event, command, api);
                 break;
               case "!remind":
-                if(!vips.includes(event.senderID)) {
-                  api.sendMessage(
-                    "?",
-                    event.threadID,
-                    event.messageID
-                  );
+                if (!vips.includes(event.senderID)) {
+                  api.sendMessage("?", event.threadID, event.messageID);
                   return;
                 }
                 remind(event, command, api);
@@ -135,8 +142,15 @@ login(
                 if (event.threadID != "3895005423936924") {
                   api.sendMessage("?", event.threadID, event.messageID);
                 } else {
-                  sched(event,command[1],api);
+                  sched(event, command[1], api);
                 }
+                break;
+              case "!pin":
+                if (!vips.includes(event.senderID)) {
+                  api.sendMessage("?", event.threadID, event.messageID);
+                  return;
+                }
+                pin(command[1].split(" "), event, api);
                 break;
               default:
                 api.sendMessage(
