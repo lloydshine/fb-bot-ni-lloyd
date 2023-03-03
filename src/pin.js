@@ -213,14 +213,9 @@ const listPin = async (threadID) => {
   let list = "--------------------\n";
   let length = Object.entries(pinnedMessages).length;
   let mentions = [];
+  let x = 1;
   for(let pinnedMsg in pinnedMessages) {
-    list += `Name: ${pinnedMsg}\n`;
-    
-    if(pinnedMessages[pinnedMsg].body.length > 0)
-      list += `Message:\n\n ${pinnedMessages[pinnedMsg].body}\n`;
-    
-    list += `\nSent by: @${pinnedMessages[pinnedMsg].sender.name}\nAttachments: ${pinnedMessages[pinnedMsg].attachmentTypes}\n--------------------\n\n`;
-    
+    list += `📌 ${x++}. Name: ${pinnedMsg}\n`;
     mentions.push({
       id: pinnedMessages[pinnedMsg].sender.id,
       tag: `@${pinnedMessages[pinnedMsg].sender.name}`,
