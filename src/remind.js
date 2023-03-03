@@ -40,6 +40,14 @@ function remind(event, command, api) {
     return;
   }
 
+  if (duration.asMilliseconds() > 86400000) {
+    api.sendMessage(
+      "Reminders are only limited to 1 Day!",
+      event.threadID,event.messageID
+    );
+    return;
+  }
+
   let reminders = JSON.parse(fs.readFileSync("reminders.json"));
   if(!reminders[event.threadID]) {
     reminders[event.threadID] = []

@@ -100,11 +100,7 @@ login(
             const command = event.body.split(/(?<=^\S+)\s/);
             switch (command[0].toLowerCase()) {
               case "!pin":
-                if (!vips.includes(event.senderID)) {
-                  api.sendMessage("?", event.threadID, event.messageID);
-                  return;
-                }
-                pin(command[1].split(" "), event, api);
+                pin(command[1].split(/(?<=^\S+)\s/), event, api);
                 break;
             }
           }
@@ -146,11 +142,7 @@ login(
                 }
                 break;
               case "!pin":
-                if (!vips.includes(event.senderID)) {
-                  api.sendMessage("?", event.threadID, event.messageID);
-                  return;
-                }
-                pin(command[1].split(" "), event, api);
+                pin(command[1].split(/(?<=^\S+)\s/), event, api);
                 break;
               default:
                 api.sendMessage(
