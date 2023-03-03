@@ -215,15 +215,13 @@ const listPin = async (threadID) => {
   let mentions = [];
   let x = 1;
   for(let pinnedMsg in pinnedMessages) {
-    list += `📌 ${x++}. Name: ${pinnedMsg}\n`;
+    list += `📌 [${x++}] "${pinnedMsg}"\n`;
     mentions.push({
       id: pinnedMessages[pinnedMsg].sender.id,
       tag: `@${pinnedMessages[pinnedMsg].sender.name}`,
       fromIndex: list.lastIndexOf(`@${pinnedMessages[pinnedMsg].sender.name}`)
     });
-  }
-  list = list.substring(0, list.length - 4);
-  
+  }  
   return {list, length, mentions, hasError: false};
 };
 
