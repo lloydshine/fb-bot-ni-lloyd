@@ -75,8 +75,18 @@ function remind(event, command, api) {
       reminders[event.threadID].splice(index, 1);
       // Write the updated reminders object back to the file
       fs.writeFileSync("reminders.json", JSON.stringify(reminders));
+      const mentions = [
+        {
+          id: event.threadID,
+          tag: `@everyone`
+          },
+    ];
+    const msg = {
+      body:`@everyone\n>REMINDER: ${eventName}`,
+      mentions,
+    };
       for (let i = 1; i <= 3; i++) {
-        api.sendMessage(`REMINDER: ${eventName}`, event.threadID);
+        api.sendMessage(msg, event.threadID);
       }
     }
   }, duration.asMilliseconds());

@@ -22,15 +22,26 @@ function joined(event, data, api) {
       users.forEach((user, index) => {
         let joined = user.name;
         let gcp = data.participantIDs;
+        let mentions = [
+          {
+          id: user.id,
+          tag: `@${user.name}`
+          },
+          {
+            id: event.threadID,
+            tag: `@everyone`
+            },
+      ];
         var msg = {
           body:
-            ">Welcome " +
-            joined +
+            "Welcome " +
+            "@"+joined +
             "\n>Member No." +
             (gcp.length + index) +
             " of " +
             data.threadName +
-            "!",
+            "!\n@everyone",
+          mentions,
         };
         api.sendMessage(msg, event.threadID);
       });
