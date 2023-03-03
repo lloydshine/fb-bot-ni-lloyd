@@ -116,6 +116,10 @@ login(
                   api.sendMessage("?", event.threadID, event.messageID);
                   return;
                 }
+                if(!command[1]) {
+                  api.sendMessage("?", event.threadID, event.messageID);
+                  return;
+                }
                 reminders(event, command, api);
                 break;
               case "!remind":
@@ -123,15 +127,31 @@ login(
                   api.sendMessage("?", event.threadID, event.messageID);
                   return;
                 }
+                if(!command[1]) {
+                  api.sendMessage("?", event.threadID, event.messageID);
+                  return;
+                }
                 remind(event, command, api);
                 break;
               case "!imagine":
+                if(!command[1]) {
+                  api.sendMessage("?", event.threadID, event.messageID);
+                  return;
+                }
                 imagine(event, command, api);
                 break;
               case "!ai":
+                if(!command[1]) {
+                  api.sendMessage("?", event.threadID, event.messageID);
+                  return;
+                }
                 ai(event, command, api);
                 break;
               case "!nick":
+                if(!command[1]) {
+                  api.sendMessage("?", event.threadID, event.messageID);
+                  return;
+                }
                 nick(event, data, command, api);
                 break;
               case "!sched":
@@ -142,6 +162,10 @@ login(
                 }
                 break;
               case "!pin":
+                if(!command[1]) {
+                  api.sendMessage("?", event.threadID, event.messageID);
+                  return;
+                }
                 pin(command[1].split(/(?<=^\S+)\s/), event, api);
                 break;
               default:

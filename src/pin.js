@@ -276,7 +276,7 @@ const pin = async (matches, event, api, extra) => {
         return;
       }
       
-      api.sendMessage(`📌 Added new pinned message with the name, "${name}".\n\nType !pin get ${name} — to retrieve it or,\n\nType !pin remove ${name} — to remove it from this thread's pinned messages.`, event.threadID, event.messageID);
+      api.sendMessage(`📌 Added new pinned message with the name, "${name}".`, event.threadID, event.messageID);
     break;
     
     case "get":
@@ -329,6 +329,20 @@ const pin = async (matches, event, api, extra) => {
       let msg = `📌 There ${list.length > 1 ? "are" : "is only"} ${list.length} pinned message${list.length > 1 ? "s" : ""} in ${thread.threadName}\n${list.list}`;
       api.sendMessage({body: msg, mentions: list.mentions}, event.threadID, event.messageID);
     break;
+    case "help":
+      const mess = `
+      📌 Commands:\n
+      !pin add <name>\n
+      !pin remove/purge <name>\n
+      !pin get <name>\n
+      !pin list\n
+      !pin help\n
+      `
+      api.sendMessage(mess, event.threadID, event.messageID);
+      break;
+    default:
+      api.sendMessage(`⚠️ Cge man kag patakag yawit do!`, event.threadID, event.messageID);
+      break;
   }
 };
 
