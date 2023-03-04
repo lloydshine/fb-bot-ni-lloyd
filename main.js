@@ -96,16 +96,6 @@ login(
           break;
 
         case "message_reply":
-          if (event.body.startsWith("!")) {
-            const command = event.body.split(/(?<=^\S+)\s/);
-            switch (command[0].toLowerCase()) {
-              case "!pin":
-                pin(command[1].split(/(?<=^\S+)\s/), event, api);
-                break;
-            }
-          }
-          break;
-
         case "message":
           if (event.body.startsWith("!")) {
             const command = event.body.split(/(?<=^\S+)\s/);
