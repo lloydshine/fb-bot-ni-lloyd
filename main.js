@@ -10,20 +10,11 @@ const ai = require("./src/ai.js");
 const nick = require("./src/nick.js");
 const sched = require("./src/sched.js");
 const pin = require("./src/pin.js");
+const thread = require("./src/thread.js");
 
-const gcblock = [];
-const gc = [
-  "5201136466661918",
-  "3895005423936924",
-  "100008672340619",
-  "5896664363701089",
-  "5030346047032431",
-];
+
 const vips = [
-  "100085524705916",
-  "100008672340619",
-  "100009403889511",
-  "100001439903602",
+  "100008672340619"
 ];
 
 login(
@@ -87,7 +78,10 @@ login(
     const event_types = ["event","log:subscribe","log:unsubscribe","message_reply","message"];
 
     const listenEmitter = api.listen(async (err, event) => {
-      if (!gc.includes(event.threadID) && !gcblock.includes(event.threadID)) {
+      if (!thread.isWhitelisted(event.threadID)) {
+        if (event.body == "!join") {
+          thread.join(event,api);
+        }
         return;
       }
       if (err) return console.error(err);
@@ -174,6 +168,13 @@ login(
                 return;
               }
               pin(command[1].split(/(?<=^\S+)\s/), event, api);
+              break;
+            case "!leave":
+              if (!vips.includes(event.senderID)) {
+                api.sendMessage("?", event.threadID, event.messageID);
+                return;
+              }
+              thread.leave(event, api);
               break;
             default:
               api.sendMessage(
