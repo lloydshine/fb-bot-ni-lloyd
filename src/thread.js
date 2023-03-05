@@ -24,7 +24,7 @@ async function join(event,api) {
     api.sendMessage("Sup", event.threadID);
     const t = await api.getThreadInfo(event.threadID);
     const u = await api.getUserInfo(event.senderID);
-    api.sendMessage(`Joined at ${t.threadName}\nBy: ${data[event.senderID]["name"]}`, "100008672340619");
+    api.sendMessage(`Joined at ${t.threadName}\nBy: ${u[event.senderID]["name"]}`, "100008672340619");
 }
 
 function leave(event,api) {
