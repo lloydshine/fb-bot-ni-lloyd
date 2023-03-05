@@ -1,4 +1,5 @@
 const fs = require("fs");
+const pin = require("./pin.js");
 
 const openThreadList = () => JSON.parse(fs.readFileSync("thread-list.json", {encoding: "utf8"}));
 const saveThreadList = (threadlist) => fs.writeFileSync(
@@ -33,6 +34,7 @@ function leave(event,api) {
     console.log(index);
     threadlist.threads.splice(index,1);
     saveThreadList(threadlist);
+    pin(["remove","all"],event,api);
     api.sendMessage("Bye", event.threadID);
 }
 

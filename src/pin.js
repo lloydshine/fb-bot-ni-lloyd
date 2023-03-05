@@ -212,20 +212,14 @@ const listPin = async (threadID) => {
   
   let list = "--------------------\n";
   let length = Object.entries(pinnedMessages).length;
-  let mentions = [];
   let x = 1;
   for(let pinnedMsg in pinnedMessages) {
     list += `📌 [${x++}] "${pinnedMsg}"\n`;
-    mentions.push({
-      id: pinnedMessages[pinnedMsg].sender.id,
-      tag: `@${pinnedMessages[pinnedMsg].sender.name}`,
-      fromIndex: list.lastIndexOf(`@${pinnedMessages[pinnedMsg].sender.name}`)
-    });
   }  
-  return {list, length, mentions, hasError: false};
+  return {list, length, hasError: false};
 };
 
-const pin = async (matches, event, api, extra) => {
+const pin = async (matches, event, api) => {
   let action = matches[0]; // add | get | remove | list
   let name = matches[1]; // <name of pinned message> | 
   
@@ -320,7 +314,7 @@ const pin = async (matches, event, api, extra) => {
       
       let thread = await api.getThreadInfo(event.threadID);
       let msg = `📌 There ${list.length > 1 ? "are" : "is only"} ${list.length} pinned message${list.length > 1 ? "s" : ""} in ${thread.threadName}\n${list.list}`;
-      api.sendMessage({body: msg, mentions: list.mentions}, event.threadID, event.messageID);
+      api.sendMessage({body: msg}, event.threadID, event.messageID);
     break;
     case "help":
       const mess = `
