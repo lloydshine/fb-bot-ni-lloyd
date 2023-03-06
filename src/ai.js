@@ -20,12 +20,12 @@ async function ai(event, command, api) {
     const data = await api.getUserInfo(event.senderID);
     const completion = await openai.createCompletion({
       model: "text-davinci-003",
-      prompt: command[1],
+      prompt: `My name is ${data[event.senderID]["name"]}, ` +command[1] + `.Inlcude my name in your response if it is necessary`,
       max_tokens: 1000,
     });
 
     api.sendMessage(
-      data[event.senderID]["name"] + " " + completion.data.choices[0].text,
+      completion.data.choices[0].text,
       event.threadID,
       event.messageID
     );
