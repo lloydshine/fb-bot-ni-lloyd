@@ -12,10 +12,9 @@ const sched = require("./src/sched.js");
 const pin = require("./src/pin.js");
 const thread = require("./src/thread.js");
 
+const vips = ["100008672340619"];
 
-const vips = [
-  "100008672340619"
-];
+const messages = {}; // Dictionary object to store messages for each user
 
 login(
   { appState: JSON.parse(fs.readFileSync("appstate.json", "utf8")) },
@@ -75,22 +74,28 @@ login(
       });
     });
 
-    const event_types = ["event","log:subscribe","log:unsubscribe","message_reply","message"];
+    const event_types = [
+      "event",
+      "log:subscribe",
+      "log:unsubscribe",
+      "message_reply",
+      "message",
+    ];
 
     const listenEmitter = api.listen(async (err, event) => {
       if (!thread.isWhitelisted(event.threadID)) {
         if (event.body == "!join") {
-          thread.join(event,api);
+          thread.join(event, api);
         }
         return;
       }
       if (err) return console.error(err);
-      if(!event_types.includes(event.type)) {
+      if (!event_types.includes(event.type)) {
         return;
       }
       switch (event.type) {
         case "event":
-          if(!event_types.includes(event.logMessageType)) {
+          if (!event_types.includes(event.logMessageType)) {
             return;
           }
           switch (event.logMessageType) {
@@ -101,7 +106,7 @@ login(
             case "log:unsubscribe":
               left(event, api);
               break;
-          }          
+          }
           break;
 
         case "message_reply":
@@ -146,7 +151,19 @@ login(
                 api.sendMessage("?", event.threadID, event.messageID);
                 return;
               }
-              ai(event, command, api);
+              const userID = event.senderID;
+              const data = await api.getUserInfo(userID);
+              const userMessages = messages[userID] || [{ role: "user", content: `My name is ${data[event.senderID]["name"]}`}]; // Get the messages for the current user or an empty array if no messages exist
+              userMessages.push({ role: "user", content: `${command[1]}` }); // Add the new command to the user's messages
+              const respo = await ai(event, userMessages, api);
+              userMessages.push(respo);
+              messages[userID] = userMessages; // Update the messages for the current user
+              console.log(messages[userID])
+              clearTimeout(messages[userID]?.timer);
+              messages[userID].timer = setTimeout(() => {
+                console.log("Cleared!");
+                delete messages[userID];
+              }, 5 * 60 * 1000);
               break;
             case "!nick":
               if (!command[1]) {

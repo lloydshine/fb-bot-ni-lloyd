@@ -6,7 +6,7 @@ const configuration = new Configuration({
 });
 const openai = new OpenAIApi(configuration);
 
-async function ai(event, command, api) {
+async function ai(event, messages, api) {
   api.setMessageReaction(
     "🆙",
     event.messageID,
@@ -17,19 +17,18 @@ async function ai(event, command, api) {
   );
 
   try {
-    const data = await api.getUserInfo(event.senderID);
-    const completion = await openai.createCompletion({
-      model: "text-davinci-003",
-      prompt: `My name is ${data[event.senderID]["name"]}, respond properly to this: ` +command[1],
-      max_tokens: 1000,
+    const completion = await openai.createChatCompletion({
+      model: "gpt-3.5-turbo",
+      messages: messages,
     });
-
     api.sendMessage(
-      completion.data.choices[0].text,
+      completion.data.choices[0].message.content,
       event.threadID,
       event.messageID
     );
+    return completion.data.choices[0].message;
   } catch (error) {
+    console.log(error);
     api.sendMessage("No", event.threadID, event.messageID);
   }
 }
