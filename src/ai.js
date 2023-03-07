@@ -29,7 +29,9 @@ async function ai(event, messages, api) {
     return completion.data.choices[0].message;
   } catch (error) {
     console.log(error);
-    api.sendMessage("No", event.threadID, event.messageID);
+    api.sendMessage("Something happened, please try again.", event.threadID, event.messageID);
+    return {role: 'assistant',content: 'Something happened, please try again.'};
+
   }
 }
 
