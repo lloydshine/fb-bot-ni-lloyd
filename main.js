@@ -115,7 +115,6 @@ login(
             return;
           }
           const command = event.body.split(/(?<=^\S+)\s/);
-          const data = await api.getUserInfo(event.senderID);
           switch (command[0].toLowerCase()) {
             case "!reminders":
               if (!vips.includes(event.senderID)) {
@@ -170,7 +169,7 @@ login(
                 api.sendMessage("?", event.threadID, event.messageID);
                 return;
               }
-              nick(event, data, command, api);
+              nick(event, command, api);
               break;
             case "!sched":
               if (event.threadID != "3895005423936924") {

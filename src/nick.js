@@ -1,5 +1,6 @@
-function nick(event, data, command, api) {
+async function nick(event,command, api) {
   const nick = command[1];
+  const data = await api.getUserInfo(event.senderID);
   api.changeNickname(nick, event.threadID, event.senderID, (err) => {
     if (err) {
       console.error(err);
