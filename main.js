@@ -162,7 +162,7 @@ login(
               messages[userID].timer = setTimeout(() => {
                 console.log("Cleared!");
                 delete messages[userID];
-              }, 5 * 60 * 1000);
+              }, 1 * 60 * 1000);
               break;
             case "!nick":
               if (!command[1]) {
