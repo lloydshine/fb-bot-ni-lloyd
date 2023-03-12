@@ -58,7 +58,6 @@ login(
               break;
           }
           break;
-
         case "message_reply":
         case "message":
           if (!event.body.startsWith("!")) {
@@ -68,23 +67,31 @@ login(
           if (!thread.isWhitelisted(event.threadID)) {
             if (command[0] == "!join") {
               const code = aiCode.getCode();
-              if(command[1] != code) {
-                api.sendMessage("Wrong Code. Please message the admin.", event.threadID, event.messageID);
-                    return;
+              if (command[1] != code) {
+                api.sendMessage(
+                  "Wrong Code. Please message the admin.",
+                  event.threadID,
+                  event.messageID
+                );
+                return;
               }
               aiCode.generateCode();
               thread.join(event, api);
             }
             return;
           }
-          
+
           switch (command[0].toLowerCase()) {
             case "!code":
               if (!vips.includes(event.senderID)) {
                 api.sendMessage("?", event.threadID, event.messageID);
                 return;
               }
-              api.sendMessage(aiCode.getCode(), event.threadID, event.messageID);
+              api.sendMessage(
+                aiCode.getCode(),
+                event.threadID,
+                event.messageID
+              );
               break;
             case "!reminders":
               if (!vips.includes(event.senderID)) {
@@ -160,10 +167,14 @@ login(
                 api.sendMessage("?", event.threadID, event.messageID);
                 return;
               }
-              pin(command[1].split(/(?<=^\S+)\s/), event, api);
+              pin.pin(command[1].split(/(?<=^\S+)\s/), event, api);
               break;
-            case "!leave":
-              thread.leave(event, api);
+            case "!thread":
+              if (!command[1]) {
+                api.sendMessage("?", event.threadID, event.messageID);
+                return;
+              }
+              thread.thread(command[1].split(/(?<=^\S+)\s/), event, api);
               break;
             default:
               api.sendMessage(

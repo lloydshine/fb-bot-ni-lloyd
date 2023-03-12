@@ -333,4 +333,4 @@ const pin = async (matches, event, api) => {
   }
 };
 
-module.exports = pin;
+module.exports = { pin, removePin, };
