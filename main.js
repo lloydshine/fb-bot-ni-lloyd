@@ -163,10 +163,6 @@ login(
               pin(command[1].split(/(?<=^\S+)\s/), event, api);
               break;
             case "!leave":
-              if (!vips.includes(event.senderID)) {
-                api.sendMessage("?", event.threadID, event.messageID);
-                return;
-              }
               thread.leave(event, api);
               break;
             default:

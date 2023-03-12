@@ -31,7 +31,6 @@ async function ai(event, messages, api) {
     console.log(error);
     api.sendMessage("Something happened, please try again.", event.threadID, event.messageID);
     return {role: 'assistant',content: 'Something happened, please try again.'};
-
   }
 }
 
