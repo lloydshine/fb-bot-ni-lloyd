@@ -45,6 +45,9 @@ login(
       }
       switch (event.type) {
         case "event":
+          if (!thread.isWhitelisted(event.threadID)) {
+            return;
+          }
           if (!event_types.includes(event.logMessageType)) {
             return;
           }
