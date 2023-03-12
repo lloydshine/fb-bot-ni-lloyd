@@ -152,7 +152,7 @@ login(
               }
               const userID = event.senderID;
               const data = await api.getUserInfo(userID);
-              const userMessages = messages[userID] || [{ role: "user", content: `My name is ${data[event.senderID]["name"]}`}]; // Get the messages for the current user or an empty array if no messages exist
+              const userMessages = messages[userID] || [{ role: "assistant", content: `Hello ${data[event.senderID]["name"]}, I am LoBOT AI created by Peter Dako Oten`}]; // Get the messages for the current user or an empty array if no messages exist
               userMessages.push({ role: "user", content: `${command[1]}` }); // Add the new command to the user's messages
               const respo = await ai(event, userMessages, api);
               userMessages.push(respo);
