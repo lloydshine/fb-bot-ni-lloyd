@@ -11,6 +11,8 @@ const nick = require("./src/nick.js");
 const sched = require("./src/sched.js");
 const pin = require("./src/pin.js");
 const thread = require("./src/thread.js");
+const scheduleReminders = require("./src/reminderScheduler.js");
+const aiCode = require("./src/aiCode.js");
 
 const vips = ["100008672340619"];
 
@@ -25,54 +27,8 @@ login(
     console.log("ON");
     api.sendMessage("I am on!", "100008672340619");
 
-    let remindersData = fs.readFileSync("reminders.json", "utf8");
-    const rems = JSON.parse(remindersData);
-    Object.keys(rems).forEach((key) => {
-      console.log(key);
-      let reminderArr = rems[key];
-      reminderArr.forEach((reminder) => {
-        console.log(reminder);
-        const formattedDateTime = moment(reminder.dateTime)
-          .tz("Asia/Manila")
-          .format("YYYY-MM-DD h:mm A");
-        const phTimezone = "Asia/Manila";
-        const now = moment().tz(phTimezone);
-        const reminderDateTime = moment.tz(
-          formattedDateTime,
-          "YYYY-MM-DD h:mm A",
-          phTimezone
-        );
-
-        // Calculate the duration until the reminder
-        const duration = moment.duration(reminderDateTime.diff(now));
-        console.log(duration.asMilliseconds());
-        const minutesBeforeReminder = 5; // Change this to set the number of minutes before the reminder time to send the initial notification
-
-        const initialDuration =
-          duration.asMilliseconds() - minutesBeforeReminder * 60 * 1000;
-        setTimeout(() => {
-          api.sendMessage(
-            `Your reminder for "${reminder.event}" is in ${minutesBeforeReminder} minutes.`,
-            key
-          );
-        }, initialDuration);
-        setTimeout(() => {
-          remindersData = fs.readFileSync("reminders.json", "utf8");
-          reminderArr = rems[key];
-          const index = reminderArr.findIndex(
-            (r) => r.event === reminder.event
-          );
-          if (index !== -1) {
-            reminderArr.splice(index, 1);
-            // Write the updated reminders object back to the file
-            fs.writeFileSync("reminders.json", JSON.stringify(rems));
-            for (let x = 0; x < 3; x++) {
-              api.sendMessage(`REMINDER: ${reminder.event}`, key);
-            }
-          }
-        }, duration.asMilliseconds());
-      });
-    });
+    // Call the function passing the `api` object as argument
+    scheduleReminders(api);
 
     const event_types = [
       "event",
@@ -83,12 +39,6 @@ login(
     ];
 
     const listenEmitter = api.listen(async (err, event) => {
-      if (!thread.isWhitelisted(event.threadID)) {
-        if (event.body == "!join") {
-          thread.join(event, api);
-        }
-        return;
-      }
       if (err) return console.error(err);
       if (!event_types.includes(event.type)) {
         return;
@@ -115,7 +65,27 @@ login(
             return;
           }
           const command = event.body.split(/(?<=^\S+)\s/);
+          if (!thread.isWhitelisted(event.threadID)) {
+            if (command[0] == "!join") {
+              const code = aiCode.getCode();
+              if(command[1] != code) {
+                api.sendMessage("Wrong Code. Please message the admin.", event.threadID, event.messageID);
+                    return;
+              }
+              aiCode.generateCode();
+              thread.join(event, api);
+            }
+            return;
+          }
+          
           switch (command[0].toLowerCase()) {
+            case "!code":
+              if (!vips.includes(event.senderID)) {
+                api.sendMessage("?", event.threadID, event.messageID);
+                return;
+              }
+              api.sendMessage(aiCode.getCode(), event.threadID, event.messageID);
+              break;
             case "!reminders":
               if (!vips.includes(event.senderID)) {
                 api.sendMessage("?", event.threadID, event.messageID);
@@ -152,12 +122,19 @@ login(
               }
               const userID = event.senderID;
               const data = await api.getUserInfo(userID);
-              const userMessages = messages[userID] || [{ role: "assistant", content: `Hello ${data[event.senderID]["name"]}, I am LoBOT AI created by Peter Dako Oten`}]; // Get the messages for the current user or an empty array if no messages exist
+              const userMessages = messages[userID] || [
+                {
+                  role: "assistant",
+                  content: `Hello ${
+                    data[event.senderID]["name"]
+                  }, I am LoBOT AI created by Peter Dako Oten`,
+                },
+              ]; // Get the messages for the current user or an empty array if no messages exist
               userMessages.push({ role: "user", content: `${command[1]}` }); // Add the new command to the user's messages
               const respo = await ai(event, userMessages, api);
               userMessages.push(respo);
               messages[userID] = userMessages; // Update the messages for the current user
-              console.log(messages[userID])
+              console.log(messages[userID]);
               clearTimeout(messages[userID]?.timer);
               messages[userID].timer = setTimeout(() => {
                 console.log("Cleared!");
