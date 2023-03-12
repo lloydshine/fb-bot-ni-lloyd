@@ -170,6 +170,10 @@ login(
               pin.pin(command[1].split(/(?<=^\S+)\s/), event, api);
               break;
             case "!thread":
+              if (!vips.includes(event.senderID)) {
+                api.sendMessage("?", event.threadID, event.messageID);
+                return;
+              }
               if (!command[1]) {
                 api.sendMessage("?", event.threadID, event.messageID);
                 return;
