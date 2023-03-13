@@ -1,6 +1,5 @@
 const fs = require("fs");
 const login = require("fca-unofficial");
-const moment = require("moment-timezone");
 const joined = require("./src/joined.js");
 const left = require("./src/left.js");
 const remind = require("./src/remind.js");
@@ -13,6 +12,7 @@ const pin = require("./src/pin.js");
 const thread = require("./src/thread.js");
 const scheduleReminders = require("./src/reminderScheduler.js");
 const aiCode = require("./src/aiCode.js");
+const imageSearch = require("./src/imageSearch.js");
 
 const vips = ["100008672340619"];
 
@@ -47,6 +47,7 @@ login(
         case "event":
           if (!thread.isWhitelisted(event.threadID)) {
             return;
+            0;
           }
           if (!event_types.includes(event.logMessageType)) {
             return;
@@ -106,7 +107,7 @@ login(
               break;
             case "!commands":
               api.sendMessage(
-                "Commands:\n!ai <Ask any questions>\n!imagine <idea>\n!pin help\n!nick <change your nickname>",
+                "Commands:\n!ai <prompt> - ChatBot\n!imagine <idea> - Generate AI Image\n!pin help\n!nick <nickname> - Change your messenger nickname\n!search <input> - Search Google Images",
                 event.threadID,
                 event.messageID
               );
@@ -139,6 +140,13 @@ login(
                 return;
               }
               imagine(event, command, api);
+              break;
+            case '!search':
+              if (!command[1]) {
+                api.sendMessage("?", event.threadID, event.messageID);
+                return;
+              }
+              imageSearch(command,event,api);
               break;
             case "!ai":
               if (!command[1]) {
