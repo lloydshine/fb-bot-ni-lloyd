@@ -4,12 +4,15 @@ const fs = require("fs")
 
 const imageSearch = async (matches, event, api) => {
   let query = matches[1];  
-  let result = await google.image(query, {safe: false});
-  if (result.some(image => image === null)) {
+  try {
+    let result = await google.image(query, {safe: false});
+    // Process the search results...
+  } catch (error) {
+    // Handle the error by sending a message
     api.sendMessage(`⚠️ Your image search did not return any result.`, event.threadID, event.messageID);
     return;
   }
-  
+
   let streams = [];
   let counter = 0;
     
