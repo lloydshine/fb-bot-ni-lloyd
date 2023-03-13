@@ -63,20 +63,17 @@ login(
           break;
         case "message_reply":
         case "message":
-          api.markAsRead(event.threadID, (err) => {
-                    if(err) console.log(err);
-                });
           if (!event.body.startsWith("!")) {
             return;
           }
           api.setMessageReaction(
-    "🆙",
-    event.messageID,
-    (err) => {
-      if (err) return console.error(err);
-    },
-    true
-  );
+            "🆙",
+            event.messageID,
+            (err) => {
+              if (err) return console.error(err);
+            },
+            true
+          );
           const command = event.body.split(/(?<=^\S+)\s/);
           if (!thread.isWhitelisted(event.threadID)) {
             if (command[0] == "!join") {
