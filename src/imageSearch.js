@@ -4,8 +4,10 @@ const fs = require("fs")
 
 const imageSearch = async (matches, event, api) => {
   let query = matches[1];  
+  let result;
+
   try {
-    let result = await google.image(query, {safe: false});
+    result = await google.image(query, {safe: false});
     // Process the search results...
   } catch (error) {
     // Handle the error by sending a message
