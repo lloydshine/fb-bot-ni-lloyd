@@ -9,14 +9,6 @@ const configuration = new Configuration({
 const openai = new OpenAIApi(configuration);
 
 const imagine = (event, command, api) => {
-  api.setMessageReaction(
-    "🆙",
-    event.messageID,
-    (err) => {
-      if (err) return console.error(err);
-    },
-    true
-  );
   const response = openai.createImage({
     prompt: command[1],
     n: 3,

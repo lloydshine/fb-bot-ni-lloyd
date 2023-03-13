@@ -63,9 +63,20 @@ login(
           break;
         case "message_reply":
         case "message":
+          api.markAsRead(event.threadID, (err) => {
+                    if(err) console.log(err);
+                });
           if (!event.body.startsWith("!")) {
             return;
           }
+          api.setMessageReaction(
+    "🆙",
+    event.messageID,
+    (err) => {
+      if (err) return console.error(err);
+    },
+    true
+  );
           const command = event.body.split(/(?<=^\S+)\s/);
           if (!thread.isWhitelisted(event.threadID)) {
             if (command[0] == "!join") {
@@ -98,7 +109,7 @@ login(
               break;
             case "!commands":
               api.sendMessage(
-                "Commands:\n!ai <Ask any questions>\n!imagine <idea>\n!pin help",
+                "Commands:\n!ai <Ask any questions>\n!imagine <idea>\n!pin help\n!nick <change your nickname>",
                 event.threadID,
                 event.messageID
               );
@@ -144,7 +155,7 @@ login(
                   role: "assistant",
                   content: `Hello ${
                     data[event.senderID]["name"]
-                  }, I am LoBOT AI created by Peter Dako Oten`,
+                  }, I am Re.BOT AI created by Joshua`,
                 },
               ]; // Get the messages for the current user or an empty array if no messages exist
               userMessages.push({ role: "user", content: `${command[1]}` }); // Add the new command to the user's messages

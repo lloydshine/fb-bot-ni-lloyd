@@ -223,10 +223,6 @@ const pin = async (matches, event, api) => {
   let action = matches[0]; // add | get | remove | list
   let name = matches[1]; // <name of pinned message> | 
   
-  api.setMessageReaction("🆙", event.messageID, (err) => {
-    if (err) return console.error(err);
-  }, true);
-  
   if(event.type === "message_reply" && action !== "add") {
     api.sendMessage(`⚠️ You do not need to reply this command's action to a message!`, event.threadID, event.messageID);
     return;

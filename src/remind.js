@@ -2,10 +2,6 @@ const moment = require("moment-timezone");
 const fs = require("fs");
 
 function remind(event, command, api) {
-  api.setMessageReaction("🆙", event.messageID, (err) => {
-    if (err) return console.error(err);
-  }, true);
-
   const [eventName, date, time] = command[1].split(" | ").map(s => s.trim());
 
   if (!eventName) {
