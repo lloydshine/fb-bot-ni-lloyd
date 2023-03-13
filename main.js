@@ -96,6 +96,13 @@ login(
                 event.messageID
               );
               break;
+            case "!commands":
+              api.sendMessage(
+                "Commands:\n!ai <Ask any questions>\n!imagine <idea>\n!pin help",
+                event.threadID,
+                event.messageID
+              );
+              break;
             case "!reminders":
               if (!vips.includes(event.senderID)) {
                 api.sendMessage("?", event.threadID, event.messageID);
