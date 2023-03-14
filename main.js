@@ -16,8 +16,6 @@ const imageSearch = require("./src/imageSearch.js");
 
 const vips = ["100008672340619"];
 
-const messages = {}; // Dictionary object to store messages for each user
-
 login(
   { appState: JSON.parse(fs.readFileSync("appstate.json", "utf8")) },
   async (err, api) => {
@@ -153,26 +151,7 @@ login(
                 api.sendMessage("?", event.threadID, event.messageID);
                 return;
               }
-              const userID = event.senderID;
-              const data = await api.getUserInfo(userID);
-              const userMessages = messages[userID] || [
-                {
-                  role: "assistant",
-                  content: `Hello ${
-                    data[event.senderID]["name"]
-                  }, I am Re.BOT AI created by Joshua`,
-                },
-              ]; // Get the messages for the current user or an empty array if no messages exist
-              userMessages.push({ role: "user", content: `${command[1]}` }); // Add the new command to the user's messages
-              const respo = await ai(event, userMessages, api);
-              userMessages.push(respo);
-              messages[userID] = userMessages; // Update the messages for the current user
-              console.log(messages[userID]);
-              clearTimeout(messages[userID]?.timer);
-              messages[userID].timer = setTimeout(() => {
-                console.log("Cleared!");
-                delete messages[userID];
-              }, 1 * 60 * 1000);
+              ai(event, command[1], api);
               break;
             case "!nick":
               if (!command[1]) {
