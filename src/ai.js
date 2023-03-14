@@ -15,7 +15,7 @@ async function ai(event, command, api) {
       role: "assistant",
       content: `Hello ${
         data[event.senderID]["name"]
-      }, My name is Daddy Kent, and I am the father of all!`,
+      }, I am RE.BOT AI, created by Nathaniel.`,
     },
   ];
   userMessages.push({ role: "user", content: `${command}` }); // Add the new command to the user's messages
