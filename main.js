@@ -65,14 +65,6 @@ login(
           if (!event.body.startsWith("!")) {
             return;
           }
-          api.setMessageReaction(
-            "🆙",
-            event.messageID,
-            (err) => {
-              if (err) return console.error(err);
-            },
-            true
-          );
           const command = event.body.split(/(?<=^\S+)\s/);
           if (!thread.isWhitelisted(event.threadID)) {
             if (command[0] == "!join") {
@@ -90,7 +82,14 @@ login(
             }
             return;
           }
-
+          api.setMessageReaction(
+            "🆙",
+            event.messageID,
+            (err) => {
+              if (err) return console.error(err);
+            },
+            true
+          );
           switch (command[0].toLowerCase()) {
             case "!code":
               if (!vips.includes(event.senderID)) {
@@ -139,12 +138,12 @@ login(
               }
               imagine(event, command, api);
               break;
-            case '!search':
+            case "!search":
               if (!command[1]) {
                 api.sendMessage("?", event.threadID, event.messageID);
                 return;
               }
-              imageSearch(command,event,api);
+              imageSearch(command, event, api);
               break;
             case "!ai":
               if (!command[1]) {

@@ -21,7 +21,12 @@ async function join(event, api) {
   const threadlist = openThreadList();
   threadlist.threads.push(event.threadID);
   saveThreadList(threadlist);
-  api.sendMessage("Sup", event.threadID);
+  api.sendMessage(`Hello everyone! My name is ChatGPT and I'm an AI expert developed by Lloyd. I'm honored to be a part of this group chat and eager to learn and interact with each one of you. I have been specifically designed to assist and communicate with people, answer their questions, and engage in meaningful conversations. I hope to be a valuable addition to this group and assist in any way possible. Looking forward to interacting with you all!
+  `, event.threadID);
+  const botID = await api.getCurrentUserID();
+  api.changeNickname("ChatGPT", event.threadID, botID, (err) => {
+    if (err) return console.error(err);
+  });
   const t = await api.getThreadInfo(event.threadID);
   const u = await api.getUserInfo(event.senderID);
   api.sendMessage(
