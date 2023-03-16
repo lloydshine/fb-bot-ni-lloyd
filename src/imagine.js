@@ -9,7 +9,6 @@ const configuration = new Configuration({
 const openai = new OpenAIApi(configuration);
 
 const imagine = (event, command, api) => {
-  const stopTyping = api.sendTypingIndicator(event.threadID, async (err) => {
   const response = openai.createImage({
     prompt: command[1],
     n: 3,
@@ -54,8 +53,6 @@ const imagine = (event, command, api) => {
     .catch((error) => {
       api.sendMessage("No", event.threadID, event.messageID);
     });
-    stopTyping();
-  });
 };
 
 module.exports = imagine;
