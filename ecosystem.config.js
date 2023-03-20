@@ -7,7 +7,9 @@ module.exports = {
       "env": {
         "TZ": "Asia/Manila"
       },
-      "interpreter_args": ["--max-old-space-size=4096"]
+      "interpreter_args": ["--max-old-space-size=4096"],
+      "restart_delay": "10000",
+      "max_memory_restart": "4G"
     }    
   ]
 }
