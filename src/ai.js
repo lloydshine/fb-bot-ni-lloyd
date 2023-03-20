@@ -11,8 +11,15 @@ function ai(event, command, api) {
   // Add the new command to the user's messages
   const stopTyping = api.sendTypingIndicator(event.threadID, async (err) => {
     const data = await api.getUserInfo(event.senderID);
+    const thread = await api.getThreadInfo(event.threadID);
     const userID = event.senderID;
     const userMessages = messages[userID] || [
+      {
+        role: "system",
+        content: `You are an AI in a groupchat called ${
+          thread.threadName
+        }, You are programmed to engage in conversations, provide human-like responses. Also keep the response short`,
+      },
       {
         role: "assistant",
         content: `Hello ${
