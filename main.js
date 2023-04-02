@@ -13,6 +13,7 @@ const thread = require("./src/thread.js");
 const scheduleReminders = require("./src/reminderScheduler.js");
 const aiCode = require("./src/aiCode.js");
 const imageSearch = require("./src/imageSearch.js");
+const antiUnsend = require("./src/antiUnsend.js");
 
 const vips = ["100008672340619"];
 
@@ -34,6 +35,7 @@ login(
       "log:unsubscribe",
       "message_reply",
       "message",
+      "message_unsend"
     ];
 
     const listenEmitter = api.listen(async (err, event) => {
@@ -60,8 +62,12 @@ login(
               break;
           }
           break;
+        case "message_unsend":
+          antiUnsend.unsend(event, api);
+          break;
         case "message_reply":
         case "message":
+          antiUnsend.next(event, api);
           if (!event.body.startsWith("!")) {
             return;
           }
@@ -131,13 +137,13 @@ login(
               }
               remind(event, command, api);
               break;
-            case "!imagine":
-              if (!command[1]) {
-                api.sendMessage("?", event.threadID, event.messageID);
-                return;
-              }
-              imagine(event, command, api);
-              break;
+            //case "!imagine":
+            //  if (!command[1]) {
+            //    api.sendMessage("?", event.threadID, event.messageID);
+            //    return;
+            //  }
+            //  imagine(event, command, api);
+            //  break;
             case "!search":
               if (!command[1]) {
                 api.sendMessage("?", event.threadID, event.messageID);
@@ -145,13 +151,13 @@ login(
               }
               imageSearch(command, event, api);
               break;
-            case "!ai":
-              if (!command[1]) {
-                api.sendMessage("?", event.threadID, event.messageID);
-                return;
-              }
-              ai(event, command[1], api);
-              break;
+            //case "!ai":
+            //  if (!command[1]) {
+            //    api.sendMessage("?", event.threadID, event.messageID);
+            //    return;
+            //  }
+            //  ai(event, command[1], api);
+            //  break;
             case "!nick":
               if (!command[1]) {
                 api.sendMessage("?", event.threadID, event.messageID);

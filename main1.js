@@ -127,7 +127,6 @@ login(
               }
             } else {
               msgs[event.messageID] = event.body;
-
               break;
             }
             break;
