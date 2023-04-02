@@ -67,7 +67,7 @@ login(
           break;
         case "message_reply":
         case "message":
-          antiUnsend.next(event, api);
+          antiUnsend.saveMsg(event);
           if (!event.body.startsWith("!")) {
             return;
           }
