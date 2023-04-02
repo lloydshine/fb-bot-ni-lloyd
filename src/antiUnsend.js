@@ -21,9 +21,9 @@ async function unsend(event, api) {
   if (typeof message == "string") {
     var msg = {
       body:
-        "🤖[BOT] Anti Unsent🤖\n"`👤 User: @${
-          data[event.senderID]["firstName"]
-        }:\n` + `📩 Message: ${message}`,
+        "🤖[BOT] Anti Unsent🤖\n" +
+        `👤 User: @${data[event.senderID]["firstName"]}:\n` +
+        `📩 Message: ${message}`,
       mentions: [
         {
           id: event.senderID,
